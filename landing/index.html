@@ -339,6 +339,228 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 .foot-brand .acc { color: var(--acc); }
 .foot-note { color: var(--dim); font-size: 13px; margin-top: 26px; }
 </style>
+
+<style>
+/* ══════════════════════════════════════════════════════════
+   Communication & Authority Scorecard™
+   ══════════════════════════════════════════════════════════ */
+
+#scorecard-widget {
+  font-family: 'Mona Sans Variable', 'Mona Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding: 64px 20px;
+  background: #0d0d0d;
+  color: #F5F1EA;
+}
+
+.sc-header { text-align: center; margin-bottom: 40px; }
+#scorecard-widget .sc-header .sc-author {
+  font-size: 11px !important; color: #D9D3C9 !important; font-weight: 700 !important;
+  letter-spacing: .06em; margin-top: 14px !important; max-width: 560px;
+  text-transform: uppercase;
+}
+.sc-footer-credit {
+  text-align: center; font-size: 10px; color: #555; letter-spacing: .06em;
+  margin-top: 20px; font-weight: 400;
+}
+#scorecard-widget .sc-header h2 {
+  font-size: clamp(28px, 5vw, 42px) !important; font-weight: 700 !important;
+  letter-spacing: -.03em; line-height: 1.1; color: #F5F1EA !important;
+  margin: 0 0 14px 0 !important;
+}
+#scorecard-widget .sc-header h2 em { font-style: normal; color: #b52246 !important; }
+#scorecard-widget .sc-header p {
+  font-size: 15px !important; color: #D9D3C9 !important; max-width: 560px;
+  margin: 0 auto; line-height: 1.65; font-weight: 300 !important;
+}
+
+.widget {
+  max-width: 680px; margin: 0 auto; border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 12px; background: #1c1c1c; overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(139,26,53,0.12);
+}
+.widget-bar { background: #8B1A35; padding: 10px 24px; display: flex; align-items: center; gap: 8px; }
+.widget-bar-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.35); }
+.widget-bar-title {
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,0.75); margin-left: 4px;
+}
+
+.screen { display: none; padding: 40px 36px; }
+.screen.active { display: block; animation: scFadeIn .35s ease; }
+@keyframes scFadeIn { from {opacity:0; transform: translateY(6px);} to {opacity:1; transform: translateY(0);} }
+@media (prefers-reduced-motion: reduce) { .screen.active { animation: none; } }
+
+.sc-headline { font-size: 22px; font-weight: 700; letter-spacing: -.02em; line-height: 1.25; margin-bottom: 8px; color: #F5F1EA; }
+.sc-sub { font-size: 13px; color: #D9D3C9; font-weight: 300; margin-bottom: 28px; line-height: 1.6; }
+.sc-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 24px 0; }
+
+.s1-promise { display: flex; flex-direction: column; gap: 7px; margin-bottom: 28px; }
+.s1-promise-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #D9D3C9; font-weight: 300; }
+.s1-promise-item .ico { color: #b52246; margin-top: 1px; flex-shrink: 0; }
+.s1-fine { font-size: 11px; color: #555; font-weight: 300; }
+
+.btn-primary {
+  background: #8B1A35; color: #fff; border: none; border-radius: 6px;
+  font-family: inherit; font-size: 13px; font-weight: 600; letter-spacing: .04em;
+  padding: 13px 22px; cursor: pointer; white-space: nowrap; transition: background .2s;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+}
+.btn-primary:hover { background: #b52246; }
+.btn-primary:focus-visible, .btn-ghost:focus-visible, .q-option:focus-visible,
+.uf-input:focus-visible, .uf-select:focus-visible { outline: 2px solid #b52246; outline-offset: 2px; }
+
+.q-progress-area { margin-bottom: 28px; }
+.q-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.q-area-label { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #b52246; font-weight: 600; }
+.q-counter { font-size: 11px; color: #8a8480; }
+.q-bar-bg { height: 3px; background: rgba(255,255,255,0.14); border-radius: 2px; overflow: hidden; }
+.q-bar-fill { height: 100%; background: #8B1A35; border-radius: 2px; transition: width .4s ease; }
+.q-text { font-size: 18px; font-weight: 600; letter-spacing: -.015em; line-height: 1.35; margin-bottom: 24px; color: #F5F1EA; min-height: 70px; }
+.q-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+.q-option {
+  border: 1px solid rgba(255,255,255,0.14); border-radius: 6px; padding: 14px 18px; cursor: pointer;
+  font-size: 13px; font-weight: 300; color: #D9D3C9; background: #252525;
+  transition: border-color .2s, background .2s, color .2s;
+  display: flex; align-items: center; gap: 12px; text-align: left; width: 100%; font-family: inherit;
+}
+.q-option:hover { border-color: #b52246; background: rgba(139,26,53,0.18); color: #F5F1EA; }
+.q-option.selected { border-color: #b52246; background: rgba(139,26,53,0.22); color: #F5F1EA; }
+.q-option-letter {
+  width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,0.14);
+  display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600;
+  letter-spacing: .04em; flex-shrink: 0; color: #8a8480; transition: background .2s, color .2s;
+}
+.q-option:hover .q-option-letter, .q-option.selected .q-option-letter { background: #8B1A35; color: #fff; }
+.q-nav { display: flex; justify-content: space-between; align-items: center; }
+.btn-ghost {
+  background: none; border: 1px solid rgba(255,255,255,0.14); border-radius: 6px; color: #8a8480;
+  font-family: inherit; font-size: 12px; padding: 9px 16px; cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+.btn-ghost:hover { border-color: #D9D3C9; color: #D9D3C9; }
+.btn-ghost:disabled { opacity: 0; cursor: default; pointer-events: none; }
+.q-skip-hint { font-size: 11px; color: #555; }
+
+.r-score-block {
+  display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap;
+  margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.r-score-num { font-size: 64px; font-weight: 800; letter-spacing: -.04em; line-height: 1; color: #b52246; }
+.r-score-denom { font-size: 26px; color: #555; font-weight: 300; align-self: flex-end; margin-bottom: 6px; }
+.r-score-info { flex: 1; min-width: 200px; }
+.r-profile-badge {
+  display: inline-block; background: rgba(139,26,53,0.18); border: 1px solid rgba(139,26,53,0.35);
+  border-radius: 20px; padding: 4px 12px; font-size: 10px; letter-spacing: .12em;
+  text-transform: uppercase; color: #b52246; font-weight: 600; margin-bottom: 8px;
+}
+.r-profile-label { font-size: 19px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 4px; color: #F5F1EA; }
+.r-profile-sub { font-size: 12px; color: #8a8480; font-weight: 300; }
+
+.r-bars { margin-bottom: 8px; }
+.r-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.r-bar-label { font-size: 11px; color: #D9D3C9; font-weight: 400; width: 180px; flex-shrink: 0; }
+.r-bar-track { flex: 1; height: 6px; background: rgba(255,255,255,0.14); border-radius: 3px; overflow: hidden; }
+.r-bar-fill { height: 100%; border-radius: 3px; width: 0%; transition: width 1s cubic-bezier(.4,0,.2,1); }
+.r-bar-fill.good { background: #4a9a6b; }
+.r-bar-fill.mid  { background: #c97c3a; }
+.r-bar-fill.low  { background: #555; }
+.r-bar-score { font-size: 11px; color: #8a8480; font-weight: 500; width: 32px; text-align: right; }
+
+.blur-lock-wrapper { position: relative; margin-bottom: 20px; }
+.blur-lock-content { filter: blur(5px); pointer-events: none; user-select: none; }
+.blur-lock-overlay {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 6px; text-align: center;
+  background: rgba(13,13,13,0.45); border-radius: 6px;
+}
+.lock-icon { font-size: 22px; }
+.lock-text { font-size: 12px; color: #F5F1EA; font-weight: 600; }
+.lock-sub  { font-size: 11px; color: #D9D3C9; font-weight: 300; max-width: 260px; }
+
+.r-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+.r-hl-block { background: #252525; border-radius: 6px; padding: 14px 16px; border: 1px solid rgba(255,255,255,0.08); }
+.r-hl-tag { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+.r-hl-tag.plus { color: #4a9a6b; }
+.r-hl-tag.minus { color: #c97c3a; }
+.r-hl-item { font-size: 12px; color: #D9D3C9; font-weight: 300; line-height: 1.5; margin-bottom: 4px; }
+.r-hl-item::before { content: "— "; color: #555; }
+
+.r-summary {
+  background: rgba(139,26,53,0.18); border: 1px solid rgba(139,26,53,0.2); border-radius: 6px;
+  padding: 16px 18px; font-size: 13px; color: #D9D3C9; font-weight: 300; line-height: 1.7; margin-bottom: 24px;
+}
+
+.r-cta-label { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #8a8480; margin-bottom: 12px; font-weight: 500; }
+.r-ctas { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+.btn-cta-primary, .btn-cta-sec {
+  font-family: inherit; font-size: 13px; border-radius: 6px; padding: 14px 20px; cursor: pointer;
+  text-align: left; display: flex; justify-content: space-between; align-items: center;
+  text-decoration: none; transition: background .2s, border-color .2s, color .2s;
+}
+.btn-cta-primary { background: #8B1A35; color: #fff; border: none; font-weight: 600; }
+.btn-cta-primary:hover { background: #b52246; }
+.btn-cta-sec { background: none; border: 1px solid rgba(255,255,255,0.14); color: #D9D3C9; font-weight: 400; }
+.btn-cta-sec:hover { border-color: #D9D3C9; color: #F5F1EA; }
+.cta-arrow { opacity: .6; font-size: 16px; margin-left: 12px; }
+
+.r-secondary { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 18px; margin-top: 16px; }
+.r-secondary-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.r-secondary-row p { font-size: 12px; color: #8a8480; font-weight: 300; }
+.btn-text-link {
+  background: none; border: none; color: #D9D3C9; font-family: inherit; font-size: 12px;
+  font-weight: 500; cursor: pointer; padding: 6px 0; text-decoration: underline;
+  transition: color .2s; white-space: nowrap;
+}
+.btn-text-link:hover { color: #F5F1EA; }
+
+.r-share { text-align: center; margin-bottom: 16px; }
+.r-share p { font-size: 13px; color: #D9D3C9; font-weight: 300; margin-bottom: 12px; }
+.btn-share {
+  width: 100%; background: none; border: 1px solid rgba(255,255,255,0.14); color: #D9D3C9;
+  border-radius: 6px; font-family: inherit; font-size: 13px; font-weight: 500; padding: 13px 20px;
+  cursor: pointer; transition: border-color .2s, color .2s;
+}
+.btn-share:hover { border-color: #D9D3C9; color: #F5F1EA; }
+.btn-share.copied { border-color: #4a9a6b; color: #4a9a6b; }
+
+.r-restart {
+  text-align: center; font-size: 11px; color: #555; background: none; border: none;
+  font-family: inherit; cursor: pointer; text-decoration: underline; width: 100%;
+  display: block; margin-top: 8px;
+}
+.r-restart:hover { color: #D9D3C9; }
+
+.uf-unlock-list { display: flex; flex-direction: column; gap: 7px; margin-bottom: 24px; }
+.uf-unlock-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #D9D3C9; font-weight: 300; }
+.uf-unlock-item .ico { color: #b52246; margin-top: 1px; flex-shrink: 0; }
+.uf-field { margin-bottom: 14px; }
+.uf-label { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #8a8480; margin-bottom: 8px; font-weight: 500; display: block; }
+.uf-input, .uf-select {
+  width: 100%; background: #252525; border: 1px solid rgba(255,255,255,0.14); border-radius: 6px;
+  color: #F5F1EA; font-family: inherit; font-size: 14px; font-weight: 300; padding: 12px 16px; outline: none;
+  transition: border-color .2s; appearance: none;
+}
+.uf-input:focus, .uf-select:focus { border-color: #b52246; }
+.uf-input::placeholder { color: #555; }
+.uf-input.error, .uf-select.error { border-color: #b52246; }
+.uf-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238a8480' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px;
+}
+.uf-select option { background: #252525; color: #F5F1EA; }
+.uf-error-msg { font-size: 11px; color: #b52246; margin-top: 12px; display: none; font-weight: 400; }
+.uf-error-msg.show { display: block; }
+.uf-fine { font-size: 11px; color: #555; font-weight: 300; margin-top: 12px; }
+
+@media (max-width: 480px) {
+  #scorecard-widget { padding: 40px 12px; }
+  .screen { padding: 28px 20px; }
+  .r-bar-label { width: 120px; font-size: 10px; }
+  .r-highlights { grid-template-columns: 1fr; }
+  .r-score-num { font-size: 52px; }
+}
+</style>
 </head>
 <body>
 
@@ -352,6 +574,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       <a href="#hago">Lo que hago</a>
       <a href="#servicios">Servicios</a>
       <a href="/herramientas">Herramientas</a>
+      <a href="#diagnostico">Diagnóstico</a>
       <a href="#sobre">Sobre mí</a>
       <a class="btn-sm" href="mailto:gabrielacontrerasredes@gmail.com">Hablemos</a>
       <button class="toggle" id="themeToggle" aria-label="Cambiar tema">◐</button>
@@ -517,6 +740,141 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   </div>
 </section>
 
+<!-- DIAGNÓSTICO DE MARCA — Communication & Authority Scorecard™ -->
+<section id="diagnostico" style="padding:0; background:#0d0d0d;">
+  <section id="scorecard-widget">
+
+    <div class="sc-header">
+      <h2>Scorecard de Comunicación<br>y <em>Autoridad™</em></h2>
+      <p>Descubre cómo se percibe tu marca, cuánto transmite confianza y qué tan preparada está para generar oportunidades de negocio.</p>
+      <p class="sc-author">Creado por Gabriela Contreras — Brand Strategy &amp; Creative Direction</p>
+    </div>
+
+    <div class="widget">
+      <div class="widget-bar">
+        <div class="widget-bar-dot"></div>
+        <div class="widget-bar-dot"></div>
+        <div class="widget-bar-dot"></div>
+        <span class="widget-bar-title">Communication &amp; Authority Scorecard™</span>
+      </div>
+
+      <!-- SCREEN 1: Intro -->
+      <div class="screen active" id="sc-screen-intro">
+        <p class="sc-headline">¿Tu marca comunica lo que realmente vale?</p>
+        <p class="sc-sub">18 preguntas · 3 minutos · resultado inmediato</p>
+        <div class="s1-promise">
+          <div class="s1-promise-item"><span class="ico">✦</span> Tu puntuación general sobre 100</div>
+          <div class="s1-promise-item"><span class="ico">✦</span> Tu Brecha de Autoridad™</div>
+          <div class="s1-promise-item"><span class="ico">✦</span> Desglose por 7 áreas clave</div>
+          <div class="s1-promise-item"><span class="ico">✦</span> Tus fortalezas y áreas críticas</div>
+        </div>
+        <button class="btn-primary" id="sc-intro-start-btn">Comenzar diagnóstico →</button>
+        <p class="s1-fine" style="text-align:center; margin-top:14px;">Gratuito · sin necesidad de registrarte para empezar</p>
+      </div>
+
+      <!-- SCREEN 2: Quiz -->
+      <div class="screen" id="sc-screen-quiz">
+        <div class="q-progress-area">
+          <div class="q-meta">
+            <span class="q-area-label" id="sc-q-area">Área</span>
+            <span class="q-counter" id="sc-q-counter">0% completado</span>
+          </div>
+          <div class="q-bar-bg"><div class="q-bar-fill" id="sc-q-bar" style="width:0%"></div></div>
+        </div>
+        <p class="q-text" id="sc-q-text">Pregunta</p>
+        <div class="q-options" id="sc-q-options"></div>
+        <div class="q-nav">
+          <button class="btn-ghost" id="sc-prev-btn">← Anterior</button>
+          <span class="q-skip-hint">Selecciona una opción para continuar</span>
+        </div>
+      </div>
+
+      <!-- SCREEN 3: Teaser result -->
+      <div class="screen" id="sc-screen-teaser">
+        <div class="r-score-block">
+          <div><span class="r-score-num" id="sc-t-score">0</span><span class="r-score-denom">/100</span></div>
+          <div class="r-score-info">
+            <div class="r-profile-badge">Perfil detectado</div>
+            <div class="r-profile-label" id="sc-t-profile-label">—</div>
+            <div class="r-profile-sub" id="sc-t-profile-sub">—</div>
+          </div>
+        </div>
+        <p class="r-cta-label">Brecha de Autoridad™</p>
+        <div class="r-summary" id="sc-t-gap"></div>
+        <div class="r-bars" id="sc-t-bars-visible"></div>
+        <div class="blur-lock-wrapper">
+          <div class="r-bars blur-lock-content" id="sc-t-bars-locked"></div>
+          <div class="blur-lock-overlay">
+            <div class="lock-icon">🔒</div>
+            <div class="lock-text">5 áreas bloqueadas</div>
+            <div class="lock-sub">Incluyendo tus 2 áreas críticas y tu Brecha de Autoridad™ completa</div>
+          </div>
+        </div>
+        <button class="btn-primary" id="sc-teaser-unlock-btn" style="margin-top:20px;">Desbloquear diagnóstico completo →</button>
+      </div>
+
+      <!-- SCREEN 4: Unlock form -->
+      <div class="screen" id="sc-screen-unlock">
+        <p class="sc-headline">Desbloquea tu Diagnóstico Completo</p>
+        <p class="sc-sub">Descubre:</p>
+        <div class="uf-unlock-list">
+          <div class="uf-unlock-item"><span class="ico">✓</span> Tu Brecha de Autoridad™</div>
+          <div class="uf-unlock-item"><span class="ico">✓</span> Las áreas específicas que afectan tu percepción</div>
+          <div class="uf-unlock-item"><span class="ico">✓</span> Tus prioridades de mejora</div>
+          <div class="uf-unlock-item"><span class="ico">✓</span> Recomendaciones estratégicas</div>
+          <div class="uf-unlock-item"><span class="ico">✓</span> Próximos pasos sugeridos</div>
+        </div>
+        <div class="sc-divider"></div>
+        <div class="uf-field">
+          <label class="uf-label" for="uf-nombre">Nombre</label>
+          <input class="uf-input" type="text" id="uf-nombre" placeholder="Tu nombre" autocomplete="name">
+        </div>
+        <div class="uf-field">
+          <label class="uf-label" for="uf-email">Correo electrónico</label>
+          <input class="uf-input" type="email" id="uf-email" placeholder="nombre@email.com" autocomplete="email">
+        </div>
+        <div class="uf-field">
+          <label class="uf-label" for="uf-sector">¿A qué se dedica tu marca?</label>
+          <select class="uf-select" id="uf-sector">
+            <option value="">Selecciona una opción</option>
+            <option>Servicios profesionales</option>
+            <option>Coaching</option>
+            <option>Consultoría</option>
+            <option>Agencia</option>
+            <option>E-commerce</option>
+            <option>Salud y bienestar</option>
+            <option>Tecnología</option>
+            <option>Educación</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="uf-field">
+          <label class="uf-label" for="uf-web">Sitio web (opcional)</label>
+          <input class="uf-input" type="text" id="uf-web" placeholder="tusitio.com o tu @ de Instagram">
+        </div>
+        <div class="uf-field">
+          <label class="uf-label" for="uf-reto">¿Cuál es tu principal reto actualmente?</label>
+          <select class="uf-select" id="uf-reto">
+            <option value="">Selecciona una opción</option>
+            <option>Conseguir más clientes</option>
+            <option>Diferenciarme</option>
+            <option>Mejorar mi posicionamiento</option>
+            <option>Vender más</option>
+            <option>Construir autoridad</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <button class="btn-primary" id="sc-unlock-submit-btn">Ver mi diagnóstico completo →</button>
+        <p class="uf-error-msg" id="sc-unlock-error">Completa nombre, correo, sector y reto principal para continuar.</p>
+        <p class="uf-fine">Sin spam. Tu diagnóstico completo aparece en la siguiente pantalla.</p>
+      </div>
+
+    </div>
+
+    <p class="sc-footer-credit">© Gabriela Contreras — Communication &amp; Authority Scorecard™</p>
+  </section>
+</section>
+
 <!-- PRUEBA -->
 <section class="proof">
   <div class="wrap">
@@ -623,6 +981,372 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       dots.forEach((d, i) => d.classList.toggle('active', i === current));
     }, 80);
   });
+</script>
+
+<script>
+(function () {
+
+  var QUESTIONS = [
+    { area: "Claridad de Posicionamiento", text: "Si alguien te pregunta en una reunión qué haces, ¿cómo reaccionas normalmente?",
+      options: [
+        "Lo explico en una frase y la persona lo entiende de inmediato",
+        "Lo explico bien, pero suelo necesitar dos o tres oraciones",
+        "Cada vez lo digo diferente según quién me pregunta",
+        "Me cuesta resumirlo y la gente a veces queda confundida"
+      ]},
+    { area: "Claridad de Posicionamiento", text: "¿Alguien que llega a tu perfil o canal principal por primera vez entiende en menos de 5 segundos qué haces y para quién?",
+      options: [
+        "Sí, está muy claro desde el primer vistazo",
+        "Más o menos, pero creo que podría ser más directo",
+        "Me lo han preguntado varias veces, así que probablemente no",
+        "Mi perfil está desactualizado o todavía no lo tengo claro"
+      ]},
+    { area: "Claridad de Posicionamiento", text: "¿Tienes definido a quién NO va dirigida tu marca o servicio?",
+      options: [
+        "Sí, sé exactamente qué cliente encaja y cuál no",
+        "Tengo una idea general pero no lo tengo bien definido",
+        "Acepto prácticamente cualquier cliente que llegue",
+        "Nunca lo había pensado desde ese ángulo"
+      ]},
+    { area: "Consistencia del Mensaje", text: "Si un cliente potencial te descubre en Instagram hoy y luego busca más sobre ti, ¿siente que está interactuando con la misma marca?",
+      options: [
+        "Sí, hay coherencia clara entre todos mis canales",
+        "Más o menos, pero hay diferencias de tono o estilo que yo mismo noto",
+        "Cada canal tiene su propio estilo, sin mucha conexión entre ellos",
+        "No he pensado en unificar mis canales como una sola marca"
+      ]},
+    { area: "Consistencia del Mensaje", text: "¿Con qué frecuencia comunicas lo que haces y el valor que aportas en tus canales principales?",
+      options: [
+        "De forma constante y planificada, con un hilo claro",
+        "Publico regularmente pero sin una estrategia definida",
+        "Publico cuando puedo o cuando se me ocurre algo",
+        "Llevo tiempo sin comunicar activamente o lo hago muy poco"
+      ]},
+    { area: "Consistencia del Mensaje", text: "Cuando hablas de tu marca, ¿usas siempre las mismas palabras para describir lo que haces?",
+      options: [
+        "Sí, tengo un lenguaje de marca definido que uso de forma consistente",
+        "Uso palabras similares pero no tengo nada formalizado",
+        "Varía bastante según el momento o el canal",
+        "No había pensado en tener un vocabulario de marca propio"
+      ]},
+    { area: "Autoridad de Marca", text: "¿Tienes contenido público que muestra cómo piensas y resuelves problemas — más allá de anunciar tus servicios o productos?",
+      options: [
+        "Sí, comparto mi criterio y proceso regularmente y la gente lo valora",
+        "A veces, pero no es algo sistemático ni intencional",
+        "Principalmente muestro lo que vendo, no tanto cómo pienso",
+        "Aún no he publicado contenido de valor de ese tipo"
+      ]},
+    { area: "Autoridad de Marca", text: "Si mañana alguien buscara referencias tuyas antes de contratarte, ¿qué encontraría?",
+      options: [
+        "Testimonios sólidos, casos documentados y contenido que respalda mi expertise",
+        "Algunas referencias o testimonios, pero podría tener mucho más",
+        "Muy poco — quizás un perfil básico o contenido sin estructura",
+        "Prácticamente nada que respalde mi trayectoria de forma visible"
+      ]},
+    { area: "Autoridad de Marca", text: "¿La gente en tu entorno o comunidad te menciona o recomienda sin que tú lo hayas pedido?",
+      options: [
+        "Sí, recibo menciones y referencias orgánicas con frecuencia",
+        "Ocasionalmente me mencionan o recomiendan",
+        "Pocas veces, y generalmente porque yo lo solicité",
+        "No recibo menciones espontáneas todavía"
+      ]},
+    { area: "Credibilidad Visual", text: "Si un desconocido viera tu perfil o materiales visuales hoy, ¿qué percepción tendría de tu marca?",
+      options: [
+        "Profesional, coherente y alineada con lo que ofrezco",
+        "Aceptable, pero sé que no refleja del todo lo que soy",
+        "Algo desorganizado o desactualizado visualmente",
+        "No tengo una identidad visual definida todavía"
+      ]},
+    { area: "Credibilidad Visual", text: "¿Tu estilo visual — colores, tipografía, tipo de imagen — se mantiene igual en todos tus canales y materiales?",
+      options: [
+        "Sí, hay un sistema visual claro que aplico en todo",
+        "Intento mantener coherencia pero sin un sistema formal",
+        "Varía bastante de un canal o material a otro",
+        "No tengo identidad visual definida aún"
+      ]},
+    { area: "Señales de Confianza", text: "¿Tienes testimonios, reseñas o casos de éxito visibles en tus canales (Google, redes sociales, web, plataformas de tu sector)?",
+      options: [
+        "Sí, tengo varios testimonios concretos y actualizados, bien ubicados",
+        "Tengo algunos pero no están bien organizados ni son fáciles de ver",
+        "Tengo muy pocos o están desactualizados",
+        "No tengo testimonios publicados todavía"
+      ]},
+    { area: "Señales de Confianza", text: "Un cliente potencial que llega frío a tu perfil, ¿tiene razones concretas para confiar en ti sin necesitar una recomendación de alguien?",
+      options: [
+        "Sí, hay suficiente prueba social y evidencia de resultados visible",
+        "Hay algo, pero dependo bastante del boca a boca",
+        "Muy poco — la mayoría de mis clientes vienen por referencias directas",
+        "No he trabajado las señales de confianza de forma intencionada"
+      ]},
+    { area: "Señales de Confianza", text: "¿Tienes una forma clara de mostrar quién eres tú — la persona o equipo detrás de la marca?",
+      options: [
+        "Sí, mi historia, valores y forma de trabajar son visibles y auténticos",
+        "Hay algo, pero podría ser más personal y genuino",
+        "Me enfoco más en los servicios que en quién los hace",
+        "Mi marca es bastante impersonal o anónima todavía"
+      ]},
+    { area: "Presencia Digital", text: "¿Alguien que busca lo que ofreces — por ejemplo en Google, Google Maps, redes sociales o tu web — puede encontrarte sin saber tu nombre?",
+      options: [
+        "Sí, aparezco con frecuencia en búsquedas relevantes a lo que ofrezco",
+        "A veces aparezco, pero no de forma consistente",
+        "Es difícil encontrarme si no conocen mi nombre específico",
+        "No he trabajado mi visibilidad orgánica todavía"
+      ]},
+    { area: "Presencia Digital", text: "¿Con qué frecuencia apareces activamente en los espacios donde está tu cliente ideal?",
+      options: [
+        "Tengo presencia activa y constante donde está mi audiencia",
+        "Aparezco regularmente pero podría ser más estratégico",
+        "Aparezco de forma irregular o esporádica",
+        "Casi no tengo presencia activa en los canales correctos"
+      ]},
+    { area: "Preparación para Convertir", text: "Cuando alguien muestra interés en lo que haces, ¿tiene claro cuál es el siguiente paso para trabajar contigo?",
+      options: [
+        "Sí, hay un camino claro desde que me descubren hasta que me contratan",
+        "Más o menos, pero el proceso podría ser más fluido y explícito",
+        "La gente me pregunta cómo trabajar conmigo, pero no está bien explicado",
+        "No tengo definido un proceso de conversión claro todavía"
+      ]},
+    { area: "Preparación para Convertir", text: "¿Tu marca comunica activamente el valor que entrega — o principalmente describe lo que hace?",
+      options: [
+        "Comunico resultados, transformaciones y beneficios concretos",
+        "Mezclo descripción con algo de valor, pero podría ser más claro",
+        "Principalmente describo mis servicios sin enfocarme en el resultado",
+        "No había pensado en la diferencia entre describir y comunicar valor"
+      ]}
+  ];
+
+  var AREAS = [
+    { key: "posicionamiento", label: "Claridad de Posicionamiento", q: [0,1,2],    max: 12 },
+    { key: "consistencia",    label: "Consistencia del Mensaje",     q: [3,4,5],    max: 12 },
+    { key: "autoridad",       label: "Autoridad de Marca",           q: [6,7,8],    max: 12 },
+    { key: "visual",          label: "Credibilidad Visual",          q: [9,10],     max: 8  },
+    { key: "confianza",       label: "Señales de Confianza",         q: [11,12,13], max: 12 },
+    { key: "presencia",       label: "Presencia Digital",            q: [14,15],    max: 8  },
+    { key: "conversion",      label: "Preparación para Convertir",   q: [16,17],    max: 8  }
+  ];
+
+  var TOTAL_MAX = AREAS.reduce(function (sum, a) { return sum + a.max; }, 0);
+
+  var PROFILES = {
+    invisible:    { badge: 'Marca invisible',           sub: 'Hay trabajo estructural que hacer antes de invertir en visibilidad o ventas.' },
+    construccion: { badge: 'Autoridad en construcción', sub: 'Tienes bases. La comunicación todavía no está haciendo el trabajo completo.' },
+    activa:       { badge: 'Con autoridad activa',      sub: 'Tu marca comunica con claridad. Hay puntos concretos que pueden llevarla más lejos.' }
+  };
+
+  var GAP_TEASERS = {
+    invisible:    'Tu marca tiene una Brecha de Autoridad™ significativa: hay una distancia real entre cómo te ves a ti misma y cómo te percibe quien aún no te conoce. Las áreas bloqueadas abajo muestran exactamente dónde está y qué resolver primero.',
+    construccion: 'Hay una Brecha de Autoridad™ entre lo que tu marca ya hace bien y lo que todavía no está comunicando. Desbloquea tu diagnóstico para ver en qué áreas se concentra — y qué hacer al respecto.',
+    activa:       'Incluso las marcas más sólidas tienen una Brecha de Autoridad™ en algún punto específico. Desbloquea tu diagnóstico para ver exactamente dónde está la tuya.'
+  };
+
+  var answers  = new Array(QUESTIONS.length).fill(null);
+  var currentQ = 0;
+  var results  = null;
+  var leadData = null;
+
+  var screenIntro  = document.getElementById('sc-screen-intro');
+  var screenQuiz   = document.getElementById('sc-screen-quiz');
+  var screenTeaser = document.getElementById('sc-screen-teaser');
+  var screenUnlock = document.getElementById('sc-screen-unlock');
+  var ALL_SCREENS  = [screenIntro, screenQuiz, screenTeaser, screenUnlock];
+
+  var qArea    = document.getElementById('sc-q-area');
+  var qCounter = document.getElementById('sc-q-counter');
+  var qBar     = document.getElementById('sc-q-bar');
+  var qText    = document.getElementById('sc-q-text');
+  var qOptions = document.getElementById('sc-q-options');
+  var prevBtn  = document.getElementById('sc-prev-btn');
+
+  document.getElementById('sc-intro-start-btn').addEventListener('click', function () {
+    currentQ = 0;
+    answers = new Array(QUESTIONS.length).fill(null);
+    showScreen(screenQuiz);
+    renderQuestion();
+  });
+
+  function renderQuestion() {
+    var q = QUESTIONS[currentQ];
+    qArea.textContent = q.area;
+    var pct = Math.round((currentQ / QUESTIONS.length) * 100);
+    qCounter.textContent = pct + '% completado';
+    qBar.style.width = pct + '%';
+    qText.textContent = q.text;
+
+    qOptions.innerHTML = '';
+    var letters = ['A','B','C','D'];
+    q.options.forEach(function (optText, i) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'q-option';
+      if (answers[currentQ] === (4 - i)) btn.classList.add('selected');
+      btn.innerHTML = '<span class="q-option-letter">' + letters[i] + '</span>' + optText;
+      btn.addEventListener('click', function () { selectOption(i); });
+      qOptions.appendChild(btn);
+    });
+
+    prevBtn.disabled = (currentQ === 0);
+  }
+
+  function selectOption(i) {
+    answers[currentQ] = 4 - i;
+
+    var opts = qOptions.querySelectorAll('.q-option');
+    opts.forEach(function (o, idx) { o.classList.toggle('selected', idx === i); });
+
+    setTimeout(function () {
+      if (currentQ < QUESTIONS.length - 1) {
+        currentQ++;
+        renderQuestion();
+      } else {
+        computeResults();
+        renderTeaser();
+        showScreen(screenTeaser);
+      }
+    }, 380);
+  }
+
+  prevBtn.addEventListener('click', function () {
+    if (currentQ > 0) { currentQ--; renderQuestion(); }
+    else { showScreen(screenIntro); }
+  });
+
+  function computeResults() {
+    var areaResults = AREAS.map(function (a) {
+      var raw = a.q.reduce(function (sum, qi) { return sum + (answers[qi] || 0); }, 0);
+      var normalized = (raw / a.max) * 10;
+      return { key: a.key, label: a.label, raw: raw, max: a.max, score10: normalized };
+    });
+
+    var totalRaw    = areaResults.reduce(function (sum, a) { return sum + a.raw; }, 0);
+    var globalScore = Math.round((totalRaw / TOTAL_MAX) * 100);
+
+    var sorted     = areaResults.slice().sort(function (a, b) { return b.score10 - a.score10; });
+    var strengths  = sorted.slice(0, 2);
+    var weaknesses = sorted.slice(-2).reverse();
+
+    var profile;
+    if (globalScore <= 45) profile = 'invisible';
+    else if (globalScore <= 70) profile = 'construccion';
+    else profile = 'activa';
+
+    results = { globalScore: globalScore, areaResults: areaResults, strengths: strengths, weaknesses: weaknesses, profile: profile };
+  }
+
+  function barRowHTML(a) {
+    var pct = (a.score10 / 10) * 100;
+    var cls = a.score10 >= 7.5 ? 'good' : (a.score10 >= 5 ? 'mid' : 'low');
+    return '<div class="r-bar-row">' +
+      '<span class="r-bar-label">' + a.label + '</span>' +
+      '<div class="r-bar-track"><div class="r-bar-fill ' + cls + '" data-width="' + pct + '"></div></div>' +
+      '<span class="r-bar-score">' + a.score10.toFixed(1) + '/10</span>' +
+      '</div>';
+  }
+
+  function animateBarsIn(container) {
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        container.querySelectorAll('.r-bar-fill').forEach(function (el) {
+          el.style.width = el.getAttribute('data-width') + '%';
+        });
+      });
+    });
+  }
+
+  function renderTeaser() {
+    document.getElementById('sc-t-score').textContent = results.globalScore;
+    document.getElementById('sc-t-profile-label').textContent = PROFILES[results.profile].badge;
+    document.getElementById('sc-t-profile-sub').textContent = PROFILES[results.profile].sub;
+    document.getElementById('sc-t-gap').textContent = GAP_TEASERS[results.profile];
+
+    var visibleEl = document.getElementById('sc-t-bars-visible');
+    var lockedEl  = document.getElementById('sc-t-bars-locked');
+
+    visibleEl.innerHTML = results.areaResults.slice(0, 2).map(barRowHTML).join('');
+    lockedEl.innerHTML  = results.areaResults.slice(2).map(barRowHTML).join('');
+
+    animateBarsIn(visibleEl);
+    animateBarsIn(lockedEl);
+  }
+
+  document.getElementById('sc-teaser-unlock-btn').addEventListener('click', function () {
+    showScreen(screenUnlock);
+  });
+
+  var ufNombre = document.getElementById('uf-nombre');
+  var ufEmail  = document.getElementById('uf-email');
+  var ufSector = document.getElementById('uf-sector');
+  var ufWeb    = document.getElementById('uf-web');
+  var ufReto   = document.getElementById('uf-reto');
+  var ufError  = document.getElementById('sc-unlock-error');
+
+  function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  document.getElementById('sc-unlock-submit-btn').addEventListener('click', handleUnlock);
+
+  function handleUnlock() {
+    var nombre = ufNombre.value.trim();
+    var email  = ufEmail.value.trim();
+    var sector = ufSector.value;
+    var web    = ufWeb.value.trim();
+    var reto   = ufReto.value;
+
+    var fields = [
+      { el: ufNombre, ok: nombre.length > 0 },
+      { el: ufEmail,  ok: isValidEmail(email) },
+      { el: ufSector, ok: sector !== '' },
+      { el: ufReto,   ok: reto !== '' }
+    ];
+
+    var allOk = true;
+    fields.forEach(function (f) {
+      f.el.classList.toggle('error', !f.ok);
+      if (!f.ok) allOk = false;
+    });
+
+    if (!allOk) {
+      ufError.classList.add('show');
+      fields.find(function (f) { return !f.ok; }).el.focus();
+      return;
+    }
+    ufError.classList.remove('show');
+
+    leadData = { nombre: nombre, email: email, sector: sector, web: web, reto: reto };
+
+    // Guardar en localStorage (síncrono, antes del redirect)
+    localStorage.setItem('scorecard_result', JSON.stringify({
+      score:       results.globalScore,
+      profile:     results.profile,
+      areaResults: results.areaResults,
+      strengths:   results.strengths,
+      weaknesses:  results.weaknesses,
+      leadData:    leadData
+    }));
+
+    // Suscribir a Kit — fire-and-forget
+    fetch('https://api.convertkit.com/v3/forms/eb20d164cd/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        api_key:    'kxs-FL4sFfoSl78pNPUJkA',
+        email:      email,
+        first_name: nombre,
+        fields: {
+          sector:         sector,
+          reto_principal: reto,
+          sitio_web:      web || ''
+        }
+      })
+    }).catch(function () {});
+
+    window.location.href = '/resultado.html';
+  }
+
+  function showScreen(target) {
+    ALL_SCREENS.forEach(function (s) { s.classList.toggle('active', s === target); });
+    target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+})();
 </script>
 </body>
 </html>

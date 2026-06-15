@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tu Diagnóstico de Marca — Gabriela Contreras</title>
+<meta name="description" content="Resultado de tu Communication & Authority Scorecard™ — diagnóstico completo de comunicación y autoridad de marca." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Mi Diagnóstico de Marca — Communication & Authority Scorecard™" />
+<meta property="og:description" content="Descubre cómo se percibe tu marca y cuánto transmite confianza." />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%238c1e37'/><text x='50' y='68' font-size='54' font-family='sans-serif' font-weight='700' fill='%23f5f1ea' text-anchor='middle'>GC</text></svg>" />
+
+<style>
+@import url('https://cdn.jsdelivr.net/npm/@fontsource-variable/mona-sans/index.css');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Mona Sans Variable', 'Mona Sans', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  background: #0d0d0d;
+  color: #F5F1EA;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── Barra de retorno ────────────────────────────────── */
+#gc-backbar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(13,13,13,0.92); backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; height: 52px;
+}
+.gc-home {
+  font-size: 14px; font-weight: 600; letter-spacing: -.01em;
+  color: #F5F1EA; text-decoration: none; display: flex; align-items: center; gap: 8px;
+  transition: color .2s;
+}
+.gc-home:hover { color: #b52246; }
+.gc-home .mk { color: #b52246; font-weight: 700; letter-spacing: -.06em; }
+#gc-backbar a:last-child {
+  font-size: 12px; color: #8a8480; text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.14); border-radius: 6px;
+  padding: 6px 14px; transition: border-color .2s, color .2s;
+}
+#gc-backbar a:last-child:hover { border-color: #b52246; color: #F5F1EA; }
+
+/* ── Scorecard widget ────────────────────────────────── */
+#scorecard-widget {
+  font-family: 'Mona Sans Variable', 'Mona Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding: 64px 20px;
+  background: #0d0d0d;
+  color: #F5F1EA;
+  min-height: calc(100vh - 52px);
+}
+
+.sc-header { text-align: center; margin-bottom: 40px; }
+#scorecard-widget .sc-header .sc-author {
+  font-size: 11px !important; color: #D9D3C9 !important; font-weight: 700 !important;
+  letter-spacing: .06em; margin-top: 14px !important; max-width: 560px;
+  text-transform: uppercase;
+}
+.sc-footer-credit {
+  text-align: center; font-size: 10px; color: #555; letter-spacing: .06em;
+  margin-top: 20px; font-weight: 400;
+}
+#scorecard-widget .sc-header h2 {
+  font-size: clamp(28px, 5vw, 42px) !important; font-weight: 700 !important;
+  letter-spacing: -.03em; line-height: 1.1; color: #F5F1EA !important;
+  margin: 0 0 14px 0 !important;
+}
+#scorecard-widget .sc-header h2 em { font-style: normal; color: #b52246 !important; }
+#scorecard-widget .sc-header p {
+  font-size: 15px !important; color: #D9D3C9 !important; max-width: 560px;
+  margin: 0 auto; line-height: 1.65; font-weight: 300 !important;
+}
+
+.widget {
+  max-width: 680px; margin: 0 auto; border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 12px; background: #1c1c1c; overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(139,26,53,0.12);
+}
+.widget-bar { background: #8B1A35; padding: 10px 24px; display: flex; align-items: center; gap: 8px; }
+.widget-bar-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.35); }
+.widget-bar-title {
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,0.75); margin-left: 4px;
+}
+
+.screen { padding: 40px 36px; }
+
+.r-score-block {
+  display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap;
+  margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.r-score-num { font-size: 64px; font-weight: 800; letter-spacing: -.04em; line-height: 1; color: #b52246; }
+.r-score-denom { font-size: 26px; color: #555; font-weight: 300; align-self: flex-end; margin-bottom: 6px; }
+.r-score-info { flex: 1; min-width: 200px; }
+.r-profile-badge {
+  display: inline-block; background: rgba(139,26,53,0.18); border: 1px solid rgba(139,26,53,0.35);
+  border-radius: 20px; padding: 4px 12px; font-size: 10px; letter-spacing: .12em;
+  text-transform: uppercase; color: #b52246; font-weight: 600; margin-bottom: 8px;
+}
+.r-profile-label { font-size: 19px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 4px; color: #F5F1EA; }
+.r-profile-sub { font-size: 12px; color: #8a8480; font-weight: 300; }
+
+.r-bars { margin-bottom: 8px; }
+.r-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.r-bar-label { font-size: 11px; color: #D9D3C9; font-weight: 400; width: 180px; flex-shrink: 0; }
+.r-bar-track { flex: 1; height: 6px; background: rgba(255,255,255,0.14); border-radius: 3px; overflow: hidden; }
+.r-bar-fill { height: 100%; border-radius: 3px; width: 0%; transition: width 1s cubic-bezier(.4,0,.2,1); }
+.r-bar-fill.good { background: #4a9a6b; }
+.r-bar-fill.mid  { background: #c97c3a; }
+.r-bar-fill.low  { background: #555; }
+.r-bar-score { font-size: 11px; color: #8a8480; font-weight: 500; width: 32px; text-align: right; }
+
+.r-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+.r-hl-block { background: #252525; border-radius: 6px; padding: 14px 16px; border: 1px solid rgba(255,255,255,0.08); }
+.r-hl-tag { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+.r-hl-tag.plus { color: #4a9a6b; }
+.r-hl-tag.minus { color: #c97c3a; }
+.r-hl-item { font-size: 12px; color: #D9D3C9; font-weight: 300; line-height: 1.5; margin-bottom: 4px; }
+.r-hl-item::before { content: "— "; color: #555; }
+
+.r-summary {
+  background: rgba(139,26,53,0.18); border: 1px solid rgba(139,26,53,0.2); border-radius: 6px;
+  padding: 16px 18px; font-size: 13px; color: #D9D3C9; font-weight: 300; line-height: 1.7; margin-bottom: 24px;
+}
+
+.r-cta-label { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #8a8480; margin-bottom: 12px; font-weight: 500; }
+.r-ctas { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+.btn-cta-primary, .btn-cta-sec {
+  font-family: inherit; font-size: 13px; border-radius: 6px; padding: 14px 20px; cursor: pointer;
+  text-align: left; display: flex; justify-content: space-between; align-items: center;
+  text-decoration: none; transition: background .2s, border-color .2s, color .2s;
+}
+.btn-cta-primary { background: #8B1A35; color: #fff; border: none; font-weight: 600; }
+.btn-cta-primary:hover { background: #b52246; }
+.btn-cta-sec { background: none; border: 1px solid rgba(255,255,255,0.14); color: #D9D3C9; font-weight: 400; }
+.btn-cta-sec:hover { border-color: #D9D3C9; color: #F5F1EA; }
+.cta-arrow { opacity: .6; font-size: 16px; margin-left: 12px; }
+
+.r-secondary { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 18px; margin-top: 16px; }
+.r-secondary-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.r-secondary-row p { font-size: 12px; color: #8a8480; font-weight: 300; }
+.btn-text-link {
+  background: none; border: none; color: #D9D3C9; font-family: inherit; font-size: 12px;
+  font-weight: 500; cursor: pointer; padding: 6px 0; text-decoration: underline;
+  transition: color .2s; white-space: nowrap;
+}
+.btn-text-link:hover { color: #F5F1EA; }
+
+.r-share { text-align: center; margin-bottom: 16px; }
+.r-share p { font-size: 13px; color: #D9D3C9; font-weight: 300; margin-bottom: 12px; }
+.btn-share {
+  width: 100%; background: none; border: 1px solid rgba(255,255,255,0.14); color: #D9D3C9;
+  border-radius: 6px; font-family: inherit; font-size: 13px; font-weight: 500; padding: 13px 20px;
+  cursor: pointer; transition: border-color .2s, color .2s;
+}
+.btn-share:hover { border-color: #D9D3C9; color: #F5F1EA; }
+.btn-share.copied { border-color: #4a9a6b; color: #4a9a6b; }
+
+.r-restart {
+  display: block; text-align: center; font-size: 11px; color: #555;
+  text-decoration: underline; margin-top: 16px;
+  transition: color .2s;
+}
+.r-restart:hover { color: #D9D3C9; }
+
+/* ── Estado de carga ─────────────────────────────────── */
+#res-loading {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 60vh; gap: 16px; color: #8a8480; font-size: 13px; font-weight: 300;
+}
+#res-loading .res-spinner {
+  width: 32px; height: 32px; border: 2px solid rgba(255,255,255,0.1);
+  border-top-color: #8B1A35; border-radius: 50%;
+  animation: resSpin .8s linear infinite;
+}
+@keyframes resSpin { to { transform: rotate(360deg); } }
+
+/* ── Print / PDF ─────────────────────────────────────── */
+#sc-print-area { display: none; }
+
+@media print {
+  #gc-backbar,
+  #scorecard-widget,
+  #res-loading { display: none !important; }
+
+  #sc-print-area {
+    display: block !important;
+    position: absolute; top: 0; left: 0; width: 100%;
+    background: #fff; color: #1c1c1c; padding: 32px;
+    font-family: 'Mona Sans Variable', 'Mona Sans', system-ui, sans-serif;
+  }
+  .pa-eyebrow { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #8B1A35; font-weight: 600; margin-bottom: 8px; }
+  .pa-header h1 { font-size: 26px; font-weight: 700; margin-bottom: 4px; color: #1c1c1c; letter-spacing: -.02em; }
+  .pa-header .pa-tag { font-size: 13px; color: #b52246; font-weight: 600; margin-bottom: 18px; }
+  .pa-meta { font-size: 12px; color: #555; margin-bottom: 24px; line-height: 1.7; }
+  .pa-meta strong { color: #1c1c1c; }
+  .pa-score-row { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; }
+  .pa-score-num { font-size: 44px; font-weight: 800; color: #8B1A35; line-height: 1; }
+  .pa-score-denom { font-size: 18px; color: #999; }
+  .pa-profile { font-size: 15px; font-weight: 700; margin-bottom: 20px; color: #1c1c1c; }
+  .pa-section-title { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #8a8480; font-weight: 600; margin: 20px 0 10px; }
+  .pa-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 12px; }
+  .pa-bar-label { width: 190px; flex-shrink: 0; }
+  .pa-bar-track { flex: 1; height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
+  .pa-bar-fill { height: 100%; background: #8B1A35; border-radius: 3px; }
+  .pa-bar-score { width: 36px; text-align: right; color: #8a8480; }
+  .pa-hl-grid { display: flex; gap: 24px; margin: 16px 0; }
+  .pa-hl-col { flex: 1; }
+  .pa-hl-tag { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
+  .pa-hl-tag.plus { color: #4a9a6b; }
+  .pa-hl-tag.minus { color: #c97c3a; }
+  .pa-hl-item { font-size: 12px; margin-bottom: 3px; }
+  .pa-summary {
+    font-size: 13px; line-height: 1.7; margin: 18px 0; background: #f7f0ee;
+    padding: 14px 16px; border-left: 3px solid #8B1A35;
+  }
+  .pa-footer { margin-top: 32px; border-top: 1px solid #ddd; padding-top: 16px; font-size: 12px; color: #555; line-height: 1.7; }
+  .pa-footer strong { color: #1c1c1c; }
+}
+
+@media (max-width: 480px) {
+  #scorecard-widget { padding: 40px 12px; }
+  .screen { padding: 28px 20px; }
+  .r-bar-label { width: 120px; font-size: 10px; }
+  .r-highlights { grid-template-columns: 1fr; }
+  .r-score-num { font-size: 52px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Barra de retorno -->
+<div id="gc-backbar">
+  <a href="/" class="gc-home">← <span class="mk">GC</span> Gabriela Contreras</a>
+  <a href="/#diagnostico">Hacer el diagnóstico</a>
+</div>
+
+<!-- Resultado completo -->
+<section id="scorecard-widget">
+
+  <div class="sc-header">
+    <h2>Tu Diagnóstico de <em>Autoridad™</em></h2>
+    <p>Resultado completo de tu Communication &amp; Authority Scorecard™</p>
+    <p class="sc-author">Creado por Gabriela Contreras — Brand Strategy &amp; Creative Direction</p>
+  </div>
+
+  <div id="res-loading">
+    <div class="res-spinner"></div>
+    <span>Cargando tu diagnóstico…</span>
+  </div>
+
+  <div class="widget" id="res-widget" style="display:none;">
+    <div class="widget-bar">
+      <div class="widget-bar-dot"></div>
+      <div class="widget-bar-dot"></div>
+      <div class="widget-bar-dot"></div>
+      <span class="widget-bar-title">Communication &amp; Authority Scorecard™ — Diagnóstico Completo</span>
+    </div>
+
+    <div class="screen" id="sc-screen-full">
+      <div class="r-score-block">
+        <div><span class="r-score-num" id="sc-r-score">0</span><span class="r-score-denom">/100</span></div>
+        <div class="r-score-info">
+          <div class="r-profile-badge">Perfil detectado</div>
+          <div class="r-profile-label" id="sc-r-profile-label">—</div>
+          <div class="r-profile-sub" id="sc-r-profile-sub">—</div>
+        </div>
+      </div>
+
+      <div class="r-bars" id="sc-r-bars"></div>
+
+      <div class="r-highlights">
+        <div class="r-hl-block">
+          <div class="r-hl-tag plus">✦ Tus fortalezas</div>
+          <div id="sc-r-strengths"></div>
+        </div>
+        <div class="r-hl-block">
+          <div class="r-hl-tag minus">⚠ Áreas críticas</div>
+          <div id="sc-r-weaknesses"></div>
+        </div>
+      </div>
+
+      <div class="r-summary" id="sc-r-summary"></div>
+
+      <p class="r-cta-label">¿Por dónde quieres empezar?</p>
+      <div class="r-ctas" id="sc-r-ctas"></div>
+
+      <div class="r-secondary">
+        <div class="r-secondary-row">
+          <p>¿Quieres conservar tu diagnóstico?</p>
+          <button class="btn-text-link" id="sc-pdf-btn">📄 Descargar PDF</button>
+        </div>
+        <div class="r-share">
+          <p>¿Conoces a alguien que debería evaluar su marca?</p>
+          <button class="btn-share" id="sc-share-btn">Compartir Scorecard</button>
+        </div>
+      </div>
+
+      <a href="/#diagnostico" class="r-restart">Volver a hacer el diagnóstico</a>
+    </div>
+  </div>
+
+  <p class="sc-footer-credit">© Gabriela Contreras — Communication &amp; Authority Scorecard™</p>
+</section>
+
+<!-- Área de impresión — solo visible al imprimir -->
+<div id="sc-print-area">
+  <div class="pa-header">
+    <div class="pa-eyebrow">Communication &amp; Authority Scorecard™</div>
+    <h1>Diagnóstico de Marca</h1>
+    <div class="pa-tag" id="pa-tag"></div>
+  </div>
+  <div class="pa-meta" id="pa-meta"></div>
+
+  <div class="pa-score-row">
+    <span class="pa-score-num" id="pa-score">0</span><span class="pa-score-denom">/100</span>
+  </div>
+  <div class="pa-profile" id="pa-profile"></div>
+
+  <div class="pa-section-title">Desglose por área</div>
+  <div id="pa-bars"></div>
+
+  <div class="pa-hl-grid">
+    <div class="pa-hl-col">
+      <div class="pa-hl-tag plus">Fortalezas</div>
+      <div id="pa-strengths"></div>
+    </div>
+    <div class="pa-hl-col">
+      <div class="pa-hl-tag minus">Áreas críticas</div>
+      <div id="pa-weaknesses"></div>
+    </div>
+  </div>
+
+  <div class="pa-section-title">Diagnóstico</div>
+  <div class="pa-summary" id="pa-summary"></div>
+
+  <div class="pa-footer">
+    <p><strong>Gabriela Contreras</strong> — Brand Strategy &amp; Creative Direction</p>
+    <p>¿Quieres profundizar en estos resultados? Escríbeme: gabrielacontrerasredes@gmail.com</p>
+    <p>gabrielacontreras.vercel.app</p>
+  </div>
+</div>
+
+<script>
+(function () {
+
+  var PROFILES = {
+    invisible:    { badge: 'Marca invisible',           sub: 'Hay trabajo estructural que hacer antes de invertir en visibilidad o ventas.' },
+    construccion: { badge: 'Autoridad en construcción', sub: 'Tienes bases. La comunicación todavía no está haciendo el trabajo completo.' },
+    activa:       { badge: 'Con autoridad activa',      sub: 'Tu marca comunica con claridad. Hay puntos concretos que pueden llevarla más lejos.' }
+  };
+
+  var CTA_PRIMARY = '<a class="btn-cta-primary" href="mailto:gabrielacontrerasredes@gmail.com?subject=Sesi%C3%B3n%20de%20Diagn%C3%B3stico%20Estrat%C3%A9gico" target="_blank" rel="noopener">Sesión de Diagnóstico Estratégico <span class="cta-arrow">→</span></a>';
+
+  function ctaSecondaryHTML(score) {
+    if (score >= 80) {
+      return '<a class="btn-cta-sec" href="mailto:gabrielacontrerasredes@gmail.com?subject=Auditor%C3%ADa%20Estrat%C3%A9gica%20Avanzada" target="_blank" rel="noopener">Auditoría Estratégica Avanzada <span class="cta-arrow">→</span></a>';
+    }
+    if (score >= 60) {
+      return '<a class="btn-cta-sec" href="/#productos" rel="noopener">Branding Starter Kit — empieza tú misma/o <span class="cta-arrow">→</span></a>';
+    }
+    return '';
+  }
+
+  function barRowHTML(a) {
+    var pct = (a.score10 / 10) * 100;
+    var cls = a.score10 >= 7.5 ? 'good' : (a.score10 >= 5 ? 'mid' : 'low');
+    return '<div class="r-bar-row">' +
+      '<span class="r-bar-label">' + a.label + '</span>' +
+      '<div class="r-bar-track"><div class="r-bar-fill ' + cls + '" data-width="' + pct + '"></div></div>' +
+      '<span class="r-bar-score">' + a.score10.toFixed(1) + '/10</span>' +
+      '</div>';
+  }
+
+  function animateBarsIn(container) {
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        container.querySelectorAll('.r-bar-fill').forEach(function (el) {
+          el.style.width = el.getAttribute('data-width') + '%';
+        });
+      });
+    });
+  }
+
+  function buildSummary(profile, topStrength, topWeak, secondWeak) {
+    if (profile === 'invisible') {
+      return topStrength + ' es un punto sobre el que se puede construir. Pero tu marca tiene trabajo estructural pendiente en ' +
+        topWeak.toLowerCase() + ' y ' + secondWeak.toLowerCase() + ' — ahí se concentra tu Brecha de Autoridad™ ahora mismo.';
+    }
+    if (profile === 'construccion') {
+      return topStrength + ' es donde tu marca ya funciona bien. La oportunidad más clara está en ' + topWeak.toLowerCase() +
+        ' y ' + secondWeak.toLowerCase() + ' — dos áreas que, trabajadas, pueden cambiar cómo te perciben quienes aún no te conocen.';
+    }
+    return topStrength + ' es una de tus señales más fuertes. El siguiente nivel está en afinar ' + topWeak.toLowerCase() +
+      ' y ' + secondWeak.toLowerCase() + ' — los puntos específicos que separan una marca que funciona de una marca que atrae sola.';
+  }
+
+  function escapeHTML(str) {
+    return String(str || '').replace(/[&<>"']/g, function (c) {
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+    });
+  }
+
+  function renderFull(data) {
+    document.getElementById('sc-r-score').textContent = data.score;
+    document.getElementById('sc-r-profile-label').textContent = PROFILES[data.profile].badge;
+    document.getElementById('sc-r-profile-sub').textContent = PROFILES[data.profile].sub;
+
+    var barsEl = document.getElementById('sc-r-bars');
+    barsEl.innerHTML = data.areaResults.map(barRowHTML).join('');
+    animateBarsIn(barsEl);
+
+    document.getElementById('sc-r-strengths').innerHTML = data.strengths.map(function (a) {
+      return '<div class="r-hl-item">' + a.label + '</div>';
+    }).join('');
+    document.getElementById('sc-r-weaknesses').innerHTML = data.weaknesses.map(function (a) {
+      return '<div class="r-hl-item">' + a.label + '</div>';
+    }).join('');
+
+    document.getElementById('sc-r-summary').textContent =
+      buildSummary(data.profile, data.strengths[0].label, data.weaknesses[0].label, data.weaknesses[1].label);
+
+    document.getElementById('sc-r-ctas').innerHTML = CTA_PRIMARY + ctaSecondaryHTML(data.score);
+  }
+
+  function renderPrintArea(data) {
+    var ld = data.leadData || {};
+
+    document.getElementById('pa-tag').textContent =
+      'Diagnóstico de ' + (ld.nombre || '') + (ld.sector ? ' · ' + ld.sector : '');
+
+    var today = new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+    var metaLines = [
+      '<strong>Nombre:</strong> ' + escapeHTML(ld.nombre),
+      '<strong>Correo:</strong> ' + escapeHTML(ld.email),
+      '<strong>Sector:</strong> ' + escapeHTML(ld.sector)
+    ];
+    if (ld.web) metaLines.push('<strong>Web / perfil:</strong> ' + escapeHTML(ld.web));
+    metaLines.push('<strong>Reto principal:</strong> ' + escapeHTML(ld.reto));
+    metaLines.push('<strong>Fecha:</strong> ' + today);
+    document.getElementById('pa-meta').innerHTML = metaLines.join('<br>');
+
+    document.getElementById('pa-score').textContent = data.score;
+    document.getElementById('pa-profile').textContent = PROFILES[data.profile].badge + ' — ' + PROFILES[data.profile].sub;
+
+    document.getElementById('pa-bars').innerHTML = data.areaResults.map(function (a) {
+      var pct = (a.score10 / 10) * 100;
+      return '<div class="pa-bar-row">' +
+        '<span class="pa-bar-label">' + a.label + '</span>' +
+        '<div class="pa-bar-track"><div class="pa-bar-fill" style="width:' + pct + '%"></div></div>' +
+        '<span class="pa-bar-score">' + a.score10.toFixed(1) + '/10</span>' +
+        '</div>';
+    }).join('');
+
+    document.getElementById('pa-strengths').innerHTML = data.strengths.map(function (a) {
+      return '<div class="pa-hl-item">— ' + a.label + '</div>';
+    }).join('');
+    document.getElementById('pa-weaknesses').innerHTML = data.weaknesses.map(function (a) {
+      return '<div class="pa-hl-item">— ' + a.label + '</div>';
+    }).join('');
+
+    document.getElementById('pa-summary').textContent =
+      buildSummary(data.profile, data.strengths[0].label, data.weaknesses[0].label, data.weaknesses[1].label);
+  }
+
+  // ─── Arranque ─────────────────────────────────────────
+  var raw = localStorage.getItem('scorecard_result');
+  if (!raw) {
+    window.location.replace('/#diagnostico');
+    return;
+  }
+
+  var data;
+  try { data = JSON.parse(raw); } catch (e) {
+    window.location.replace('/#diagnostico');
+    return;
+  }
+
+  if (!data || !data.score || !data.areaResults) {
+    window.location.replace('/#diagnostico');
+    return;
+  }
+
+  // Ocultar spinner, mostrar widget
+  document.getElementById('res-loading').style.display = 'none';
+  document.getElementById('res-widget').style.display = 'block';
+
+  renderFull(data);
+  renderPrintArea(data);
+
+  // PDF
+  document.getElementById('sc-pdf-btn').addEventListener('click', function () {
+    window.print();
+  });
+
+  // Compartir
+  document.getElementById('sc-share-btn').addEventListener('click', function () {
+    var btn = this;
+    var shareData = {
+      title: 'Communication & Authority Scorecard™',
+      text:  'Descubre cómo se percibe tu marca y cuánto transmite confianza — hazlo gratis aquí:',
+      url:   'https://gabrielacontreras.vercel.app/#diagnostico'
+    };
+    if (navigator.share) {
+      navigator.share(shareData).catch(function () {});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareData.url).then(function () {
+        var orig = btn.textContent;
+        btn.textContent = '✓ Enlace copiado';
+        btn.classList.add('copied');
+        setTimeout(function () { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  });
+
+})();
+</script>
+
+</body>
+</html>
