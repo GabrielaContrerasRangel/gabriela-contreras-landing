@@ -94,7 +94,58 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
   display: grid; place-items: center; font-size: 15px; transition: all .2s;
 }
 .toggle:hover { border-color: var(--acc); color: var(--acc); }
-@media (max-width: 680px){ .navlinks a:not(.btn-sm){ display:none; } }
+/* hamburger */
+#gc-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--txt);
+  padding: 4px 6px;
+  line-height: 1;
+  order: -1;
+}
+#gc-mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--bg);
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 5rem 2rem 2rem;
+  gap: 0;
+}
+#gc-mobile-menu.open { display: flex; }
+#gc-mobile-menu a {
+  display: block;
+  font-family: inherit;
+  font-size: 1.35rem;
+  font-weight: 300;
+  color: var(--txt);
+  text-decoration: none;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(128,128,128,0.15);
+  width: 100%;
+}
+#gc-mobile-menu a:last-of-type { border-bottom: none; }
+#gc-mobile-menu a:hover { color: var(--acc); }
+#gc-mobile-menu .gc-menu-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.4rem;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: var(--txt);
+  line-height: 1;
+}
+@media (max-width: 768px) {
+  .navlinks a:not(.btn-sm) { display: none; }
+  #gc-menu-btn { display: inline-flex; align-items: center; }
+}
 
 /* ---------- BUTTONS ---------- */
 .btn {
@@ -574,6 +625,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       Gabriela <span class="acc">Contreras</span>
     </div>
     <div class="navlinks">
+      <button id="gc-menu-btn" aria-label="Abrir menú">☰</button>
       <a href="#hago">Lo que hago</a>
       <a href="#servicios">Servicios</a>
       <a href="/herramientas">Herramientas</a>
@@ -1371,6 +1423,29 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
     w.style.display='';
     requestAnimationFrame(function(){w.classList.remove('hidden');});
   });
+})();
+</script>
+
+<!-- MOBILE MENU -->
+<div id="gc-mobile-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación">
+  <button class="gc-menu-close" aria-label="Cerrar menú">✕</button>
+  <a href="#hago" >Lo que hago</a>
+  <a href="#servicios">Servicios</a>
+  <a href="/herramientas">Herramientas</a>
+  <a href="#diagnostico">Diagnóstico</a>
+  <a href="#sobre">Sobre mí</a>
+  <a href="mailto:gabrielacontrerasredes@gmail.com">Hablemos</a>
+</div>
+<script>
+(function(){
+  const btn = document.getElementById('gc-menu-btn');
+  const menu = document.getElementById('gc-mobile-menu');
+  const close = menu.querySelector('.gc-menu-close');
+  function openMenu(){ menu.classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeMenu(){ menu.classList.remove('open'); document.body.style.overflow=''; }
+  btn.addEventListener('click', openMenu);
+  close.addEventListener('click', closeMenu);
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
 })();
 </script>
 </body>
