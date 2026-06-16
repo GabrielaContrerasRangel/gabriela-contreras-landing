@@ -215,25 +215,6 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
 /* ---------- SECTION SHELL ---------- */
 section { padding: clamp(64px, 10vh, 118px) 0; }
 
-/* ---------- MUSEMAP — banner + CTA ---------- */
-.musemap { padding: 0; background: var(--bg); }
-.musemap-frame {
-  margin: clamp(20px, 4vh, 44px) 14px;
-  background: var(--warm-black);
-  border: 1px solid var(--line);
-  border-radius: 28px;
-  padding: clamp(48px, 8vh, 96px) clamp(20px, 5vw, 56px);
-  text-align: center; color: #f5f1ea; overflow: hidden;
-}
-.musemap-frame .eyebrow { justify-content: center; margin-bottom: 28px; }
-.musemap-frame .eyebrow::before,
-.musemap-frame .eyebrow::after { content: ""; width: 28px; height: 1.5px; background: var(--acc); }
-.musemap-frame .mono { color: rgba(245,241,234,.62); }
-.musemap-banner {
-  display: block; width: 100%; max-width: 1040px; height: auto;
-  margin: 0 auto; border-radius: 20px;
-}
-.musemap-cta { margin-top: clamp(30px, 5vh, 52px); }
 .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
 .eyebrow::before { content: ""; width: 28px; height: 1.5px; background: var(--acc); }
 .s-head { font-size: clamp(30px, 4.6vw, 54px); max-width: 800px; }
@@ -739,16 +720,6 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   </div>
 </section>
 
-<!-- MUSEMAP -->
-<section class="musemap" id="musemap">
-  <div class="musemap-frame">
-    <div class="eyebrow"><span class="mono">Nueva herramienta</span></div>
-    <img class="musemap-banner" src="assets/musemap-banner.png" alt="MUSEMAP — biblioteca de inspiración y asistente para dirección creativa" />
-    <div class="musemap-cta">
-      <a class="btn" href="/herramientas">Explorar MUSEMAP →</a>
-    </div>
-  </div>
-</section>
 
 <!-- PRODUCTOS -->
 <section class="soon" id="productos">
