@@ -561,6 +561,28 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   .r-score-num { font-size: 52px; }
 }
 </style>
+<style>
+#gc-float{position:fixed;bottom:28px;right:28px;width:300px;background:#1c1c1c;border:1px solid rgba(255,255,255,0.12);border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 0 1px rgba(139,26,53,0.2),inset 0 1px 0 rgba(255,255,255,0.06);overflow:hidden;animation:gcSlideUp .45s cubic-bezier(.16,1,.3,1) both;z-index:9999;transition:opacity .2s,transform .2s;font-family:'Mona Sans',system-ui,sans-serif;}
+#gc-float.hidden{opacity:0;transform:translateY(12px) scale(.97);pointer-events:none;}
+@keyframes gcSlideUp{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+.gc-float-bar{height:3px;background:linear-gradient(90deg,#8B1A35 0%,#b52246 60%,transparent 100%);}
+.gc-float-close{position:absolute;top:10px;right:10px;background:none;border:none;color:#555;font-size:16px;line-height:1;cursor:pointer;padding:4px 6px;border-radius:4px;transition:color .15s,background .15s;font-family:inherit;}
+.gc-float-close:hover{color:#F5F1EA;background:rgba(255,255,255,0.06);}
+.gc-float-body{padding:18px 20px 20px;}
+.gc-float-eyebrow{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#b52246;font-weight:600;margin-bottom:10px;}
+.gc-float-hook{font-size:14px;font-weight:700;letter-spacing:-.02em;line-height:1.3;color:#F5F1EA;margin-bottom:10px;}
+.gc-float-divider{height:1px;background:rgba(255,255,255,0.07);margin:12px 0;}
+.gc-float-desc{font-size:12px;color:#8a8480;font-weight:300;line-height:1.6;margin-bottom:16px;}
+.gc-float-desc strong{color:#D9D3C9;font-weight:500;}
+.gc-float-cta{display:block;width:100%;background:#8B1A35;color:#fff;border:none;border-radius:6px;font-family:inherit;font-size:12px;font-weight:600;letter-spacing:.04em;padding:11px 16px;cursor:pointer;text-decoration:none;text-align:center;transition:background .2s;}
+.gc-float-cta:hover{background:#b52246;}
+#gc-float-pill{position:fixed;bottom:28px;right:28px;background:#8B1A35;color:#fff;border:none;border-radius:24px;font-family:'Mona Sans',system-ui,sans-serif;font-size:12px;font-weight:600;letter-spacing:.03em;padding:11px 18px;cursor:pointer;box-shadow:0 8px 28px rgba(139,26,53,0.45);display:none;align-items:center;gap:8px;z-index:9999;transition:background .2s;}
+#gc-float-pill:hover{background:#b52246;}
+#gc-float-pill.show{display:flex;}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.6);animation:gcPulse 2s infinite;}
+@keyframes gcPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+@media(max-width:480px){#gc-float{width:calc(100vw - 32px);right:16px;bottom:16px;}#gc-float-pill{right:16px;bottom:16px;}}
+</style>
 </head>
 <body>
 
@@ -1346,6 +1368,38 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
     target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
+})();
+</script>
+
+<!-- WIDGET FLOTANTE — Diagnóstico -->
+<div id="gc-float">
+  <div class="gc-float-bar"></div>
+  <button class="gc-float-close" id="gc-close-btn" title="Cerrar">✕</button>
+  <div class="gc-float-body">
+    <p class="gc-float-eyebrow">Diagnóstico gratuito</p>
+    <p class="gc-float-hook">¿Tu marca comunica con intención o solo está publicando?</p>
+    <div class="gc-float-divider"></div>
+    <p class="gc-float-desc"><strong>Una marca con intención</strong> comunica quién es, a quién ayuda y por qué confiar en ella. Sin eso, tienes presencia pero no conversión.</p>
+    <a class="gc-float-cta" href="#diagnostico">Descúbrelo gratis →</a>
+  </div>
+</div>
+<button id="gc-float-pill"><span class="pill-dot"></span>Diagnóstico gratuito</button>
+
+<script>
+(function(){
+  var w=document.getElementById('gc-float');
+  var p=document.getElementById('gc-float-pill');
+  var c=document.getElementById('gc-close-btn');
+  if(!w||!p||!c) return;
+  c.addEventListener('click',function(){
+    w.classList.add('hidden');
+    setTimeout(function(){w.style.display='none';p.classList.add('show');},200);
+  });
+  p.addEventListener('click',function(){
+    p.classList.remove('show');
+    w.style.display='';
+    requestAnimationFrame(function(){w.classList.remove('hidden');});
+  });
 })();
 </script>
 </body>
