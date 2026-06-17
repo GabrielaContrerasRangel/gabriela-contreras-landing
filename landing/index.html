@@ -1397,7 +1397,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
     }).catch(function () {});
 
     // Notificar a Gabriela vía EmailJS — navegar después de enviar (o si falla)
-    console.log('[EmailJS] Enviando resultado:', { nombre: nombre, email: email, score_total: results.globalScore, nivel: nivel, area_mas_debil: areaMasDebil });
+    console.log('[EmailJS] Payload completo:', { nombre: nombre, email: email, sector: sector, reto: reto, score_total: results.globalScore, nivel: nivel, area_mas_debil: areaMasDebil, detalles_areas: detallesAreas });
     emailjs.send('service_87wbtbl', 'template_wtawhoc', {
       nombre:         nombre,
       email:          email,
