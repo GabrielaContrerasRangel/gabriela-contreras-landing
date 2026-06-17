@@ -325,21 +325,31 @@ section { padding: clamp(64px, 10vh, 118px) 0; }
 .prod-cover { overflow: hidden; }
 .prod-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .prod-body {
-  padding: 48px 48px 48px 44px;
-  display: flex; flex-direction: column; justify-content: center;
+  padding: 36px 40px 36px 36px;
+  display: flex; flex-direction: column; justify-content: flex-start;
 }
 .prod-body h3 {
-  font-size: clamp(20px, 2.6vw, 28px); font-weight: 700;
-  letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 14px;
+  font-size: clamp(18px, 2.2vw, 24px); font-weight: 700;
+  letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 12px;
 }
 .prod-body h3 em { font-style: italic; font-weight: 200; color: var(--acc); }
-.prod-body > p { color: var(--muted); font-size: 15.5px; line-height: 1.65; margin: 0 0 32px; }
+.prod-hook { font-size: 14.5px; font-weight: 600; color: var(--txt); margin: 0 0 8px; line-height: 1.45; }
+.prod-sub { color: var(--muted); font-size: 13.5px; line-height: 1.6; margin: 0 0 18px; }
+.prod-section-title {
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  font-weight: 600; color: var(--acc); margin: 0 0 6px;
+}
+.prod-list { list-style: none; padding: 0; margin: 0 0 16px; }
+.prod-list li { font-size: 13px; color: var(--muted); padding: 2px 0; line-height: 1.5; }
+.prod-list--check li::before { content: "✓  "; color: var(--acc); font-weight: 700; }
+.prod-list--arrow li::before { content: "→  "; color: var(--acc); }
+.prod-footnote { font-size: 11.5px; color: var(--dim); margin: 0 0 20px; font-style: italic; }
 .prod-footer { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-.prod-price { font-size: 40px; font-weight: 800; letter-spacing: -0.03em; }
+.prod-price { font-size: 36px; font-weight: 800; letter-spacing: -0.03em; }
 @media (max-width: 680px) {
   .prod-card { grid-template-columns: 1fr; }
   .prod-cover { aspect-ratio: 1/1; }
-  .prod-body { padding: 28px 24px 32px; }
+  .prod-body { padding: 24px 22px 28px; }
 }
 
 /* ---------- PRUEBA ---------- */
@@ -938,7 +948,25 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       <div class="prod-body">
         <span class="tag">Nuevo</span>
         <h3 class="disp">Branding Starter Kit:<br><em>Marca con Sentido</em></h3>
-        <p>Sistema interactivo de 14 páginas para construir la base estratégica de tu marca — antes de diseñar, comunicar o vender.</p>
+        <p class="prod-hook">¿Tu marca se ve bonita pero no comunica con claridad? Este kit es para ti.</p>
+        <p class="prod-sub">Deja de improvisar tu marca. Construye su base estratégica con criterio sin perder el rumbo.</p>
+        <p class="prod-section-title">Lo que vas a construir</p>
+        <ul class="prod-list prod-list--check">
+          <li>Tu frase de posicionamiento clara</li>
+          <li>Tu Propuesta Única de Valor</li>
+          <li>El perfil de tu cliente ideal</li>
+          <li>Tu tono de voz y mensajes clave</li>
+          <li>Tu dirección visual con criterio</li>
+          <li>Tu sistema de contenido</li>
+          <li>30 prompts de IA para ejecutar todo</li>
+        </ul>
+        <p class="prod-section-title">¿Qué incluye?</p>
+        <ul class="prod-list prod-list--arrow">
+          <li>14 páginas interactivas — se llenan en el navegador, sin apps</li>
+          <li>7 módulos con contexto, ejercicios y plantillas</li>
+          <li>Checklist de validación final</li>
+        </ul>
+        <p class="prod-footnote">Para emprendedores, freelancers y marcas personales que quieren dejar de improvisar.</p>
         <div class="prod-footer">
           <span class="prod-price">€27</span>
           <a class="btn" href="https://gabrielaredes.gumroad.com/l/branding-starter-kit" target="_blank" rel="noopener">Quiero mi kit →</a>
