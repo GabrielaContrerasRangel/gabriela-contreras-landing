@@ -1395,7 +1395,8 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       })
     }).catch(function () {});
 
-    // Notificar a Gabriela vía EmailJS — fire-and-forget
+    // Notificar a Gabriela vía EmailJS — navegar después de enviar (o si falla)
+    console.log('[EmailJS] Enviando resultado:', { nombre: nombre, email: email, score_total: results.globalScore, nivel: nivel, area_mas_debil: areaMasDebil });
     emailjs.send('service_87wbtbl', '78xtzba', {
       nombre:         nombre,
       email:          email,
@@ -1405,9 +1406,13 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       nivel:          nivel,
       area_mas_debil: areaMasDebil,
       detalles_areas: detallesAreas
-    }).catch(function () {});
-
-    window.location.href = '/resultado.html';
+    }).then(function() {
+      console.log('[EmailJS] OK — redirigiendo');
+      window.location.href = '/resultado.html';
+    }).catch(function(err) {
+      console.error('[EmailJS] Error:', err);
+      window.location.href = '/resultado.html';
+    });
   }
 
   function showScreen(target) {
