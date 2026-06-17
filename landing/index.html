@@ -1406,7 +1406,8 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       score_total:    results.globalScore,
       nivel:          nivel,
       area_mas_debil: areaMasDebil,
-      detalles_areas: detallesAreas
+      detalles_areas: detallesAreas,
+      message:        detallesAreas
     }).then(function() {
       console.log('[EmailJS] OK — redirigiendo en 3 segundos');
       setTimeout(function() { window.location.href = '/resultado.html'; }, 3000);
