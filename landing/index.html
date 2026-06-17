@@ -1364,7 +1364,8 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
     var areaMasDebil = results.weaknesses[0] ? results.weaknesses[0].label : '—';
     var detallesAreas = results.areaResults.map(function(a) {
       return a.label + ': ' + Math.round(a.score10 * 10) + '/100';
-    }).join('\n');
+    }).join(' | ');
+    console.log('[EmailJS] detallesAreas:', detallesAreas);
 
     // Guardar en localStorage (síncrono, antes del redirect)
     localStorage.setItem('scorecard_result', JSON.stringify({
