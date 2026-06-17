@@ -615,6 +615,8 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 @keyframes gcPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
 @media(max-width:480px){#gc-float{width:calc(100vw - 32px);right:16px;bottom:16px;}#gc-float-pill{right:16px;bottom:16px;}}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init('3FeKptobTsfwZ-JjZ');</script>
 </head>
 <body>
 
@@ -1356,6 +1358,14 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 
     leadData = { nombre: nombre, email: email, sector: sector, web: web, reto: reto };
 
+    // Datos de resultado para integraciones
+    var NIVEL_MAP = { invisible: 'Emergente', construccion: 'En construcción', activa: 'Referente' };
+    var nivel = NIVEL_MAP[results.profile];
+    var areaMasDebil = results.weaknesses[0] ? results.weaknesses[0].label : '—';
+    var detallesAreas = results.areaResults.map(function(a) {
+      return a.label + ': ' + Math.round(a.score10 * 10) + '/100';
+    }).join('\n');
+
     // Guardar en localStorage (síncrono, antes del redirect)
     localStorage.setItem('scorecard_result', JSON.stringify({
       score:       results.globalScore,
@@ -1366,7 +1376,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       leadData:    leadData
     }));
 
-    // Suscribir a Kit — fire-and-forget
+    // Suscribir a Kit con score y nivel — fire-and-forget
     fetch('https://api.convertkit.com/v3/forms/9567216/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -1377,9 +1387,24 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
         fields: {
           sector:         sector,
           reto_principal: reto,
-          sitio_web:      web || ''
+          sitio_web:      web || '',
+          score_total:    String(results.globalScore),
+          nivel:          nivel,
+          area_mas_debil: areaMasDebil
         }
       })
+    }).catch(function () {});
+
+    // Notificar a Gabriela vía EmailJS — fire-and-forget
+    emailjs.send('service_87wbtbl', '78xtzba', {
+      nombre:         nombre,
+      email:          email,
+      sector:         sector,
+      reto:           reto,
+      score_total:    results.globalScore,
+      nivel:          nivel,
+      area_mas_debil: areaMasDebil,
+      detalles_areas: detallesAreas
     }).catch(function () {});
 
     window.location.href = '/resultado.html';
