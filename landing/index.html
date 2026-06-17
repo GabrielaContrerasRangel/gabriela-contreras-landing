@@ -1407,11 +1407,13 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       area_mas_debil: areaMasDebil,
       detalles_areas: detallesAreas
     }).then(function() {
-      console.log('[EmailJS] OK — redirigiendo');
-      window.location.href = '/resultado.html';
+      console.log('[EmailJS] OK — redirigiendo en 3 segundos');
+      setTimeout(function() { window.location.href = '/resultado.html'; }, 3000);
     }).catch(function(err) {
       console.error('[EmailJS] Error:', err);
-      window.location.href = '/resultado.html';
+      var msg = (err && (err.text || err.message)) ? (err.text || err.message) : JSON.stringify(err);
+      ufError.textContent = 'EmailJS error: ' + msg;
+      ufError.classList.add('show');
     });
   }
 
