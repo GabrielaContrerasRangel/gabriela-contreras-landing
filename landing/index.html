@@ -195,21 +195,9 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
 .hero h1 .spark { width: .46em; height: .46em; display: inline-block; vertical-align: .1em; margin-left: .06em; }
 .hero .tagline { font-size: clamp(17px, 2vw, 22px); font-weight: 200; color: #d8d3cb; max-width: 460px; margin: 26px 0 0; }
 .hero .cta-row { margin-top: 38px; display: flex; gap: 14px; flex-wrap: wrap; }
-.facts {
-  position: absolute; right: 28px; bottom: 28px; z-index: 3; max-width: 258px;
-  background: rgba(8,4,6,.62); backdrop-filter: blur(14px);
-  border: 1px solid rgba(245,241,234,.15); border-radius: 18px; padding: 20px 22px;
-}
-.facts .mono { color: #a8a39c; }
-.facts h4 { font-size: 17px; font-weight: 700; letter-spacing: -.02em; margin: 8px 0 5px; color: #f5f1ea; }
-.facts p { font-size: 13px; color: #b8b2aa; }
-.facts .facts-n { margin-top: 11px; }
-.facts .facts-n b { font-size: 26px; font-weight: 700; color: #d4607c; letter-spacing: -.02em; display: block; line-height: 1; }
-.facts .facts-n span { font-size: 12px; color: #d8d3cb; }
 @media (max-width: 820px){
   .hero-bg::after { background: linear-gradient(180deg, rgba(5,2,3,.65) 0%, rgba(5,2,3,.82) 52%, rgba(5,2,3,.95) 100%); }
   .hero-inner { padding: clamp(48px,9vh,90px) 0 clamp(36px,6vh,60px); max-width: none; }
-  .facts { position: static; margin: 0 0 32px; max-width: none; backdrop-filter: none; }
 }
 
 /* ---------- PILL CLOUD ---------- */
@@ -352,16 +340,6 @@ section { padding: clamp(64px, 10vh, 118px) 0; }
   .prod-body { padding: 24px 22px 28px; }
 }
 
-/* ---------- PRUEBA ---------- */
-.proof { background: var(--warm-black); color: #f5f1ea; position: relative; overflow: hidden; }
-.proof .eyebrow::before { background: #d4607c; }
-.proof .mono { color: #a8a39c; }
-.proof .ctx { color: #d8d3cb; max-width: 660px; font-size: 19px; font-weight: 200; margin-top: 14px; }
-.proof .ctx b { font-weight: 700; color: #fff; }
-.metrics { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; margin-top: 56px; }
-.metric .n { font-size: clamp(36px, 5.4vw, 60px); font-weight: 700; letter-spacing: -0.03em; color: #d4607c; }
-.metric .l { color: #a8a39c; font-size: 13px; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.1em; }
-@media (max-width:760px){ .metrics{ grid-template-columns:repeat(2,1fr); gap:32px 20px; } }
 
 /* ---------- SOBRE MÍ (collage) ---------- */
 .about { border-top: 1px solid var(--line); }
@@ -683,12 +661,6 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
         </div>
       </div>
     </div>
-    <aside class="facts">
-      <span class="mono">Prueba real</span>
-      <h4>La Boutique del Repuesto</h4>
-      <p>100% orgánico · 0 € de pauta</p>
-      <div class="facts-n"><b>+1.500%</b><span>interacciones</span></div>
-    </aside>
   </div>
 </header>
 
@@ -976,19 +948,6 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   </div>
 </section>
 
-<!-- PRUEBA -->
-<section class="proof">
-  <div class="wrap">
-    <div class="eyebrow"><span class="mono">Prueba real</span></div>
-    <p class="ctx"><b>La Boutique del Repuesto (HBBH).</b> Crecimiento 100% orgánico, 0 € de pauta. Solo estrategia y dirección creativa aplicadas con coherencia.</p>
-    <div class="metrics">
-      <div class="metric"><div class="n">+440%</div><div class="l">Visualizaciones</div></div>
-      <div class="metric"><div class="n">+682%</div><div class="l">Alcance</div></div>
-      <div class="metric"><div class="n">+1.500%</div><div class="l">Interacciones</div></div>
-      <div class="metric"><div class="n">+72%</div><div class="l">Seguidores</div></div>
-    </div>
-  </div>
-</section>
 
 <!-- SOBRE MÍ -->
 <section class="about" id="sobre">
