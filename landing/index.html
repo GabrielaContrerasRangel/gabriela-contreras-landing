@@ -1365,7 +1365,6 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
     var detallesAreas = results.areaResults.map(function(a) {
       return a.label + ': ' + Math.round(a.score10 * 10) + '/100';
     }).join(' | ');
-    console.log('[EmailJS] detallesAreas:', detallesAreas);
 
     // Guardar en localStorage (síncrono, antes del redirect)
     localStorage.setItem('scorecard_result', JSON.stringify({
@@ -1397,7 +1396,6 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
     }).catch(function () {});
 
     // Notificar a Gabriela vía EmailJS — navegar después de enviar (o si falla)
-    console.log('[EmailJS] Payload completo:', { nombre: nombre, email: email, sector: sector, reto: reto, score_total: results.globalScore, nivel: nivel, area_mas_debil: areaMasDebil, detalles_areas: detallesAreas });
     emailjs.send('service_87wbtbl', 'template_wtawhoc', {
       nombre:         nombre,
       email:          email,
@@ -1409,13 +1407,9 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       detalles_areas: detallesAreas,
       message:        detallesAreas
     }).then(function() {
-      console.log('[EmailJS] OK — redirigiendo en 3 segundos');
-      setTimeout(function() { window.location.href = '/resultado.html'; }, 3000);
-    }).catch(function(err) {
-      console.error('[EmailJS] Error:', err);
-      var msg = (err && (err.text || err.message)) ? (err.text || err.message) : JSON.stringify(err);
-      ufError.textContent = 'EmailJS error: ' + msg;
-      ufError.classList.add('show');
+      window.location.href = '/resultado.html';
+    }).catch(function() {
+      window.location.href = '/resultado.html';
     });
   }
 
