@@ -305,8 +305,9 @@ section { padding: clamp(64px, 10vh, 118px) 0; }
   font-weight: 500; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
   padding: 6px 14px; border-radius: 6px; margin-bottom: 20px;
 }
+.prod-grid { margin-top: 44px; display: flex; flex-direction: column; gap: 28px; }
 .prod-card {
-  margin-top: 44px; display: grid; grid-template-columns: 1fr 1.15fr;
+  display: grid; grid-template-columns: 1fr 1.15fr;
   border: 1px solid var(--line); border-radius: 20px; overflow: hidden;
   max-width: 840px; background: var(--card);
 }
@@ -913,35 +914,64 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 <section class="soon" id="productos">
   <div class="wrap">
     <div class="eyebrow"><span class="mono">Productos digitales</span></div>
-    <div class="prod-card">
-      <div class="prod-cover">
-        <img src="./assets/cover-branding-starter-kit.png" alt="Branding Starter Kit: Marca con Sentido">
+    <div class="prod-grid">
+      <div class="prod-card">
+        <div class="prod-cover">
+          <img src="./assets/cover-branding-starter-kit1x1.png" alt="Branding Starter Kit: Marca con Sentido">
+        </div>
+        <div class="prod-body">
+          <span class="tag">Nuevo</span>
+          <h3 class="disp">Branding Starter Kit:<br><em>Marca con Sentido</em></h3>
+          <p class="prod-hook">¿Tu marca se ve bonita pero no comunica con claridad? Este kit es para ti.</p>
+          <p class="prod-sub">Deja de improvisar tu marca. Construye su base estratégica con criterio sin perder el rumbo.</p>
+          <p class="prod-section-title">Lo que vas a construir</p>
+          <ul class="prod-list prod-list--check">
+            <li>Tu frase de posicionamiento clara</li>
+            <li>Tu Propuesta Única de Valor</li>
+            <li>El perfil de tu cliente ideal</li>
+            <li>Tu tono de voz y mensajes clave</li>
+            <li>Tu dirección visual con criterio</li>
+            <li>Tu sistema de contenido</li>
+            <li>30 prompts de IA para ejecutar todo</li>
+          </ul>
+          <p class="prod-section-title">¿Qué incluye?</p>
+          <ul class="prod-list prod-list--arrow">
+            <li>14 páginas interactivas — se llenan en el navegador, sin apps</li>
+            <li>7 módulos con contexto, ejercicios y plantillas</li>
+            <li>Checklist de validación final</li>
+          </ul>
+          <p class="prod-footnote">Para emprendedores, freelancers y marcas personales que quieren dejar de improvisar.</p>
+          <div class="prod-footer">
+            <span class="prod-price">€27</span>
+            <a class="btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Quiero%20el%20Branding%20Starter%20Kit">Quiero mi kit →</a>
+          </div>
+        </div>
       </div>
-      <div class="prod-body">
-        <span class="tag">Nuevo</span>
-        <h3 class="disp">Branding Starter Kit:<br><em>Marca con Sentido</em></h3>
-        <p class="prod-hook">¿Tu marca se ve bonita pero no comunica con claridad? Este kit es para ti.</p>
-        <p class="prod-sub">Deja de improvisar tu marca. Construye su base estratégica con criterio sin perder el rumbo.</p>
-        <p class="prod-section-title">Lo que vas a construir</p>
-        <ul class="prod-list prod-list--check">
-          <li>Tu frase de posicionamiento clara</li>
-          <li>Tu Propuesta Única de Valor</li>
-          <li>El perfil de tu cliente ideal</li>
-          <li>Tu tono de voz y mensajes clave</li>
-          <li>Tu dirección visual con criterio</li>
-          <li>Tu sistema de contenido</li>
-          <li>30 prompts de IA para ejecutar todo</li>
-        </ul>
-        <p class="prod-section-title">¿Qué incluye?</p>
-        <ul class="prod-list prod-list--arrow">
-          <li>14 páginas interactivas — se llenan en el navegador, sin apps</li>
-          <li>7 módulos con contexto, ejercicios y plantillas</li>
-          <li>Checklist de validación final</li>
-        </ul>
-        <p class="prod-footnote">Para emprendedores, freelancers y marcas personales que quieren dejar de improvisar.</p>
-        <div class="prod-footer">
-          <span class="prod-price">€27</span>
-          <a class="btn" href="https://gabrielaredes.gumroad.com/l/branding-starter-kit" target="_blank" rel="noopener">Quiero mi kit →</a>
+
+      <div class="prod-card">
+        <div class="prod-cover">
+          <img src="./assets/cover-authority-builder-kit.png" alt="Authority Builder Kit">
+        </div>
+        <div class="prod-body">
+          <span class="tag">NIVEL 02</span>
+          <h3 class="disp">Authority Builder Kit</h3>
+          <p class="prod-hook">El problema no es tu visibilidad, es tu claridad. Un mensaje disperso confunde al cliente ideal y solo atrae al comprador equivocado.</p>
+          <p class="prod-sub">Trabajas, publicas, estás presente. Pero si en cada canal dices algo distinto, el cliente correcto no te reconoce… y el equivocado sí.</p>
+          <p class="prod-sub">Authority Builder Kit ordena todo eso en un solo mensaje, claro y tuyo, que construye autoridad cada vez que apareces.</p>
+          <p class="prod-section-title">Lo que vas a construir:</p>
+          <ul class="prod-list prod-list--arrow">
+            <li>Un mensaje que se entiende en 5 segundos</li>
+            <li>Una sola voz, coherente en todos tus canales</li>
+            <li>El perfil del cliente que de verdad te conviene</li>
+            <li>Tu declaración de unicidad y tu one-liner</li>
+            <li>Tus 3 pilares de comunicación y tu punto de vista</li>
+            <li>Un plan de 30 días para sostenerlo</li>
+          </ul>
+          <p class="prod-footnote">13 páginas interactivas · 8 módulos con ejercicios y plantillas · checklist final</p>
+          <div class="prod-footer">
+            <span class="prod-price">€39</span>
+            <a class="btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Quiero%20el%20Authority%20Builder%20Kit">Quiero mi kit →</a>
+          </div>
         </div>
       </div>
     </div>
