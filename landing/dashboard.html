@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CRM · Gabriela Contreras</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%238c1e37'/><text x='50' y='68' font-size='54' font-family='sans-serif' font-weight='700' fill='%23f5f1ea' text-anchor='middle'>GC</text></svg>" />
+
+<style>
+@import url('https://cdn.jsdelivr.net/npm/@fontsource-variable/mona-sans/index.css');
+
+:root {
+  --bg:      #f5f1ea;
+  --acc:     #8B1A35;
+  --acc2:    #b52246;
+  --rosa:    #db7186;
+  --txt:     #0e0e0e;
+  --muted:   #666;
+  --dim:     #999;
+  --line:    rgba(14,14,14,.10);
+  --card:    #fffdf8;
+  --max:     1200px;
+  --pad:     32px;
+  --live:    #2d7a4f;
+  --pending: #a07820;
+}
+[data-theme="dark"] {
+  --bg:    #0e0e0e;
+  --txt:   #f5f1ea;
+  --muted: #a8a39c;
+  --dim:   #6b6660;
+  --card:  #1a1a1a;
+  --line:  rgba(245,241,234,.10);
+  --acc:   #d4607c;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Mona Sans Variable', 'Mona Sans', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  background: var(--bg);
+  color: var(--txt);
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+.brandmark { font-weight: 700; letter-spacing: -0.03em; font-size: 18px; text-decoration: none; color: var(--txt); }
+.brandmark span { color: var(--acc); }
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-right a { font-size: 13px; color: var(--muted); text-decoration: none; }
+.nav-right a:hover { color: var(--txt); }
+
+/* ── HERO ── */
+.hero {
+  padding: 56px 0 40px;
+  border-bottom: 1px solid var(--line);
+}
+.hero h1 {
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1.05;
+  margin-bottom: 8px;
+}
+.hero h1 em { font-style: italic; font-weight: 200; color: var(--acc); }
+.hero-sub { font-size: 14px; color: var(--muted); display: flex; align-items: center; gap: 12px; }
+
+/* ── SOURCE DOT ── */
+.dot {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--muted);
+}
+.dot::before {
+  content: '';
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--dim);
+}
+.dot.live::before  { background: var(--live); }
+.dot.pending::before { background: var(--pending); }
+
+/* ── SECCIÓN ── */
+.section { padding: 48px 0; border-bottom: 1px solid var(--line); }
+.section-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap; gap: 8px;
+}
+.section-title {
+  font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: var(--muted);
+}
+.section-source {
+  font-size: 11px; color: var(--dim);
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+
+/* ── STAT STRIP (sin cards) ── */
+.strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+.stat {
+  padding: 24px 20px 20px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.stat-label {
+  font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--muted); margin-bottom: 10px;
+}
+.stat-num {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700; letter-spacing: -0.04em;
+  line-height: 1; color: var(--txt);
+}
+.stat-num.muted { color: var(--dim); font-weight: 200; }
+.stat-num.accent { color: var(--acc); }
+.stat-sub {
+  font-size: 12px; color: var(--muted); margin-top: 6px;
+}
+
+/* ── BAR CHART ── */
+.bars { display: flex; flex-direction: column; gap: 12px; }
+.bar-row { display: flex; align-items: center; gap: 12px; }
+.bar-label {
+  font-size: 12px; color: var(--muted);
+  width: 110px; flex-shrink: 0; text-align: right;
+}
+.bar-track {
+  flex: 1; height: 6px;
+  background: var(--line); border-radius: 3px; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; border-radius: 3px;
+  background: var(--acc); transition: width .6s ease;
+}
+.bar-fill.rosa  { background: var(--rosa); }
+.bar-fill.acc2  { background: var(--acc2); }
+.bar-fill.dim   { background: var(--dim); }
+.bar-val {
+  font-size: 13px; font-weight: 700;
+  width: 28px; flex-shrink: 0;
+  color: var(--txt);
+}
+
+/* ── PENDING BLOCK ── */
+.pending-block {
+  padding: 20px 0;
+  display: flex; align-items: center; gap: 10px;
+}
+.pending-num {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 200; font-style: italic;
+  letter-spacing: -0.02em;
+  color: var(--dim);
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 32px 0;
+  font-size: 12px; color: var(--dim);
+}
+
+/* ── LOADER ── */
+#loader {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 100; transition: opacity .3s ease;
+}
+#loader.hidden { opacity: 0; pointer-events: none; }
+.loader-text {
+  font-size: 13px; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.16em;
+}
+</style>
+</head>
+<body>
+
+<div id="loader"><span class="loader-text">Cargando datos…</span></div>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <a class="brandmark" href="/"><span>GC</span> · CRM</a>
+    <div class="nav-right">
+      <span class="dot" id="global-dot">prospectas · cargando</span>
+      <a href="/">← Web</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap">
+    <h1>Panel de <em>prospección</em></h1>
+    <div class="hero-sub">
+      <span id="total-label">— prospectas</span>
+      <span>·</span>
+      <span id="last-updated">—</span>
+    </div>
+  </div>
+</div>
+
+<!-- 1 + 5 · ESTADOS + TASA -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-title">Estado del pipeline</span>
+      <span class="section-source">fuente: prospectas · <span id="src-estado" class="dot">—</span></span>
+    </div>
+    <div class="strip" id="strip-estado">
+      <div class="stat">
+        <div class="stat-label">Sin contactar</div>
+        <div class="stat-num" data-k="sin_contactar">—</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Contactadas</div>
+        <div class="stat-num" data-k="contactada">—</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Respondieron</div>
+        <div class="stat-num accent" data-k="respondio">—</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Descartadas</div>
+        <div class="stat-num muted" data-k="descartada">—</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Tasa de respuesta</div>
+        <div class="stat-num" data-k="tasa_respuesta" id="tasa-num">—</div>
+        <div class="stat-sub" id="tasa-sub"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · VERIFICACIÓN -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-title">Verificación humana</span>
+      <span class="section-source">fuente: prospectas · <span id="src-verif" class="dot">—</span></span>
+    </div>
+    <div class="strip">
+      <div class="stat">
+        <div class="stat-label">Verificadas</div>
+        <div class="stat-num accent" data-k="verificadas">—</div>
+        <div class="stat-sub">casilla vacía</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Pendientes de verificar</div>
+        <div class="stat-num" data-k="verificacion_pendientes">—</div>
+        <div class="stat-sub">tienen tarea pendiente</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · CONFIANZA -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-title">Nivel de confianza</span>
+      <span class="section-source">fuente: prospectas · <span id="src-confianza" class="dot">—</span></span>
+    </div>
+    <div class="bars" id="bars-confianza"></div>
+  </div>
+</section>
+
+<!-- 4 · FUENTE -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-title">Origen de las prospectas</span>
+      <span class="section-source">fuente: prospectas · <span id="src-fuente" class="dot">—</span></span>
+    </div>
+    <div class="bars" id="bars-fuente"></div>
+  </div>
+</section>
+
+<!-- 6 · DESCARTADAS -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-title">Descartadas por motivo</span>
+      <span class="section-source">fuente: prospectas · <span id="src-descartadas" class="dot">—</span></span>
+    </div>
+    <div id="descartadas-content">
+      <div class="pending-block">
+        <span class="pending-num">—</span>
+        <span class="dot pending">sin descartadas todavía</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Gabriela Contreras · CRM interno · datos en tiempo real desde Supabase</div>
+</footer>
+
+<script>
+const fmt = n => (n == null || n === undefined) ? '—' : String(n);
+const fmtPct = n => (n == null) ? '—' : n.toFixed(1) + '%';
+
+function setNum(k, v) {
+  document.querySelectorAll(`[data-k="${k}"]`).forEach(el => {
+    el.textContent = fmt(v);
+    if (v == null) {
+      el.classList.add('muted');
+      el.classList.remove('accent');
+    } else {
+      el.classList.remove('muted');
+    }
+  });
+}
+
+function setDot(el, isLive) {
+  el.className = 'dot ' + (isLive ? 'live' : 'pending');
+  el.textContent = isLive ? 'live' : 'pending';
+}
+
+function renderBars(containerId, obj, colors) {
+  const container = document.getElementById(containerId);
+  if (!obj) { container.innerHTML = '<span class="dot pending">sin datos</span>'; return; }
+  const entries = Object.entries(obj).sort((a, b) => b[1] - a[1]);
+  const max = Math.max(...entries.map(e => e[1]), 1);
+  const colorList = colors || ['', 'rosa', 'acc2', 'dim'];
+  container.innerHTML = entries.map(([label, val], i) => `
+    <div class="bar-row">
+      <span class="bar-label">${label}</span>
+      <div class="bar-track">
+        <div class="bar-fill ${colorList[i % colorList.length]}" style="width:${Math.round(val/max*100)}%"></div>
+      </div>
+      <span class="bar-val">${val}</span>
+    </div>
+  `).join('');
+}
+
+async function load() {
+  const loader = document.getElementById('loader');
+  const globalDot = document.getElementById('global-dot');
+
+  try {
+    const r = await fetch('/api/metrics');
+    const json = await r.json();
+    const isLive = json.status === 'live';
+    const d = json.data || {};
+
+    // Global dot
+    setDot(globalDot, isLive);
+    globalDot.textContent = 'prospectas · ' + (isLive ? 'live' : 'pending');
+
+    // Total
+    document.getElementById('total-label').textContent =
+      (d.total != null ? d.total : '—') + ' prospectas';
+    document.getElementById('last-updated').textContent =
+      'actualizado ' + new Date().toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+
+    // 1 · Estados
+    const estado = d.por_estado || {};
+    setNum('sin_contactar', estado.sin_contactar ?? null);
+    setNum('contactada',    estado.contactada    ?? null);
+    setNum('respondio',     estado.respondio     ?? null);
+    setNum('descartada',    estado.descartada    ?? null);
+    ['src-estado','src-verif','src-confianza','src-fuente','src-descartadas'].forEach(id => {
+      setDot(document.getElementById(id), isLive);
+    });
+
+    // 5 · Tasa de respuesta
+    const tasa = d.tasa_respuesta;
+    const tasaEl = document.getElementById('tasa-num');
+    const tasaSub = document.getElementById('tasa-sub');
+    if (tasa == null) {
+      tasaEl.textContent = '—';
+      tasaEl.classList.add('muted');
+      tasaSub.innerHTML = '<span class="dot pending">sin contactadas aún</span>';
+    } else {
+      tasaEl.textContent = fmtPct(tasa);
+      tasaEl.classList.remove('muted');
+      tasaSub.textContent = '';
+    }
+
+    // 2 · Verificación
+    const verif = d.verificacion || {};
+    setNum('verificadas',            verif.verificadas   ?? null);
+    setNum('verificacion_pendientes', verif.pendientes   ?? null);
+
+    // 3 · Confianza
+    renderBars('bars-confianza', d.por_confianza, ['', 'acc2', 'dim']);
+
+    // 4 · Fuente
+    renderBars('bars-fuente', d.por_fuente, ['', 'rosa', 'acc2', 'dim']);
+
+    // 6 · Descartadas
+    const desc = d.descartadas_por_motivo;
+    const descEl = document.getElementById('descartadas-content');
+    if (!desc) {
+      descEl.innerHTML = `
+        <div class="pending-block">
+          <span class="pending-num">—</span>
+          <span class="dot pending">sin descartadas todavía</span>
+        </div>`;
+    } else {
+      renderBars('descartadas-bars', desc, ['dim','dim','dim','dim']);
+      descEl.innerHTML = '<div class="bars" id="descartadas-bars"></div>';
+      renderBars('descartadas-bars', desc, ['dim','dim','dim','dim']);
+    }
+
+  } catch (err) {
+    setDot(globalDot, false);
+    globalDot.textContent = 'prospectas · error de red';
+    console.error('Dashboard load error:', err);
+  } finally {
+    loader.classList.add('hidden');
+  }
+}
+
+load();
+</script>
+</body>
+</html>
