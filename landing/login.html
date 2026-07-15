@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Acceso · CRM</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%238c1e37'/><text x='50' y='68' font-size='54' font-family='sans-serif' font-weight='700' fill='%23f5f1ea' text-anchor='middle'>GC</text></svg>" />
+<style>
+@import url('https://cdn.jsdelivr.net/npm/@fontsource-variable/mona-sans/index.css');
+
+:root {
+  --bg:    #f5f1ea;
+  --acc:   #8B1A35;
+  --txt:   #0e0e0e;
+  --muted: #666;
+  --dim:   #999;
+  --line:  rgba(14,14,14,.10);
+  --error: #b52246;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Mona Sans Variable', 'Mona Sans', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  background: var(--bg);
+  color: var(--txt);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 32px;
+}
+
+.card {
+  width: 100%; max-width: 380px;
+}
+
+.brandmark {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-size: 18px;
+  color: var(--txt);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 40px;
+}
+.brandmark span { color: var(--acc); }
+
+h1 {
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  font-size: 28px;
+  line-height: 1.05;
+  margin-bottom: 6px;
+}
+h1 em { font-style: italic; font-weight: 200; color: var(--acc); }
+
+.sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+
+form { display: flex; flex-direction: column; gap: 12px; }
+
+input[type="password"] {
+  width: 100%;
+  padding: 14px 16px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 300;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--txt);
+  outline: none;
+  transition: border-color .2s;
+}
+input[type="password"]:focus { border-color: var(--acc); }
+input[type="password"]::placeholder { color: var(--dim); }
+
+button {
+  padding: 14px 16px;
+  background: var(--acc);
+  color: #f5f1ea;
+  border: none;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s;
+}
+button:hover { background: #6d1429; }
+
+.error-msg {
+  font-size: 12px;
+  color: var(--error);
+  display: none;
+  padding-top: 4px;
+}
+.error-msg.visible { display: block; }
+
+footer {
+  margin-top: 48px;
+  font-size: 11px;
+  color: var(--dim);
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <a class="brandmark" href="/"><span>GC</span> · CRM</a>
+
+  <h1>Acceso <em>interno</em></h1>
+  <p class="sub">Panel de prospección · solo para uso de Gabriela</p>
+
+  <form method="POST" action="/api/login">
+    <input
+      type="password"
+      name="password"
+      placeholder="Contraseña"
+      autocomplete="current-password"
+      autofocus
+      required
+    />
+    <p class="error-msg" id="err">Contraseña incorrecta. Intenta de nuevo.</p>
+    <button type="submit">Entrar</button>
+  </form>
+</div>
+
+<footer>gabrielacontreras.vercel.app</footer>
+
+<script>
+  // Muestra el error si viene ?error=1 en la URL
+  if (new URLSearchParams(location.search).get('error') === '1') {
+    document.getElementById('err').classList.add('visible');
+  }
+</script>
+</body>
+</html>
