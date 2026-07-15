@@ -1,4 +1,18 @@
+function getCookie(req, name) {
+  const header = req.headers['cookie'] ?? '';
+  const match = header.match(new RegExp(`(?:^|;\\s*)${name}=([^;]+)`));
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
 export default async function handler(req, res) {
+
+  // Guard: exige cookie válida antes de devolver datos
+  const password = process.env.DASHBOARD_PASSWORD;
+  const token = getCookie(req, 'crm_auth');
+  if (!password || token !== password) {
+    res.status(401).json({ error: 'No autorizado.' });
+    return;
+  }
 
   // Debug sin exponer la key
   if (req.query && req.query.debug === "1") {
