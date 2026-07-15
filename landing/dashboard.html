@@ -317,12 +317,6 @@ footer {
 </footer>
 
 <script>
-// Guard client-side: si no hay cookie crm_auth, redirige al login.
-// El endpoint /api/metrics hace su propio guard server-side (401).
-if (!document.cookie.split(';').some(c => c.trim().startsWith('crm_auth='))) {
-  location.replace('/login.html');
-}
-
 const fmt = n => (n == null || n === undefined) ? '—' : String(n);
 const fmtPct = n => (n == null) ? '—' : n.toFixed(1) + '%';
 
