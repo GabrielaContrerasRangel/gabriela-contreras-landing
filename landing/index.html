@@ -287,6 +287,14 @@ section { padding: clamp(64px, 10vh, 118px) 0; }
 .card li::before { content: ""; flex: 0 0 auto; width: 7px; height: 7px; margin-top: 9px; border-radius: 50%; background: var(--acc); }
 .card.dark li::before { background: #d4607c; }
 .card .gcmark { right: -6px; bottom: -9%; font-size: 200px; color: #d4607c; opacity: .12; }
+.svc-card-cta { display:block; margin-top:24px; padding-top:18px; border-top:1px solid var(--line); text-decoration:none; color:inherit; }
+.card.dark .svc-card-cta { border-top-color: rgba(245,241,234,.12); }
+.svc-card-cta strong { display:block; font-weight:700; font-size:15.5px; letter-spacing:-0.01em; color:var(--txt); transition: color .2s; }
+.card.dark .svc-card-cta strong { color:#f5f1ea; }
+.svc-card-cta:hover strong { color:var(--acc); }
+.card.dark .svc-card-cta:hover strong { color:#d4607c; }
+.svc-card-cta span { display:block; font-size:13px; color:var(--muted); margin-top:5px; }
+.card.dark .svc-card-cta span { color:#b8b2aa; }
 @media (max-width:760px){ .svc-grid{ grid-template-columns:1fr; } }
 
 /* ---------- FULL-BLEED VINO STATEMENT ---------- */
@@ -758,6 +766,36 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
             <li>Coherencia en ejecución y crecimiento</li>
           </ul>
         </div>
+      </div>
+      <div class="card cream" style="padding:32px 36px 38px;">
+        <span class="num">03</span>
+        <h3>Brújula de Marca</h3>
+        <p>La estrategia hecha rutina. Diagnóstico, dirección y contenido con datos — para dejar de publicar a ciegas.</p>
+        <ul>
+          <li>Auditoría y diagnóstico de marca</li>
+          <li>Plan de contenido con dirección estratégica</li>
+          <li>Medición y ajuste sobre resultados reales</li>
+          <li>Acompañamiento mensual continuo</li>
+        </ul>
+        <a href="brujula-de-marca.html" class="svc-card-cta">
+          <strong>Dejar de improvisar tu contenido empieza aquí. →</strong>
+          <span>Cupos limitados por mes — trabajo la estrategia contigo, no en serie.</span>
+        </a>
+      </div>
+      <div class="card dark" style="padding:32px 36px 38px;">
+        <span class="num">04</span>
+        <h3>Receta de Marca</h3>
+        <p>Que te encuentren. Que te entiendan. Que pidan. Web, menú y presencia digital para restaurantes que no quieren vivir del delivery ajeno.</p>
+        <ul>
+          <li>Web y menú maestro con tu historia</li>
+          <li>Piezas para redes, Google y delivery</li>
+          <li>Iconografía de ingredientes y alérgenos</li>
+          <li>SEO y GEO para que te recomienden las IA</li>
+        </ul>
+        <a href="receta-de-marca.html" class="svc-card-cta">
+          <strong>Deja de ser un secreto bien guardado. →</strong>
+          <span>Web, menú y presencia digital lista en 15 días.</span>
+        </a>
       </div>
     </div>
     <p class="s-sub">Cada proyecto se cotiza a medida — porque ninguna marca seria cabe en una plantilla. <a class="acc" href="mailto:gabrielacontrerasredes@gmail.com" style="font-weight:500;text-decoration:none;">Hablemos del tuyo →</a></p>

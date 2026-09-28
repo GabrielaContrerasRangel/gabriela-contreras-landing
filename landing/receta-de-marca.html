@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Receta de Marca — Gabriela Contreras</title>
+<meta name="description" content="Web, menú maestro y presencia digital para restaurantes. Que te encuentren, que te entiendan, que pidan." />
+<meta property="og:title" content="Receta de Marca — Gabriela Contreras" />
+<meta property="og:description" content="Web, menú maestro y presencia digital para restaurantes. Que te encuentren, que te entiendan, que pidan." />
+<meta property="og:image" content="og.svg" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%238c1e37'/><text x='50' y='68' font-size='54' font-family='sans-serif' font-weight='700' fill='%23f5f1ea' text-anchor='middle'>GC</text></svg>" />
+
+<style>
+@import url('https://cdn.jsdelivr.net/npm/@fontsource-variable/mona-sans/index.css');
+
+:root{
+  --bg:#f5f1ea;
+  --acc:#8c1e37;
+  --acc-contact:#b53d5b;
+  --txt:#1f1f1f;
+  --muted:#666;
+  --card:#fffdf8;
+  --warm-black:#1a1a1a;
+  --line:rgba(31,31,31,.10);
+  --shadow:rgba(140,30,55,.18);
+  --max:820px;
+}
+* { box-sizing:border-box; }
+html,body{ margin:0; padding:0; background:var(--bg); }
+body{
+  font-family:'Mona Sans Variable','Mona Sans',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  font-weight:300; line-height:1.7;
+  color:var(--txt);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* mini barra de retorno, en la voz visual del sitio */
+#gc-backbar{
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  height:44px; padding:0 18px;
+  background:rgba(26,26,26,.9); backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(245,241,234,.12);
+}
+#gc-backbar a{ color:#f5f1ea; text-decoration:none; font-size:14px; opacity:.85; transition:opacity .2s; }
+#gc-backbar a:hover{ opacity:1; }
+#gc-backbar .gc-home{ display:flex; align-items:center; gap:7px; font-weight:500; }
+#gc-backbar .gc-home .mk{ color:#d4607c; font-weight:700; letter-spacing:-0.05em; }
+
+.wrap{ max-width:var(--max); margin:0 auto; padding:0 28px; }
+.mono{ font-weight:500; text-transform:uppercase; letter-spacing:.16em; font-size:12px; }
+.disp{ font-weight:700; letter-spacing:-.03em; line-height:1.05; }
+
+/* ---- HOOK (dark, editorial) ---- */
+.hook{ background:var(--warm-black); color:var(--bg); padding:72px 0 64px; }
+.hook .eyebrow{ color:#d4607c; }
+.hook h1{
+  font-family:'Mona Sans Variable','Mona Sans',sans-serif;
+  font-weight:900; font-size:clamp(32px,6.4vw,50px); line-height:1.1;
+  margin:22px 0 0;
+}
+.hook h1 em{ font-style:normal; color:#d4607c; }
+.hook p{ font-size:clamp(16px,2.4vw,18px); line-height:1.6; color:rgba(245,241,234,.78); margin-top:22px; max-width:600px; }
+.hook .kicker{
+  margin-top:28px; font-weight:700; font-size:clamp(18px,2.8vw,21px);
+  color:var(--bg); max-width:560px; line-height:1.4;
+}
+
+/* ---- REVEAL / SOLUCIÓN ---- */
+.reveal{ padding:60px 0 90px; }
+.reveal-eyebrow{ color:var(--acc); }
+.brand{
+  font-family:'Mona Sans Variable','Mona Sans',sans-serif;
+  font-weight:900; font-size:clamp(34px,6vw,48px); line-height:1.05; margin-top:16px;
+}
+.brand em{ font-style:normal; color:var(--acc-contact); }
+.sub{ font-weight:700; font-size:clamp(18px,2.6vw,21px); line-height:1.4; color:var(--acc); margin-top:14px; max-width:560px; }
+.lead{ font-size:clamp(15.5px,2.2vw,17px); line-height:1.6; color:var(--muted); margin-top:14px; max-width:560px; }
+
+.route{ display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
+.route span{
+  font-weight:700; font-size:12px; letter-spacing:.05em; text-transform:uppercase;
+  color:var(--acc); border:1.5px solid rgba(139,26,53,.25); padding:8px 14px; border-radius:30px;
+}
+
+.cards{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:40px; }
+@media (max-width:640px){ .cards{ grid-template-columns:1fr; } }
+.card{ border-radius:18px; padding:28px 26px; border:1.5px solid var(--line); background:var(--card); }
+.card.filled{ background:var(--acc); border-color:var(--acc); color:var(--bg); }
+.card .tag{ font-weight:700; font-size:12px; letter-spacing:.05em; text-transform:uppercase; color:var(--acc); }
+.card.filled .tag{ color:#f0c9d1; }
+.card .amount{ font-family:'Mona Sans Variable','Mona Sans',sans-serif; font-weight:900; font-size:34px; margin-top:10px; }
+.card .amount small{ font-size:13px; font-weight:600; color:var(--muted); }
+.card.filled .amount small{ color:#f0c9d1; }
+.card p{ font-size:14.5px; line-height:1.55; margin-top:10px; color:var(--muted); }
+.card.filled p{ color:rgba(245,241,234,.92); }
+
+/* ---- CTA final ---- */
+.cta-block{ margin-top:52px; background:var(--acc); color:var(--bg); padding:40px 32px; border-radius:22px; text-align:center; }
+.cta-block h2{
+  font-family:'Mona Sans Variable','Mona Sans',sans-serif;
+  font-weight:800; font-size:clamp(22px,4.2vw,32px); line-height:1.22; max-width:460px; margin:0 auto;
+}
+.cta-block .small{ font-size:14.5px; color:rgba(245,241,234,.78); margin-top:12px; }
+.btn{
+  display:inline-flex; align-items:center; gap:8px; margin-top:24px;
+  font-weight:600; font-size:16px; color:var(--acc); background:var(--bg);
+  padding:16px 28px; border-radius:999px; text-decoration:none;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.btn:hover{ transform:translateY(-4px); box-shadow:0 14px 34px rgba(0,0,0,.25); }
+</style>
+</head>
+<body>
+
+<div id="gc-backbar">
+  <a class="gc-home" href="/"><span>&larr;</span> <span class="mk">GC</span> Gabriela Contreras</a>
+  <a href="/#servicios">Servicios</a>
+</div>
+
+<div class="hook">
+  <div class="wrap">
+    <span class="eyebrow mono">Nuevo</span>
+    <h1>Tu comida es buena. <em>¿Por qué tu cliente no lo sabe?</em></h1>
+    <p>Sin web y con tu menú disperso en fotos de redes, tu negocio es un secreto bien guardado — y los secretos no venden.</p>
+    <div class="kicker">Mientras tanto, alguien que sí sabe contar su producto se está quedando con la mesa que era tuya.</div>
+  </div>
+</div>
+
+<div class="wrap reveal">
+  <span class="reveal-eyebrow mono">La solución</span>
+  <div class="brand">Receta <em>de Marca</em></div>
+  <div class="sub">Que te encuentren. Que te entiendan. Que pidan.</div>
+  <p class="lead">Entiendo tu negocio, armamos tu historia y tu carta, y construimos tu web y todo lo que se deriva de ella — sin reescribir cada pieza desde cero.</p>
+
+  <div class="route">
+    <span>Tu negocio</span><span>Historia y carta</span><span>Web y piezas</span><span>Entrega</span>
+  </div>
+
+  <div class="cards">
+    <div class="card filled">
+      <div class="tag">Base</div>
+      <div class="amount">1.000 USD <small>pago único · 50/50</small></div>
+      <p>Web + historia de marca + menú maestro + piezas para redes, Google y delivery + iconografía de alérgenos.</p>
+    </div>
+    <div class="card">
+      <div class="tag">Completo</div>
+      <div class="amount">1.200 USD <small>entrega en 15 días</small></div>
+      <p>Todo lo del plan base + SEO y GEO (que te recomienden ChatGPT, Perplexity, Gemini) + optimización de Google Maps.</p>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <h2>Deja de ser un secreto bien guardado.</h2>
+    <div class="small">Cuéntame de tu negocio y armamos el alcance exacto.</div>
+    <a class="btn" href="https://wa.me/34627879574">Escríbeme por WhatsApp →</a>
+  </div>
+</div>
+
+</body>
+</html>
