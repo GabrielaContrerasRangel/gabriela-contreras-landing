@@ -24,6 +24,7 @@ Qué se publica, en qué orden, y qué ya salió.
 | 2026-09-29 | SEO/GEO técnico (robots.txt, sitemap, datos estructurados, llms.txt) | dominio canónico: gabrielacontrerasmarketing.com |
 | 2026-09-29 | Blog — post 1: "Publicar no es tener una estrategia de marca" | https://gabrielacontrerasmarketing.com/blog/publicar-no-es-estrategia.html |
 | 2026-09-29 | Google Search Console verificado + sitemap enviado | propiedad: www.gabrielacontrerasmarketing.com |
+| 2026-09-29 | Bing Webmaster Tools verificado (import desde Google) + sitemap | mismo dominio, 6 URLs, 0 errores |
 
 ## Pendiente
 - Blog: ritmo quincenal acordado — próximo post ~2026-10-13. Temas en cola: "Brand Strategy vs. Dirección Creativa", "5 señales de que tu marca no tiene rumbo", "¿Tu restaurante necesita una web?", "Por qué importa que ChatGPT te recomiende".
