@@ -21,6 +21,8 @@ Qué se publica, en qué orden, y qué ya salió.
 | 2026-09-28 | Dominio propio conectado | https://gabrielacontrerasmarketing.com |
 | 2026-09-29 | Botón Portafolio en nav | https://gabrielacontrerasrangel.github.io/Portafolio/ |
 | 2026-09-29 | Formulario de contacto (Formspree, con asunto por botón) | reemplaza todos los mailto |
+| 2026-09-29 | SEO/GEO técnico (robots.txt, sitemap, datos estructurados, llms.txt) | dominio canónico: gabrielacontrerasmarketing.com |
+| 2026-09-29 | Blog — post 1: "Publicar no es tener una estrategia de marca" | https://gabrielacontrerasmarketing.com/blog/publicar-no-es-estrategia.html |
 
 ## Pendiente
-- Ninguno registrado por ahora.
+- Blog: ritmo quincenal acordado — próximo post ~2026-10-13. Temas en cola: "Brand Strategy vs. Dirección Creativa", "5 señales de que tu marca no tiene rumbo", "¿Tu restaurante necesita una web?", "Por qué importa que ChatGPT te recomiende".
