@@ -19,6 +19,8 @@ Qué se publica, en qué orden, y qué ya salió.
 | 2026-09-28 | Servicio: Brújula de Marca | https://gabrielacontreras.vercel.app/brujula-de-marca.html |
 | 2026-09-28 | Servicio: Receta de Marca | https://gabrielacontreras.vercel.app/receta-de-marca.html |
 | 2026-09-28 | Dominio propio conectado | https://gabrielacontrerasmarketing.com |
+| 2026-09-29 | Botón Portafolio en nav | https://gabrielacontrerasrangel.github.io/Portafolio/ |
+| 2026-09-29 | Formulario de contacto (Formspree, con asunto por botón) | reemplaza todos los mailto |
 
 ## Pendiente
-- Formulario de contacto vía Formspree (hoy solo mailto)
+- Ninguno registrado por ahora.
