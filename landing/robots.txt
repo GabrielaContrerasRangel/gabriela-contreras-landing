@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard.html
+Disallow: /resultado.html
+
+Sitemap: https://gabrielacontrerasmarketing.com/sitemap.xml
