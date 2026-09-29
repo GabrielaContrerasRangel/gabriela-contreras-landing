@@ -109,6 +109,28 @@ body{
   transition:transform .25s ease, box-shadow .25s ease;
 }
 .btn:hover{ transform:translateY(-4px); box-shadow:0 14px 34px rgba(0,0,0,.25); }
+.btn.ghost{ background:transparent; color:var(--bg); border:1.5px solid rgba(245,241,234,.5); box-shadow:none; }
+.btn.ghost:hover{ transform:translateY(-4px); box-shadow:none; border-color:var(--bg); }
+.cta-actions{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:24px; }
+
+#gc-contact-overlay{position:fixed;inset:0;background:rgba(15,15,15,.55);backdrop-filter:blur(3px);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px;}
+#gc-contact-overlay.open{display:flex;}
+#gc-contact-modal{width:100%;max-width:420px;background:var(--card);border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.35);overflow:hidden;font-family:'Mona Sans Variable','Mona Sans',system-ui,sans-serif;}
+#gc-contact-modal .gcm-head{padding:26px 28px 0;position:relative;}
+#gc-contact-modal .gcm-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:18px;line-height:1;cursor:pointer;color:var(--muted);padding:6px;border-radius:6px;}
+#gc-contact-modal .gcm-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--acc);}
+#gc-contact-modal h3{font-family:'Mona Sans Variable','Mona Sans',sans-serif;font-weight:800;font-size:22px;letter-spacing:-.02em;color:var(--txt);margin-top:8px;}
+#gc-contact-modal .gcm-subject{font-size:13px;color:var(--muted);margin-top:6px;}
+#gc-contact-modal form{padding:20px 28px 28px;display:flex;flex-direction:column;gap:12px;}
+#gc-contact-modal input[type=text],#gc-contact-modal input[type=email],#gc-contact-modal textarea{font-family:inherit;font-size:14px;padding:12px 14px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--txt);resize:vertical;}
+#gc-contact-modal input:focus,#gc-contact-modal textarea:focus{outline:none;border-color:var(--acc);}
+#gc-contact-modal textarea{min-height:96px;}
+#gc-contact-modal button[type=submit]{margin-top:4px;background:var(--acc);color:#fff;border:none;border-radius:999px;padding:13px 20px;font-family:inherit;font-weight:600;font-size:14.5px;cursor:pointer;transition:background .2s,transform .2s;}
+#gc-contact-modal button[type=submit]:hover{background:var(--acc-contact);transform:translateY(-1px);}
+#gc-contact-modal button[type=submit]:disabled{opacity:.6;cursor:default;transform:none;}
+#gc-contact-modal .gcm-status{font-size:13px;margin-top:-2px;}
+#gc-contact-modal .gcm-status.ok{color:#2e7d4f;}
+#gc-contact-modal .gcm-status.err{color:#b53d5b;}
 </style>
 </head>
 <body>
@@ -153,9 +175,97 @@ body{
   <div class="cta-block">
     <h2>Dejar de improvisar tu contenido empieza aquí.</h2>
     <div class="small">Cupos limitados por mes — trabajo la estrategia contigo, no en serie.</div>
-    <a class="btn" href="https://wa.me/34627879574">Escríbeme por WhatsApp →</a>
+    <div class="cta-actions">
+      <a class="btn" href="https://wa.me/34627879574">Escríbeme por WhatsApp →</a>
+      <a class="btn ghost js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Bru%CC%81jula%20de%20Marca" data-subject="Brújula de Marca — página dedicada">Escríbeme por correo →</a>
+    </div>
   </div>
 </div>
+
+<!-- MODAL DE CONTACTO -->
+<div id="gc-contact-overlay">
+  <div id="gc-contact-modal" role="dialog" aria-modal="true" aria-label="Formulario de contacto">
+    <div class="gcm-head">
+      <button class="gcm-close" type="button" aria-label="Cerrar">✕</button>
+      <span class="gcm-eyebrow mono">Hablemos</span>
+      <h3>Cuéntame en qué estás</h3>
+      <div class="gcm-subject" id="gcm-subject-label"></div>
+    </div>
+    <form id="gcm-form" action="https://formspree.io/f/maenadez" method="POST">
+      <input type="hidden" name="_subject" id="gcm-subject-field" value="Brújula de Marca — página dedicada">
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+      <input type="text" name="nombre" placeholder="Tu nombre" required>
+      <input type="email" name="email" placeholder="Tu email" required>
+      <textarea name="message" placeholder="Hablemos de cómo impulsar tu marca..." required></textarea>
+      <div class="gcm-status" id="gcm-status" role="status"></div>
+      <button type="submit" id="gcm-submit">Enviar →</button>
+    </form>
+  </div>
+</div>
+<script>
+(function(){
+  const overlay = document.getElementById('gc-contact-overlay');
+  const subjectField = document.getElementById('gcm-subject-field');
+  const subjectLabel = document.getElementById('gcm-subject-label');
+  const form = document.getElementById('gcm-form');
+  const status = document.getElementById('gcm-status');
+  const submitBtn = document.getElementById('gcm-submit');
+
+  function openModal(subject){
+    subjectField.value = subject;
+    subjectLabel.textContent = 'Sobre: ' + subject;
+    status.textContent = '';
+    status.className = 'gcm-status';
+    form.reset();
+    subjectField.value = subject;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.js-contact-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      openModal(btn.getAttribute('data-subject') || 'Brújula de Marca — página dedicada');
+    });
+  });
+
+  overlay.addEventListener('click', function(e){ if (e.target === overlay) closeModal(); });
+  document.querySelector('.gcm-close').addEventListener('click', closeModal);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+    status.textContent = '';
+    status.className = 'gcm-status';
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res){
+      if (res.ok) {
+        status.textContent = '¡Gracias! Te respondo pronto.';
+        status.className = 'gcm-status ok';
+        form.reset();
+        submitBtn.textContent = 'Enviado ✓';
+        setTimeout(closeModal, 1800);
+      } else {
+        throw new Error('bad status');
+      }
+    }).catch(function(){
+      status.textContent = 'No se pudo enviar. Escríbeme directo a gabrielacontrerasredes@gmail.com';
+      status.className = 'gcm-status err';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Enviar →';
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
