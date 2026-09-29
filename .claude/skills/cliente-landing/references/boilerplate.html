@@ -1,0 +1,300 @@
+<!--
+  BOILERPLATE GENÉRICO — landing de cliente
+  ============================================
+  Mismo esqueleto que gabrielacontreras.vercel.app (nav, hero, grid de
+  servicios, modal de contacto), pero sin ningún color/fuente/copy propio
+  de Gabriela — todo vive en variables o placeholders {{ASI}} para que
+  cada cliente traiga su propia identidad.
+
+  Cómo usarlo:
+  1. Copia este archivo a la carpeta nueva del cliente como index.html
+  2. Reemplaza cada {{PLACEHOLDER}} con lo que salió del brief
+     (ver references/brief-cliente.md)
+  3. Ajusta --font-url si el cliente no usa Google Fonts / Fontsource
+  4. Duplica el bloque .card tantas veces como servicios tenga el cliente
+  5. Si el cliente quiere página dedicada por servicio (no solo la tarjeta),
+     usa references/pagina-servicio.html como plantilla para cada una
+  6. El modal de contacto ya está completo y funcional — solo cambia
+     FORMSPREE_ENDPOINT y el número de WhatsApp si lo usan
+-->
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>{{NOMBRE_NEGOCIO}} — {{TAGLINE_CORTA}}</title>
+<meta name="description" content="{{DESCRIPCION_SEO}}" />
+<meta property="og:title" content="{{NOMBRE_NEGOCIO}}" />
+<meta property="og:description" content="{{DESCRIPCION_SEO}}" />
+
+<style>
+/*
+  SISTEMA DE DISEÑO — todo el look del sitio vive aquí.
+  Solo estas variables deberían cambiar entre clientes; el resto del CSS
+  (layout, spacing, componentes) se queda igual para mantener el sistema
+  probado. Si el cliente ya tiene una guía de marca, saca estos valores
+  de ahí. Si no, ayúdalo a elegir 2-3 colores y una fuente de Google
+  Fonts/Fontsource antes de seguir — no lo dejes para después.
+*/
+@import url('{{FONT_IMPORT_URL}}'); /* ej: fontsource, o fonts.googleapis.com/css2?family=... */
+
+:root {
+  --bg: {{COLOR_FONDO}};           /* ej: #f5f1ea */
+  --acc: {{COLOR_ACENTO}};         /* color principal de marca */
+  --acc-contact: {{COLOR_ACENTO_2}}; /* variante para CTAs de contacto, puede ser igual a --acc */
+  --txt: {{COLOR_TEXTO}};          /* ej: #1f1f1f */
+  --muted: {{COLOR_TEXTO_SUAVE}};  /* ej: #666 */
+  --card: {{COLOR_TARJETA}};       /* fondo de tarjetas, suele ser --bg un poco más claro/oscuro */
+  --line: {{COLOR_LINEA}};         /* ej: rgba(0,0,0,.10) */
+  --shadow: {{COLOR_SOMBRA}};      /* ej: rgba(0,0,0,.15), usa el acento con baja opacidad */
+  --warm-black: {{COLOR_OSCURO}};  /* para bloques full-bleed oscuros, ej: #1a1a1a */
+  --max: 1200px;
+  --pad: 32px;
+  --font-family: '{{NOMBRE_FUENTE}}', ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+[data-theme="dark"] {
+  --bg: {{COLOR_FONDO_DARK}};
+  --acc: {{COLOR_ACENTO_DARK}};
+  --txt: {{COLOR_TEXTO_DARK}};
+  --card: {{COLOR_TARJETA_DARK}};
+  --line: {{COLOR_LINEA_DARK}};
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; overflow-x:hidden; }
+body {
+  font-family: var(--font-family);
+  font-weight: 300; line-height: 1.7;
+  background: var(--bg); color: var(--txt);
+  -webkit-font-smoothing: antialiased;
+  transition: background .4s ease, color .4s ease;
+  overflow-x: hidden;
+}
+.wrap { max-width: var(--max); margin:0 auto; padding:0 var(--pad); }
+.disp { font-weight:700; letter-spacing:-0.03em; line-height:1.05; }
+.acc { color: var(--acc); }
+.mono { font-weight:500; text-transform:uppercase; letter-spacing:.16em; font-size:11px; color:var(--muted); }
+
+/* ---------- NAV ---------- */
+nav { position:sticky; top:0; z-index:50; background:var(--bg); border-bottom:1px solid var(--line); }
+nav .wrap { display:flex; align-items:center; justify-content:space-between; height:70px; }
+.brandmark { font-weight:700; font-size:16px; }
+.navlinks { display:flex; align-items:center; gap:26px; }
+.navlinks a { color:var(--muted); text-decoration:none; font-size:15px; transition:color .2s; }
+.navlinks a:hover { color:var(--txt); }
+.btn-sm { background:var(--acc); color:#fff; text-decoration:none; padding:9px 18px; border-radius:999px; font-weight:500; font-size:14px; transition:transform .2s, box-shadow .2s; }
+.btn-sm:hover { transform:translateY(-2px); box-shadow:0 8px 20px var(--shadow); }
+#gc-menu-btn { display:none; background:none; border:none; font-size:20px; cursor:pointer; color:var(--txt); }
+@media (max-width:768px) {
+  .navlinks a:not(.btn-sm) { display:none; }
+  #gc-menu-btn { display:inline-flex; align-items:center; }
+}
+
+/* ---------- HERO ---------- */
+.hero { padding:80px 0 60px; }
+.hero h1 { font-size:clamp(34px,6vw,58px); }
+.hero h1 em { font-style:normal; color:var(--acc); }
+.hero p { font-size:clamp(16px,2.2vw,18px); color:var(--muted); margin-top:20px; max-width:560px; }
+.hero-ctas { display:flex; gap:14px; flex-wrap:wrap; margin-top:32px; }
+.btn { display:inline-flex; align-items:center; gap:8px; background:var(--acc); color:#fff; text-decoration:none; padding:16px 28px; border-radius:999px; font-weight:500; font-size:15px; transition:transform .25s ease, box-shadow .25s ease; }
+.btn:hover { transform:translateY(-4px); box-shadow:0 14px 34px var(--shadow); }
+.btn.ghost { background:transparent; border:1.5px solid var(--txt); color:var(--txt); }
+
+/* ---------- SERVICIOS (grid de tarjetas) ---------- */
+.svc { padding:80px 0; }
+.svc-grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:50px; }
+@media (max-width:760px) { .svc-grid { grid-template-columns:1fr; } }
+.card { border-radius:20px; padding:40px 36px; border:1px solid var(--line); background:var(--card); }
+.card .num { font-size:12px; font-weight:700; color:var(--acc); letter-spacing:.1em; }
+.card h3 { font-size:22px; margin-top:10px; }
+.card p { color:var(--muted); margin-top:12px; font-size:15px; line-height:1.6; }
+.card ul { margin-top:16px; list-style:none; }
+.card li { font-size:14px; color:var(--muted); padding-left:18px; position:relative; margin-top:8px; }
+.card li::before { content:''; position:absolute; left:0; top:7px; width:6px; height:6px; border-radius:50%; background:var(--acc); }
+/* imagen opcional arriba de la tarjeta — borra el div si el cliente no tiene fotos */
+.card-img { aspect-ratio:1/1; overflow:hidden; border-radius:20px 20px 0 0; margin:-40px -36px 24px; }
+.card-img img { width:100%; height:100%; object-fit:cover; display:block; }
+
+/* ---------- CTA de contacto dentro de una tarjeta (link a página dedicada) ---------- */
+.svc-card-cta { display:block; margin-top:24px; padding-top:18px; border-top:1px solid var(--line); text-decoration:none; color:inherit; }
+.svc-card-cta strong { display:block; font-weight:700; font-size:15.5px; color:var(--txt); }
+.svc-card-cta:hover strong { color:var(--acc); }
+.svc-card-cta span { display:block; font-size:13px; color:var(--muted); margin-top:5px; }
+
+/* ---------- FOOTER ---------- */
+footer { padding:60px 0 30px; border-top:1px solid var(--line); }
+.foot-grid { display:flex; justify-content:space-between; flex-wrap:wrap; gap:30px; }
+.foot-col a { display:block; color:var(--muted); text-decoration:none; font-size:14px; margin-top:8px; }
+.foot-col a:hover { color:var(--acc); }
+.foot-note { color:var(--muted); font-size:13px; margin-top:40px; }
+
+/* ---------- MODAL DE CONTACTO (Formspree) ---------- */
+#gc-contact-overlay{position:fixed;inset:0;background:rgba(15,15,15,.55);backdrop-filter:blur(3px);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px;}
+#gc-contact-overlay.open{display:flex;}
+#gc-contact-modal{width:100%;max-width:420px;background:var(--card);border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.35);overflow:hidden;font-family:var(--font-family);}
+#gc-contact-modal .gcm-head{padding:26px 28px 0;position:relative;}
+#gc-contact-modal .gcm-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:18px;line-height:1;cursor:pointer;color:var(--muted);padding:6px;border-radius:6px;}
+#gc-contact-modal .gcm-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--acc);}
+#gc-contact-modal h3{font-weight:800;font-size:22px;letter-spacing:-.02em;color:var(--txt);margin-top:8px;}
+#gc-contact-modal .gcm-subject{font-size:13px;color:var(--muted);margin-top:6px;}
+#gc-contact-modal form{padding:20px 28px 28px;display:flex;flex-direction:column;gap:12px;}
+#gc-contact-modal input[type=text],#gc-contact-modal input[type=email],#gc-contact-modal textarea{font-family:inherit;font-size:14px;padding:12px 14px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--txt);resize:vertical;}
+#gc-contact-modal input:focus,#gc-contact-modal textarea:focus{outline:none;border-color:var(--acc);}
+#gc-contact-modal textarea{min-height:96px;}
+#gc-contact-modal button[type=submit]{margin-top:4px;background:var(--acc);color:#fff;border:none;border-radius:999px;padding:13px 20px;font-family:inherit;font-weight:600;font-size:14.5px;cursor:pointer;transition:background .2s,transform .2s;}
+#gc-contact-modal button[type=submit]:hover{background:var(--acc-contact);transform:translateY(-1px);}
+#gc-contact-modal button[type=submit]:disabled{opacity:.6;cursor:default;transform:none;}
+#gc-contact-modal .gcm-status{font-size:13px;margin-top:-2px;}
+#gc-contact-modal .gcm-status.ok{color:#2e7d4f;}
+#gc-contact-modal .gcm-status.err{color:#b53d5b;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brandmark">{{NOMBRE_NEGOCIO}}</div>
+    <div class="navlinks">
+      <button id="gc-menu-btn" aria-label="Abrir menú">☰</button>
+      <a href="#servicios">Servicios</a>
+      <a href="#sobre">Sobre</a>
+      <a class="btn-sm js-contact-btn" href="mailto:{{EMAIL_CONTACTO}}" data-subject="Contacto general — Nav">Hablemos</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <h1 class="disp">{{HERO_TITULAR_PARTE_1}} <em>{{HERO_TITULAR_ACENTO}}</em></h1>
+    <p>{{HERO_SUBTITULO}}</p>
+    <div class="hero-ctas">
+      <a class="btn js-contact-btn" href="mailto:{{EMAIL_CONTACTO}}" data-subject="Contacto general — Hero">{{HERO_CTA_PRIMARIO}} →</a>
+      <a class="btn ghost" href="#servicios">Ver servicios</a>
+    </div>
+  </div>
+</header>
+
+<!-- SERVICIOS -->
+<section class="svc" id="servicios">
+  <div class="wrap">
+    <span class="eyebrow mono">Servicios</span>
+    <h2 class="disp" style="margin-top:14px;font-size:clamp(26px,4vw,38px);">{{SERVICIOS_TITULO}}</h2>
+    <div class="svc-grid">
+
+      <!-- Repite este bloque .card una vez por servicio -->
+      <div class="card">
+        <span class="num">01</span>
+        <h3>{{SERVICIO_1_NOMBRE}}</h3>
+        <p>{{SERVICIO_1_DESCRIPCION}}</p>
+        <ul>
+          <li>{{SERVICIO_1_BULLET_1}}</li>
+          <li>{{SERVICIO_1_BULLET_2}}</li>
+          <li>{{SERVICIO_1_BULLET_3}}</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="num">02</span>
+        <h3>{{SERVICIO_2_NOMBRE}}</h3>
+        <p>{{SERVICIO_2_DESCRIPCION}}</p>
+        <ul>
+          <li>{{SERVICIO_2_BULLET_1}}</li>
+          <li>{{SERVICIO_2_BULLET_2}}</li>
+          <li>{{SERVICIO_2_BULLET_3}}</li>
+        </ul>
+      </div>
+
+    </div>
+    <p style="margin-top:40px;color:var(--muted);">{{SERVICIOS_NOTA_CIERRE}} <a class="acc js-contact-btn" href="mailto:{{EMAIL_CONTACTO}}" data-subject="Servicios — Hablemos del tuyo" style="font-weight:500;text-decoration:none;">Hablemos del tuyo →</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-col">
+      <div class="brandmark">{{NOMBRE_NEGOCIO}}</div>
+      <span style="color:var(--muted);font-size:14px;">{{FOOTER_TAGLINE}}</span>
+    </div>
+    <div class="foot-col">
+      <span class="mono">Contacto</span>
+      <a href="mailto:{{EMAIL_CONTACTO}}">{{EMAIL_CONTACTO}}</a>
+      <!-- si el cliente usa WhatsApp, agrega: <a href="https://wa.me/{{WHATSAPP_NUMERO}}" target="_blank" rel="noopener">WhatsApp</a> -->
+      <!-- si no, borra esta línea -->
+    </div>
+  </div>
+  <div class="wrap"><p class="foot-note">© {{ANIO}} {{NOMBRE_NEGOCIO}}</p></div>
+</footer>
+
+<!-- MODAL DE CONTACTO -->
+<div id="gc-contact-overlay">
+  <div id="gc-contact-modal" role="dialog" aria-modal="true" aria-label="Formulario de contacto">
+    <div class="gcm-head">
+      <button class="gcm-close" type="button" aria-label="Cerrar">✕</button>
+      <span class="gcm-eyebrow mono">Hablemos</span>
+      <h3>Cuéntame en qué estás</h3>
+      <div class="gcm-subject" id="gcm-subject-label"></div>
+    </div>
+    <form id="gcm-form" action="https://formspree.io/f/{{FORMSPREE_ENDPOINT}}" method="POST">
+      <input type="hidden" name="_subject" id="gcm-subject-field" value="Contacto general">
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+      <input type="text" name="nombre" placeholder="Tu nombre" required>
+      <input type="email" name="email" placeholder="Tu email" required>
+      <textarea name="message" placeholder="{{PLACEHOLDER_MENSAJE}}" required></textarea>
+      <div class="gcm-status" id="gcm-status" role="status"></div>
+      <button type="submit" id="gcm-submit">Enviar →</button>
+    </form>
+  </div>
+</div>
+<script>
+(function(){
+  const overlay = document.getElementById('gc-contact-overlay');
+  const subjectField = document.getElementById('gcm-subject-field');
+  const subjectLabel = document.getElementById('gcm-subject-label');
+  const form = document.getElementById('gcm-form');
+  const status = document.getElementById('gcm-status');
+  const submitBtn = document.getElementById('gcm-submit');
+
+  function openModal(subject){
+    subjectField.value = subject;
+    subjectLabel.textContent = 'Sobre: ' + subject;
+    status.textContent = ''; status.className = 'gcm-status';
+    form.reset(); subjectField.value = subject;
+    overlay.classList.add('open'); document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    overlay.classList.remove('open'); document.body.style.overflow = '';
+  }
+  document.querySelectorAll('.js-contact-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      openModal(btn.getAttribute('data-subject') || 'Contacto general');
+    });
+  });
+  overlay.addEventListener('click', function(e){ if (e.target === overlay) closeModal(); });
+  document.querySelector('.gcm-close').addEventListener('click', closeModal);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    submitBtn.disabled = true; submitBtn.textContent = 'Enviando...';
+    status.textContent = ''; status.className = 'gcm-status';
+    fetch(form.action, { method:'POST', body:new FormData(form), headers:{ 'Accept':'application/json' } })
+      .then(function(res){
+        if (res.ok) {
+          status.textContent = '¡Gracias! Te respondo pronto.'; status.className = 'gcm-status ok';
+          form.reset(); submitBtn.textContent = 'Enviado ✓';
+          setTimeout(closeModal, 1800);
+        } else { throw new Error('bad status'); }
+      })
+      .catch(function(){
+        status.textContent = 'No se pudo enviar. Escríbeme directo a {{EMAIL_CONTACTO}}';
+        status.className = 'gcm-status err';
+        submitBtn.disabled = false; submitBtn.textContent = 'Enviar →';
+      });
+  });
+})();
+</script>
+
+</body>
+</html>

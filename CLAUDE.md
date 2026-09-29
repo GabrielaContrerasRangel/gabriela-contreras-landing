@@ -33,6 +33,7 @@ Misión: marketing con sentido — que el propósito y la ejecución caminen de 
 "escribe [pieza]"       → Lee brand.md + vecinas, redacta, una sola pieza
 "construye mi landing"  → Corre el plugin landing-page-builder
 "codifica esto" / "/sweep" → Corre codify-taste, añade a TASTE.md
+"página para un cliente" / "cliente nuevo quiere landing" → Corre el skill cliente-landing (.claude/skills/cliente-landing/)
 
 ## Reglas
 - Flujo de una pieza: redacta → revisa → publica → siguiente. Nunca en lote.
