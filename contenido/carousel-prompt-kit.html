@@ -75,31 +75,29 @@ footer{ margin-top:60px; padding-top:20px; border-top:1px solid var(--line); col
 <div class="wrap">
   <span class="eyebrow">Blog → Carrusel</span>
   <h1>Kit de carrusel: Publicar no es estrategia</h1>
-  <p class="intro">El problema no era tu prompt, era que <strong>cada imagen nueva en GPT empieza de cero</strong>, sin memoria del estilo anterior. La solución: un <strong>prompt maestro fijo</strong> que describe tu línea gráfica exacta (la de la silla de director), y lo reusas siempre cambiando solo el texto y el objeto. Copia el maestro primero, léelo una vez, y después copia cada slide.</p>
+  <p class="intro">El problema no era tu prompt, era que <strong>cada imagen nueva en GPT empieza de cero</strong>, sin memoria del estilo anterior. La solución: un <strong>prompt maestro fijo</strong> que describe tu línea gráfica exacta, y lo reusas siempre cambiando solo el texto y la imagen conceptual. Copia el maestro primero, léelo una vez, y después copia cada slide.</p>
 
   <h2 class="section">Prompt maestro (tu línea gráfica)</h2>
-  <p class="section-note">Pégalo completo al inicio de cada prompt de slide. Es lo que mantiene todo consistente entre imágenes.</p>
+  <p class="section-note">Editorial en blanco y negro, tipografía sans-serif bold, un solo toque de color. Pégalo completo al inicio de cada prompt de slide.</p>
   <div class="prompt-block">
     <span class="label">Maestro</span>
     <pre id="master">Create a square (1:1, 1080x1080px) editorial Instagram carousel slide in this exact recurring visual style:
-- Background: warm near-black (#1a1a1a), not pure black
-- Top-left corner: small uppercase label text "MARKETING CON SENTIDO" in warm off-white (#f5f1ea), letter-spaced, with a short thin horizontal rule in deep wine red (#8c1e37) directly beneath it
-- Large bold geometric sans-serif headline (like Poppins Bold, NOT serif) in warm off-white, left-aligned, upper-middle third of the frame
-- One key word or short phrase within the headline set in vivid rose-wine pink (#d4607c) instead of off-white
-- Below the headline: two short lines of smaller supporting text in muted warm gray, left-aligned
-- A second thin wine-red rule line beneath that supporting text
-- Lower half of the frame: one real-world prop object, photographed with dramatic warm single-source side lighting against the dark background, shot like high-end editorial product photography, moody and cinematic
-- Behind and around the prop: one giant oversized word set in the same wine-red tone at very low opacity (like a watermark), cropped by the frame edges, purely typographic, sitting in the background layer behind the prop
-- Bottom-left corner: a short wine-red rule line, then "GABRIELA CONTRERAS" in bold uppercase off-white sans-serif (NOT cursive, NOT script, plain geometric sans-serif letters only), and beneath it "BRAND STRATEGIST & CREATIVE DIRECTOR" in small uppercase letter-spaced sans-serif text in muted warm gray
-- Mood: elegant, warm, confident, editorial magazine cover energy. Not corporate, not neon, not futuristic
-- No logos, no extra text, no borders
+- Background: clean and minimal, either pure white/off-white or solid black depending on the slide (specified per slide below), never both in the same image
+- A high-contrast black-and-white (grayscale or subtle duotone) conceptual photograph, symbolic and metaphorical rather than a literal object, filling most of the lower two-thirds of the frame, sharp focus, editorial photography quality, slightly dramatic and thought-provoking, like a business magazine cover
+- Large bold geometric sans-serif headline (like Archivo Black or Poppins ExtraBold, NEVER serif, NEVER a decorative or condensed display font), tight line spacing, left-aligned, sitting in the upper third of the frame, in the color that contrasts with the background (off-white on black, near-black on white)
+- One key word or short phrase within the headline set in deep wine-red (#8c1e37), as the single color accent in the entire image, everything else is black, white, or grayscale
+- Below the headline: one or two short lines of smaller supporting text in medium gray, left-aligned, plain sans-serif
+- Small uppercase label "MARKETING CON SENTIDO" in a corner, letter-spaced, small sans-serif, with the word "SENTIDO" in the same wine-red accent
+- Bottom corner: "GABRIELA CONTRERAS" in bold uppercase sans-serif (NEVER cursive, NEVER script, plain geometric letters only), and beneath it "BRAND STRATEGIST & CREATIVE DIRECTOR" in small uppercase letter-spaced sans-serif in medium gray
+- Mood: sharp, conceptual, confident, direct. Editorial and thought-leadership energy, not warm or romantic, not corporate-stock-photo, not neon or futuristic
+- No logos, no extra text, no borders, no script or serif typefaces anywhere in the image
 
 Now apply this style to a slide with:
+BACKGROUND: [BACKGROUND]
 HEADLINE: "[HEADLINE]"
-ACCENT WORD (in wine pink): "[ACCENT]"
+ACCENT WORD (in wine red): "[ACCENT]"
 SUPPORTING TEXT: "[SUBTEXT]"
-PROP OBJECT: [PROP]
-GIANT BACKGROUND WORD: "[GHOST_WORD]"</pre>
+CONCEPTUAL IMAGE: [CONCEPT_IMAGE]</pre>
     <button class="copy-btn" data-copy="master">Copiar prompt maestro</button>
   </div>
 
@@ -108,80 +106,80 @@ GIANT BACKGROUND WORD: "[GHOST_WORD]"</pre>
 
   <div class="slide-card">
     <div class="slide-head"><span class="slide-num">01 · Hook</span> <span class="slide-title">El dolor</span></div>
-    <div class="slide-copy">Headline: <b>"Publicas todas las semanas."</b><br>Accent: <b>"Y aun así, nada se mueve."</b><br>Subtexto: "El problema casi nunca es el contenido. Es la dirección."<br>Objeto: una máquina de escribir antigua con una hoja en blanco<br>Palabra fantasma: PUBLICAR</div>
+    <div class="slide-copy">Fondo: negro<br>Headline: <b>"Publicas todas las semanas."</b><br>Accent: <b>"Y aun así, nada se mueve."</b><br>Subtexto: "El problema casi nunca es el contenido. Es la dirección."<br>Imagen: una rueda de hámster girando, motion blur, blanco y negro</div>
     <button class="copy-btn" data-copy="s1">Copiar prompt completo</button>
     <pre id="s1" hidden>[MASTER]
 
+BACKGROUND: solid black
 HEADLINE: "Publicas todas las semanas."
-ACCENT WORD (in wine pink): "nada se mueve."
+ACCENT WORD (in wine red): "nada se mueve."
 SUPPORTING TEXT: "El problema casi nunca es el contenido. Es la dirección."
-PROP OBJECT: a vintage typewriter with a blank sheet of paper loaded in it
-GIANT BACKGROUND WORD: "PUBLICAR"</pre>
+CONCEPTUAL IMAGE: a black-and-white photo of a hamster wheel spinning fast with motion blur, symbolizing effort without progress</pre>
   </div>
 
   <div class="slide-card">
     <div class="slide-head"><span class="slide-num">02 · Reframe</span> <span class="slide-title">La distinción</span></div>
-    <div class="slide-copy">Headline: <b>"Un calendario de contenido"</b><br>Accent: <b>"no es una estrategia de marca."</b><br>Subtexto: "Uno dice qué publicar. El otro dice para quién, y por qué."<br>Objeto: una brújula antigua de latón sobre un escritorio de madera<br>Palabra fantasma: ESTRATEGIA</div>
+    <div class="slide-copy">Fondo: blanco<br>Headline: <b>"Un calendario de contenido"</b><br>Accent: <b>"no es una estrategia de marca."</b><br>Subtexto: "Uno dice qué publicar. El otro dice para quién, y por qué."<br>Imagen: brújula con la aguja girando desenfocada, blanco y negro</div>
     <button class="copy-btn" data-copy="s2">Copiar prompt completo</button>
     <pre id="s2" hidden>[MASTER]
 
+BACKGROUND: white
 HEADLINE: "Un calendario de contenido"
-ACCENT WORD (in wine pink): "no es una estrategia de marca."
+ACCENT WORD (in wine red): "no es una estrategia de marca."
 SUPPORTING TEXT: "Uno dice qué publicar. El otro dice para quién, y por qué."
-PROP OBJECT: an antique brass compass resting on a wooden desk
-GIANT BACKGROUND WORD: "ESTRATEGIA"</pre>
+CONCEPTUAL IMAGE: a black-and-white photo of a compass with its needle spinning, motion-blurred, symbolizing having a tool but no fixed direction</pre>
   </div>
 
   <div class="slide-card">
     <div class="slide-head"><span class="slide-num">03 · Señal 1</span> <span class="slide-title">Posicionamiento</span></div>
-    <div class="slide-copy">Headline: <b>"¿Puedes explicar en una frase"</b><br>Accent: <b>"por qué te eligen a ti?"</b><br>Subtexto: "Si te toma un párrafo, ahí está el hueco."<br>Objeto: una silla de director de madera y lona negra, vacía, bajo un foco de luz<br>Palabra fantasma: POSICIÓN</div>
+    <div class="slide-copy">Fondo: blanco<br>Headline: <b>"¿Puedes explicar en una frase"</b><br>Accent: <b>"por qué te eligen a ti?"</b><br>Subtexto: "Si te toma un párrafo, ahí está el hueco."<br>Imagen: pieza de ajedrez (rey) en foco nítido, otras piezas borrosas alrededor</div>
     <button class="copy-btn" data-copy="s3">Copiar prompt completo</button>
     <pre id="s3" hidden>[MASTER]
 
+BACKGROUND: white
 HEADLINE: "¿Puedes explicar en una frase"
-ACCENT WORD (in wine pink): "por qué te eligen a ti?"
+ACCENT WORD (in wine red): "por qué te eligen a ti?"
 SUPPORTING TEXT: "Si te toma un párrafo, ahí está el hueco."
-PROP OBJECT: an empty wooden and black canvas director's chair under a single spotlight
-GIANT BACKGROUND WORD: "POSICIÓN"</pre>
+CONCEPTUAL IMAGE: a black-and-white photo of a single chess king piece in sharp focus, other chess pieces blurred in the background, symbolizing clear position among competitors</pre>
   </div>
 
   <div class="slide-card">
     <div class="slide-head"><span class="slide-num">04 · Señal 2</span> <span class="slide-title">Métricas equivocadas</span></div>
-    <div class="slide-copy">Headline: <b>"Mides likes."</b><br>Accent: <b>"No sabes si eso vende."</b><br>Subtexto: "El contenido que más gusta y el que más vende casi nunca es el mismo."<br>Objeto: un teléfono rotativo vintage color rojo vino<br>Palabra fantasma: MÉTRICA</div>
+    <div class="slide-copy">Fondo: negro<br>Headline: <b>"Mides likes."</b><br>Accent: <b>"No sabes si eso vende."</b><br>Subtexto: "El contenido que más gusta y el que más vende casi nunca es el mismo."<br>Imagen: anzuelo de pesca con un "me gusta" de papel como carnada, blanco y negro</div>
     <button class="copy-btn" data-copy="s4">Copiar prompt completo</button>
     <pre id="s4" hidden>[MASTER]
 
+BACKGROUND: solid black
 HEADLINE: "Mides likes."
-ACCENT WORD (in wine pink): "No sabes si eso vende."
+ACCENT WORD (in wine red): "No sabes si eso vende."
 SUPPORTING TEXT: "El contenido que más gusta y el que más vende casi nunca es el mismo."
-PROP OBJECT: a vintage rotary telephone in deep wine red
-GIANT BACKGROUND WORD: "MÉTRICA"</pre>
+CONCEPTUAL IMAGE: a black-and-white photo of a fishing hook baited with a paper cutout of a thumbs-up "like" icon, symbolizing vanity metrics as bait with nothing real behind them</pre>
   </div>
 
   <div class="slide-card">
     <div class="slide-head"><span class="slide-num">05 · Prueba</span> <span class="slide-title">El resultado real</span></div>
-    <div class="slide-copy">Headline: <b>"+440% en alcance."</b><br>Accent: <b>"Cero pauta."</b><br>Subtexto: "Con dirección clara, cada pieza construye sobre la anterior."<br>Objeto: una pieza de ajedrez (rey) color vino sobre una mesa oscura<br>Palabra fantasma: RESULTADOS</div>
+    <div class="slide-copy">Fondo: blanco<br>Headline: <b>"+440% en alcance."</b><br>Accent: <b>"Cero pauta."</b><br>Subtexto: "Con dirección clara, cada pieza construye sobre la anterior."<br>Imagen: fichas de dominó cayendo en cadena, capturadas en movimiento, blanco y negro</div>
     <button class="copy-btn" data-copy="s5">Copiar prompt completo</button>
     <pre id="s5" hidden>[MASTER]
 
+BACKGROUND: white
 HEADLINE: "+440% en alcance."
-ACCENT WORD (in wine pink): "Cero pauta."
+ACCENT WORD (in wine red): "Cero pauta."
 SUPPORTING TEXT: "Con dirección clara, cada pieza construye sobre la anterior."
-PROP OBJECT: a wine-red chess king piece on a dark table
-GIANT BACKGROUND WORD: "RESULTADOS"</pre>
+CONCEPTUAL IMAGE: a black-and-white photo of dominoes falling in a chain reaction, captured mid-motion, symbolizing one clear decision triggering compounding results</pre>
   </div>
 
   <div class="slide-card">
     <div class="slide-head"><span class="slide-num">06 · CTA</span> <span class="slide-title">Cierre</span></div>
-    <div class="slide-copy">Headline: <b>"Deja de publicar"</b><br>Accent: <b>"a ciegas."</b><br>Subtexto: "Diagnóstico gratuito, o dirección estratégica mes a mes."<br>Objeto: la misma silla de director del slide 03, ahora con un guion o cuaderno sobre el asiento<br>Palabra fantasma: RUMBO</div>
+    <div class="slide-copy">Fondo: negro<br>Headline: <b>"Deja de publicar"</b><br>Accent: <b>"a ciegas."</b><br>Subtexto: "Diagnóstico gratuito, o dirección estratégica mes a mes."<br>Imagen: haz de luz de un faro cortando la niebla, blanco y negro</div>
     <button class="copy-btn" data-copy="s6">Copiar prompt completo</button>
     <pre id="s6" hidden>[MASTER]
 
+BACKGROUND: solid black
 HEADLINE: "Deja de publicar"
-ACCENT WORD (in wine pink): "a ciegas."
+ACCENT WORD (in wine red): "a ciegas."
 SUPPORTING TEXT: "Diagnóstico gratuito, o dirección estratégica mes a mes. gabrielacontrerasmarketing.com/blog"
-PROP OBJECT: the same wooden director's chair, now with a notebook resting on the seat
-GIANT BACKGROUND WORD: "RUMBO"</pre>
+CONCEPTUAL IMAGE: a black-and-white photo of a lighthouse beam cutting through dense fog, symbolizing clarity and direction</pre>
   </div>
 
   <h2 class="section">Cómo usarlo</h2>
