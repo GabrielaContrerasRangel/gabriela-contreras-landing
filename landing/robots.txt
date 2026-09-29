@@ -3,4 +3,4 @@ Allow: /
 Disallow: /dashboard.html
 Disallow: /resultado.html
 
-Sitemap: https://gabrielacontrerasmarketing.com/sitemap.xml
+Sitemap: https://www.gabrielacontrerasmarketing.com/sitemap.xml
