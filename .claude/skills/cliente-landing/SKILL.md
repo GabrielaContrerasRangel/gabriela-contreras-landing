@@ -106,6 +106,13 @@ Actualiza el `campaign-map.md` del cliente con lo publicado. Si Gabriela
 va a dar seguimiento a este cliente (nuevas piezas, ajustes), este archivo
 es lo que le permite retomar sin tener que releer todo el historial.
 
+## Fase 7 — SEO/GEO (opcional, corre el skill `seo-geo-setup`)
+
+Con el sitio publicado y el dominio conectado, el siguiente paso natural es
+visibilidad en buscadores e IA — pero eso es su propio skill
+(`seo-geo-setup`), no lo dupliques aquí. Ofrécelo como continuación, no lo
+asumas automático: no todo cliente lo necesita de entrada.
+
 ## Cuando el cliente pida algo fuera de este flujo
 
 Este skill cubre el caso típico (landing + servicios + contacto). Si el
