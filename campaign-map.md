@@ -21,7 +21,4 @@ Qué se publica, en qué orden, y qué ya salió.
 | 2026-09-28 | Dominio propio conectado | https://gabrielacontrerasmarketing.com |
 
 ## Pendiente
-- Foto para tarjeta/página de Brújula de Marca (1080×1080, misma serie editorial que Brand Strategy/Dirección Creativa)
-- Imagen para Receta de Marca (aún sin definir)
 - Formulario de contacto vía Formspree (hoy solo mailto)
-- Sección "Productos digitales" — alinear copy genérico con "Branding Starter Kit"

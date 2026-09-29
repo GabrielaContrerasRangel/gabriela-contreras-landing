@@ -636,6 +636,30 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 @keyframes gcPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
 @media(max-width:480px){#gc-float{width:calc(100vw - 32px);right:16px;bottom:16px;}#gc-float-pill{right:16px;bottom:16px;}}
 </style>
+<style>
+#gc-contact-overlay{position:fixed;inset:0;background:rgba(15,15,15,.55);backdrop-filter:blur(3px);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px;}
+#gc-contact-overlay.open{display:flex;}
+#gc-contact-modal{width:100%;max-width:420px;background:var(--card,#fffdf8);border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.35);overflow:hidden;animation:gcModalUp .35s cubic-bezier(.16,1,.3,1) both;font-family:'Mona Sans Variable','Mona Sans',system-ui,sans-serif;}
+@keyframes gcModalUp{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+#gc-contact-modal .gcm-head{padding:26px 28px 0;position:relative;}
+#gc-contact-modal .gcm-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:18px;line-height:1;cursor:pointer;color:var(--muted,#666);padding:6px;border-radius:6px;}
+#gc-contact-modal .gcm-close:hover{color:var(--txt,#1f1f1f);}
+#gc-contact-modal .gcm-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--acc,#8c1e37);}
+#gc-contact-modal h3{font-family:'Mona Sans Variable','Mona Sans',sans-serif;font-weight:800;font-size:22px;letter-spacing:-.02em;color:var(--txt,#1f1f1f);margin-top:8px;}
+#gc-contact-modal .gcm-subject{font-size:13px;color:var(--muted,#666);margin-top:6px;}
+#gc-contact-modal form{padding:20px 28px 28px;display:flex;flex-direction:column;gap:12px;}
+#gc-contact-modal input[type=text],#gc-contact-modal input[type=email],#gc-contact-modal textarea{font-family:inherit;font-size:14px;padding:12px 14px;border-radius:10px;border:1.5px solid var(--line,rgba(31,31,31,.15));background:#fff;color:var(--txt,#1f1f1f);resize:vertical;}
+#gc-contact-modal input:focus,#gc-contact-modal textarea:focus{outline:none;border-color:var(--acc,#8c1e37);}
+#gc-contact-modal textarea{min-height:96px;}
+#gc-contact-modal button[type=submit]{margin-top:4px;background:var(--acc,#8c1e37);color:#fff;border:none;border-radius:999px;padding:13px 20px;font-family:inherit;font-weight:600;font-size:14.5px;cursor:pointer;transition:background .2s,transform .2s;}
+#gc-contact-modal button[type=submit]:hover{background:var(--acc-contact,#b53d5b);transform:translateY(-1px);}
+#gc-contact-modal button[type=submit]:disabled{opacity:.6;cursor:default;transform:none;}
+#gc-contact-modal .gcm-status{font-size:13px;margin-top:-2px;}
+#gc-contact-modal .gcm-status.ok{color:#2e7d4f;}
+#gc-contact-modal .gcm-status.err{color:#b53d5b;}
+[data-theme="dark"] #gc-contact-modal{background:var(--card,#232323);}
+[data-theme="dark"] #gc-contact-modal input,[data-theme="dark"] #gc-contact-modal textarea{background:#1c1c1c;color:#f5f1ea;border-color:rgba(245,241,234,.14);}
+</style>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>emailjs.init('3FeKptobTsfwZ-JjZ');</script>
 <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
@@ -656,7 +680,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       <a href="#diagnostico">Diagnóstico</a>
       <a href="#sobre">Sobre mí</a>
       <a class="btn-portfolio" href="https://gabrielacontrerasrangel.github.io/Portafolio/" target="_blank" rel="noopener">Portafolio ↗</a>
-      <a class="btn-sm" href="mailto:gabrielacontrerasredes@gmail.com">Hablemos</a>
+      <a class="btn-sm js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com" data-subject="Contacto general — Nav">Hablemos</a>
       <button class="toggle" id="themeToggle" aria-label="Cambiar tema">◐</button>
     </div>
   </div>
@@ -674,7 +698,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
         <h1 class="disp">Marcas con alma,<br /><em>estrategia</em> con rumbo<svg class="spark" viewBox="0 0 24 24" fill="#b53d5b" aria-hidden="true"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg></h1>
         <p class="tagline">El cruce exacto entre estrategia de negocio y dirección creativa. Marketing con sentido — el propósito y la ejecución caminan de la mano.</p>
         <div class="cta-row">
-          <a class="btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Construyamos%20algo%20con%20sentido">¿Construimos algo con sentido? →</a>
+          <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Construyamos%20algo%20con%20sentido" data-subject="Contacto general — Hero">¿Construimos algo con sentido? →</a>
           <a class="btn ghost" href="#servicios">Ver servicios</a>
         </div>
       </div>
@@ -816,7 +840,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
         </div>
       </div>
     </div>
-    <p class="s-sub">Cada proyecto se cotiza a medida — porque ninguna marca seria cabe en una plantilla. <a class="acc" href="mailto:gabrielacontrerasredes@gmail.com" style="font-weight:500;text-decoration:none;">Hablemos del tuyo →</a></p>
+    <p class="s-sub">Cada proyecto se cotiza a medida — porque ninguna marca seria cabe en una plantilla. <a class="acc js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com" data-subject="Servicios — Hablemos del tuyo" style="font-weight:500;text-decoration:none;">Hablemos del tuyo →</a></p>
   </div>
 </section>
 
@@ -1000,7 +1024,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
           <p class="prod-footnote">Para emprendedores, freelancers y marcas personales que quieren dejar de improvisar.</p>
           <div class="prod-footer">
             <span class="prod-price">€27</span>
-            <a class="btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Quiero%20el%20Branding%20Starter%20Kit">Quiero mi kit →</a>
+            <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Quiero%20el%20Branding%20Starter%20Kit" data-subject="Quiero mi kit — Branding Starter Kit">Quiero mi kit →</a>
           </div>
         </div>
       </div>
@@ -1027,7 +1051,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
           <p class="prod-footnote">13 páginas interactivas · 8 módulos con ejercicios y plantillas · checklist final</p>
           <div class="prod-footer">
             <span class="prod-price">€39</span>
-            <a class="btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Quiero%20el%20Authority%20Builder%20Kit">Quiero mi kit →</a>
+            <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Quiero%20el%20Authority%20Builder%20Kit" data-subject="Quiero mi kit — Authority Builder Kit">Quiero mi kit →</a>
           </div>
         </div>
       </div>
@@ -1062,7 +1086,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   <div class="wrap">
     <h2 class="disp">¿Construimos algo <em>con sentido?</em></h2>
     <p>Cuéntame en qué estás. Te respondo con criterio, no con plantilla.</p>
-    <a class="btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Construyamos%20algo%20con%20sentido">Escríbeme →</a>
+    <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Construyamos%20algo%20con%20sentido" data-subject="Contacto general — CTA final">Escríbeme →</a>
   </div>
 </section>
 
@@ -1552,6 +1576,91 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 })();
 </script>
 
+<!-- MODAL DE CONTACTO -->
+<div id="gc-contact-overlay">
+  <div id="gc-contact-modal" role="dialog" aria-modal="true" aria-label="Formulario de contacto">
+    <div class="gcm-head">
+      <button class="gcm-close" type="button" aria-label="Cerrar">✕</button>
+      <span class="gcm-eyebrow mono">Hablemos</span>
+      <h3>Cuéntame en qué estás</h3>
+      <div class="gcm-subject" id="gcm-subject-label"></div>
+    </div>
+    <form id="gcm-form" action="https://formspree.io/f/maenadez" method="POST">
+      <input type="hidden" name="_subject" id="gcm-subject-field" value="Contacto general — gabrielacontreras.vercel.app">
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+      <input type="text" name="nombre" placeholder="Tu nombre" required>
+      <input type="email" name="email" placeholder="Tu email" required>
+      <textarea name="message" placeholder="Cuéntame brevemente en qué estás..." required></textarea>
+      <div class="gcm-status" id="gcm-status" role="status"></div>
+      <button type="submit" id="gcm-submit">Enviar →</button>
+    </form>
+  </div>
+</div>
+<script>
+(function(){
+  const overlay = document.getElementById('gc-contact-overlay');
+  const subjectField = document.getElementById('gcm-subject-field');
+  const subjectLabel = document.getElementById('gcm-subject-label');
+  const form = document.getElementById('gcm-form');
+  const status = document.getElementById('gcm-status');
+  const submitBtn = document.getElementById('gcm-submit');
+
+  function openModal(subject){
+    subjectField.value = subject;
+    subjectLabel.textContent = 'Sobre: ' + subject;
+    status.textContent = '';
+    status.className = 'gcm-status';
+    form.reset();
+    subjectField.value = subject;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.js-contact-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      openModal(btn.getAttribute('data-subject') || 'Contacto general — gabrielacontreras.vercel.app');
+    });
+  });
+
+  overlay.addEventListener('click', function(e){ if (e.target === overlay) closeModal(); });
+  document.querySelector('.gcm-close').addEventListener('click', closeModal);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+    status.textContent = '';
+    status.className = 'gcm-status';
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res){
+      if (res.ok) {
+        status.textContent = '¡Gracias! Te respondo pronto.';
+        status.className = 'gcm-status ok';
+        form.reset();
+        submitBtn.textContent = 'Enviado ✓';
+        setTimeout(closeModal, 1800);
+      } else {
+        throw new Error('bad status');
+      }
+    }).catch(function(){
+      status.textContent = 'No se pudo enviar. Escríbeme directo a gabrielacontrerasredes@gmail.com';
+      status.className = 'gcm-status err';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Enviar →';
+    });
+  });
+})();
+</script>
+
 <!-- MOBILE MENU -->
 <div id="gc-mobile-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación">
   <button class="gc-menu-close" aria-label="Cerrar menú">✕</button>
@@ -1561,7 +1670,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   <a href="#diagnostico">Diagnóstico</a>
   <a href="#sobre">Sobre mí</a>
   <a href="https://gabrielacontrerasrangel.github.io/Portafolio/" target="_blank" rel="noopener">Portafolio ↗</a>
-  <a href="mailto:gabrielacontrerasredes@gmail.com">Hablemos</a>
+  <a href="mailto:gabrielacontrerasredes@gmail.com" class="js-contact-btn" data-subject="Contacto general — Menú móvil">Hablemos</a>
 </div>
 <script>
 (function(){
