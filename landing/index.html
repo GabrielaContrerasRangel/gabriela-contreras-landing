@@ -44,7 +44,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
   font-family: 'Mona Sans Variable', 'Mona Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -222,6 +222,7 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
   overflow-x: auto; scroll-snap-type: x mandatory;
   scrollbar-width: none; -ms-overflow-style: none;
   padding-bottom: 4px;
+  touch-action: pan-x; overscroll-behavior-x: contain;
 }
 .carousel-track::-webkit-scrollbar { display: none; }
 .carousel-slide {
@@ -1063,13 +1064,12 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   <div class="wrap foot-grid">
     <div class="foot-col">
       <div class="foot-brand">Gabriela <span class="acc">Contreras</span></div>
-      <span style="color:var(--dim);font-size:14px;">Marketing con sentido · Donostia, remoto</span>
+      <span style="color:var(--dim);font-size:14px;">Marketing con sentido</span>
     </div>
     <div class="foot-col">
       <span class="mono">Contacto</span>
       <a href="mailto:gabrielacontrerasredes@gmail.com">gabrielacontrerasredes@gmail.com</a>
       <a href="https://gabrielacontrerasrangel.github.io/Portafolio" target="_blank" rel="noopener">Portafolio</a>
-      <a href="https://linkedin.com/in/gabrielacontrerasrangel" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </div>
   <div class="wrap"><p class="foot-note">© 2026 Gabriela Contreras — Marcas con alma, mentes creativas y una estrategia con rumbo.</p></div>
