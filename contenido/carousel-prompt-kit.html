@@ -1,0 +1,227 @@
+<title>Kit de Carrusel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* layout: eyebrow intro -> master-prompt block -> 6 numbered slide cards, each with copy-ready prompt */
+:root{
+  --bg:#f5f1ea; --card:#fffdf8; --txt:#1f1f1f; --muted:#6b6660; --line:rgba(31,31,31,.12);
+  --acc:#8c1e37; --acc2:#b53d5b; --mono-bg:#1f1b19; --mono-txt:#f0e9e2;
+  --font-display:'Manrope',ui-sans-serif,system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1a1a1a; --card:#232120; --txt:#f5f1ea; --muted:#a89f97; --line:rgba(245,241,234,.12);
+    --acc:#d4607c; --acc2:#e08aa0; --mono-bg:#141110; --mono-txt:#f0e9e2; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1a1a1a; --card:#232120; --txt:#f5f1ea; --muted:#a89f97; --line:rgba(245,241,234,.12);
+  --acc:#d4607c; --acc2:#e08aa0; --mono-bg:#141110; --mono-txt:#f0e9e2; color-scheme:dark;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--bg); color:var(--txt);
+  font-family:var(--font-display); font-weight:400; line-height:1.6;
+  padding-inline:20px; padding-block:48px 80px;
+}
+.wrap{ max-width:760px; margin:0 auto; }
+.eyebrow{ font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--acc); }
+h1{ font-family:var(--font-display); font-weight:800; letter-spacing:-.02em; font-size:clamp(26px,5vw,36px); margin:10px 0 14px; text-wrap:balance; }
+.intro{ color:var(--muted); font-size:15.5px; max-width:60ch; }
+.intro strong{ color:var(--txt); font-weight:700; }
+
+h2.section{ font-weight:800; font-size:19px; margin:46px 0 10px; letter-spacing:-.01em; }
+.section-note{ color:var(--muted); font-size:14px; margin-bottom:16px; max-width:62ch; }
+
+.prompt-block{
+  background:var(--card); border:1px solid var(--line); border-radius:16px;
+  padding:20px 20px 16px; margin-top:14px;
+}
+.prompt-block .label{ font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--acc); }
+pre{
+  background:var(--mono-bg); color:var(--mono-txt); border-radius:10px;
+  padding:16px; margin:10px 0 0; overflow-x:auto; font-family:var(--font-mono);
+  font-size:12.5px; line-height:1.65; white-space:pre-wrap; word-break:break-word;
+}
+.copy-btn{
+  display:inline-flex; align-items:center; gap:6px; margin-top:12px;
+  background:var(--acc); color:#fff; border:none; border-radius:999px;
+  padding:9px 16px; font-family:var(--font-display); font-weight:700; font-size:13px;
+  cursor:pointer; transition:background .15s, transform .15s;
+}
+.copy-btn:hover{ background:var(--acc2); transform:translateY(-1px); }
+.copy-btn.copied{ background:#3a7a52; }
+
+.slide-card{
+  border:1px solid var(--line); border-radius:18px; padding:22px 22px 20px;
+  margin-top:20px; background:var(--card);
+}
+.slide-head{ display:flex; align-items:baseline; gap:10px; }
+.slide-num{ font-family:var(--font-mono); font-size:13px; color:var(--acc); font-weight:500; }
+.slide-title{ font-weight:800; font-size:17px; }
+.slide-copy{ margin-top:10px; font-size:14.5px; color:var(--muted); }
+.slide-copy b{ color:var(--txt); font-weight:700; }
+
+.workflow{ margin-top:14px; }
+.workflow li{ margin-top:8px; }
+.workflow{ color:var(--muted); font-size:14.5px; padding-left:20px; }
+
+footer{ margin-top:60px; padding-top:20px; border-top:1px solid var(--line); color:var(--muted); font-size:13px; }
+</style>
+
+<div class="wrap">
+  <span class="eyebrow">Blog → Carrusel</span>
+  <h1>Kit de carrusel: Publicar no es estrategia</h1>
+  <p class="intro">El problema no era tu prompt, era que <strong>cada imagen nueva en GPT empieza de cero</strong>, sin memoria del estilo anterior. La solución: un <strong>prompt maestro fijo</strong> que describe tu línea gráfica exacta (la de la silla de director), y lo reusas siempre cambiando solo el texto y el objeto. Copia el maestro primero, léelo una vez, y después copia cada slide.</p>
+
+  <h2 class="section">Prompt maestro (tu línea gráfica)</h2>
+  <p class="section-note">Pégalo completo al inicio de cada prompt de slide. Es lo que mantiene todo consistente entre imágenes.</p>
+  <div class="prompt-block">
+    <span class="label">Maestro</span>
+    <pre id="master">Create a square (1:1, 1080x1080px) editorial Instagram carousel slide in this exact recurring visual style:
+- Background: warm near-black (#1a1a1a), not pure black
+- Top-left corner: small uppercase label text "MARKETING CON SENTIDO" in warm off-white (#f5f1ea), letter-spaced, with a short thin horizontal rule in deep wine red (#8c1e37) directly beneath it
+- Large bold geometric sans-serif headline (like Poppins Bold, NOT serif) in warm off-white, left-aligned, upper-middle third of the frame
+- One key word or short phrase within the headline set in vivid rose-wine pink (#d4607c) instead of off-white
+- Below the headline: two short lines of smaller supporting text in muted warm gray, left-aligned
+- A second thin wine-red rule line beneath that supporting text
+- Lower half of the frame: one real-world prop object, photographed with dramatic warm single-source side lighting against the dark background, shot like high-end editorial product photography, moody and cinematic
+- Behind and around the prop: one giant oversized word set in the same wine-red tone at very low opacity (like a watermark), cropped by the frame edges, purely typographic, sitting in the background layer behind the prop
+- Bottom-left corner: a short wine-red rule line, then the signature "Gabriela Contreras" handwritten in an elegant flowing cursive script font (like a brush-pen signature), in rose-wine pink (#d4607c), and beneath it "BRAND STRATEGIST & CREATIVE DIRECTOR" in small uppercase letter-spaced sans-serif text in muted warm gray
+- Mood: elegant, warm, confident, editorial magazine cover energy. Not corporate, not neon, not futuristic
+- No logos, no extra text, no borders
+
+Now apply this style to a slide with:
+HEADLINE: "[HEADLINE]"
+ACCENT WORD (in wine pink): "[ACCENT]"
+SUPPORTING TEXT: "[SUBTEXT]"
+PROP OBJECT: [PROP]
+GIANT BACKGROUND WORD: "[GHOST_WORD]"</pre>
+    <button class="copy-btn" data-copy="master">Copiar prompt maestro</button>
+  </div>
+
+  <h2 class="section">Las 6 slides</h2>
+  <p class="section-note">Genera las 6 en la <b>misma conversación</b> de ChatGPT, en orden, una detrás de otra, sin abrir chat nuevo. Eso ayuda a que el modelo mantenga el tono incluso más allá de lo que ya fija el prompt maestro.</p>
+
+  <div class="slide-card">
+    <div class="slide-head"><span class="slide-num">01 · Hook</span> <span class="slide-title">El dolor</span></div>
+    <div class="slide-copy">Headline: <b>"Publicas todas las semanas."</b><br>Accent: <b>"Y aun así, nada se mueve."</b><br>Subtexto: "El problema casi nunca es el contenido. Es la dirección."<br>Objeto: una máquina de escribir antigua con una hoja en blanco<br>Palabra fantasma: PUBLICAR</div>
+    <button class="copy-btn" data-copy="s1">Copiar prompt completo</button>
+    <pre id="s1" hidden>[MASTER]
+
+HEADLINE: "Publicas todas las semanas."
+ACCENT WORD (in wine pink): "nada se mueve."
+SUPPORTING TEXT: "El problema casi nunca es el contenido. Es la dirección."
+PROP OBJECT: a vintage typewriter with a blank sheet of paper loaded in it
+GIANT BACKGROUND WORD: "PUBLICAR"</pre>
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-head"><span class="slide-num">02 · Reframe</span> <span class="slide-title">La distinción</span></div>
+    <div class="slide-copy">Headline: <b>"Un calendario de contenido"</b><br>Accent: <b>"no es una estrategia de marca."</b><br>Subtexto: "Uno dice qué publicar. El otro dice para quién, y por qué."<br>Objeto: una brújula antigua de latón sobre un escritorio de madera<br>Palabra fantasma: ESTRATEGIA</div>
+    <button class="copy-btn" data-copy="s2">Copiar prompt completo</button>
+    <pre id="s2" hidden>[MASTER]
+
+HEADLINE: "Un calendario de contenido"
+ACCENT WORD (in wine pink): "no es una estrategia de marca."
+SUPPORTING TEXT: "Uno dice qué publicar. El otro dice para quién, y por qué."
+PROP OBJECT: an antique brass compass resting on a wooden desk
+GIANT BACKGROUND WORD: "ESTRATEGIA"</pre>
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-head"><span class="slide-num">03 · Señal 1</span> <span class="slide-title">Posicionamiento</span></div>
+    <div class="slide-copy">Headline: <b>"¿Puedes explicar en una frase"</b><br>Accent: <b>"por qué te eligen a ti?"</b><br>Subtexto: "Si te toma un párrafo, ahí está el hueco."<br>Objeto: una silla de director de madera y lona negra, vacía, bajo un foco de luz<br>Palabra fantasma: POSICIÓN</div>
+    <button class="copy-btn" data-copy="s3">Copiar prompt completo</button>
+    <pre id="s3" hidden>[MASTER]
+
+HEADLINE: "¿Puedes explicar en una frase"
+ACCENT WORD (in wine pink): "por qué te eligen a ti?"
+SUPPORTING TEXT: "Si te toma un párrafo, ahí está el hueco."
+PROP OBJECT: an empty wooden and black canvas director's chair under a single spotlight
+GIANT BACKGROUND WORD: "POSICIÓN"</pre>
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-head"><span class="slide-num">04 · Señal 2</span> <span class="slide-title">Métricas equivocadas</span></div>
+    <div class="slide-copy">Headline: <b>"Mides likes."</b><br>Accent: <b>"No sabes si eso vende."</b><br>Subtexto: "El contenido que más gusta y el que más vende casi nunca es el mismo."<br>Objeto: un teléfono rotativo vintage color rojo vino<br>Palabra fantasma: MÉTRICA</div>
+    <button class="copy-btn" data-copy="s4">Copiar prompt completo</button>
+    <pre id="s4" hidden>[MASTER]
+
+HEADLINE: "Mides likes."
+ACCENT WORD (in wine pink): "No sabes si eso vende."
+SUPPORTING TEXT: "El contenido que más gusta y el que más vende casi nunca es el mismo."
+PROP OBJECT: a vintage rotary telephone in deep wine red
+GIANT BACKGROUND WORD: "MÉTRICA"</pre>
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-head"><span class="slide-num">05 · Prueba</span> <span class="slide-title">El resultado real</span></div>
+    <div class="slide-copy">Headline: <b>"+440% en alcance."</b><br>Accent: <b>"Cero pauta."</b><br>Subtexto: "Con dirección clara, cada pieza construye sobre la anterior."<br>Objeto: una pieza de ajedrez (rey) color vino sobre una mesa oscura<br>Palabra fantasma: RESULTADOS</div>
+    <button class="copy-btn" data-copy="s5">Copiar prompt completo</button>
+    <pre id="s5" hidden>[MASTER]
+
+HEADLINE: "+440% en alcance."
+ACCENT WORD (in wine pink): "Cero pauta."
+SUPPORTING TEXT: "Con dirección clara, cada pieza construye sobre la anterior."
+PROP OBJECT: a wine-red chess king piece on a dark table
+GIANT BACKGROUND WORD: "RESULTADOS"</pre>
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-head"><span class="slide-num">06 · CTA</span> <span class="slide-title">Cierre</span></div>
+    <div class="slide-copy">Headline: <b>"Deja de publicar"</b><br>Accent: <b>"a ciegas."</b><br>Subtexto: "Diagnóstico gratuito, o dirección estratégica mes a mes."<br>Objeto: la misma silla de director del slide 03, ahora con un guion o cuaderno sobre el asiento<br>Palabra fantasma: RUMBO</div>
+    <button class="copy-btn" data-copy="s6">Copiar prompt completo</button>
+    <pre id="s6" hidden>[MASTER]
+
+HEADLINE: "Deja de publicar"
+ACCENT WORD (in wine pink): "a ciegas."
+SUPPORTING TEXT: "Diagnóstico gratuito, o dirección estratégica mes a mes. gabrielacontrerasmarketing.com/blog"
+PROP OBJECT: the same wooden director's chair, now with a notebook resting on the seat
+GIANT BACKGROUND WORD: "RUMBO"</pre>
+  </div>
+
+  <h2 class="section">Cómo usarlo</h2>
+  <ol class="workflow">
+    <li>Abre un chat nuevo en ChatGPT (con generación de imágenes).</li>
+    <li>Copia el <b>prompt maestro</b> y pégalo tal cual como primer mensaje, junto con el slide 01 completo (usa el botón "Copiar prompt completo" de cada tarjeta, ya trae el maestro incluido).</li>
+    <li>Genera. Si el resultado se aleja del estilo, pide "genera de nuevo, pero respeta exactamente la composición y la iluminación del prompt".</li>
+    <li>Para el slide 02 en adelante, en la <b>misma conversación</b>, pega el siguiente prompt completo y agrega: "mantén exactamente el mismo estilo visual, tipografía y iluminación que la imagen anterior, solo cambia el texto y el objeto".</li>
+    <li>Cuando tengas las 6, súbelas a Instagram/LinkedIn como carrusel, en este mismo orden.</li>
+  </ol>
+
+  <footer>Generado a partir del post "Publicar no es tener una estrategia de marca" — reusa esta misma estructura para el próximo post del blog.</footer>
+</div>
+
+<script>
+document.querySelectorAll('.copy-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var id = btn.getAttribute('data-copy');
+    var text;
+    if (id === 'master') {
+      text = document.getElementById('master').textContent;
+    } else {
+      var master = document.getElementById('master').textContent;
+      var slideText = document.getElementById(id).textContent;
+      text = slideText.replace('[MASTER]', master.trim());
+    }
+    function done(){
+      var original = btn.textContent;
+      btn.textContent = 'Copiado ✓';
+      btn.classList.add('copied');
+      setTimeout(function(){ btn.textContent = original; btn.classList.remove('copied'); }, 1600);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function(){
+        var ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); } catch(e){}
+        document.body.removeChild(ta); done();
+      });
+    }
+  });
+});
+</script>
