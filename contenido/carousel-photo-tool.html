@@ -250,6 +250,14 @@ select, .gen-panel input[type=text], .gen-panel input[type=number]{
       </div>
     </div>
   </div>
+
+  <div class="gen-panel" style="margin-top:26px;">
+    <h2>Ver todas juntas</h2>
+    <p class="note" style="margin-bottom:0;">Genera todas las slides de un jalón para revisar que la secuencia se vea consistente antes de descargar. Click derecho en cada una → "Guardar imagen como".</p>
+    <button class="btn" id="generateAllBtn" style="margin-top:14px;">Generar todas →</button>
+    <div class="gen-status" id="allStatus"></div>
+    <div id="allGallery" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:14px; margin-top:16px;"></div>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -488,6 +496,14 @@ function renderHeadline(raw){
 }
 
 function updatePreview(){
+  // keep the in-memory slide data in sync with whatever is on screen right now,
+  // so switching slides and coming back doesn't revert to the original defaults
+  if (slides[current]) {
+    slides[current].kicker = kickerInput.value;
+    slides[current].headline = headlineInput.value;
+    slides[current].sub = subtextInput.value;
+    slides[current].pill = showPill.checked ? pillText.value : '';
+  }
   document.getElementById('outKicker').textContent = kickerInput.value;
   document.getElementById('outHeadline').innerHTML = renderHeadline(headlineInput.value);
   document.getElementById('outSub').textContent = subtextInput.value;
@@ -569,6 +585,45 @@ document.getElementById('exportBtn').addEventListener('click', async () => {
     btn.textContent = original; btn.disabled = false;
     alert('No se pudo generar la imagen. Intenta de nuevo.');
   }
+});
+
+document.getElementById('generateAllBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('generateAllBtn');
+  const status = document.getElementById('allStatus');
+  const gallery = document.getElementById('allGallery');
+  const startAt = current;
+  btn.disabled = true;
+  gallery.innerHTML = '';
+  for (let i = 0; i < slides.length; i++) {
+    status.textContent = 'Generando ' + (i + 1) + ' de ' + slides.length + '...';
+    loadSlide(i);
+    // let the browser paint the new slide state (photo swap, fonts, etc.) before capturing it
+    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    try {
+      const canvas = await html2canvas(slideEl, {
+        width: slideEl.offsetWidth,
+        height: slideEl.offsetHeight,
+        scale: 1080 / slideEl.offsetWidth,
+        backgroundColor: null,
+        useCORS: true
+      });
+      const dataUrl = canvas.toDataURL('image/png');
+      const card = document.createElement('div');
+      const img = document.createElement('img');
+      img.src = dataUrl;
+      img.style.cssText = 'width:100%;border-radius:10px;border:1px solid var(--line);display:block;';
+      const label = document.createElement('div');
+      label.textContent = 'Slide ' + (i + 1) + ' — click derecho → Guardar imagen';
+      label.style.cssText = 'font-size:11px;color:var(--muted);margin-top:6px;text-align:center;';
+      card.appendChild(img); card.appendChild(label);
+      gallery.appendChild(card);
+    } catch (err) {
+      status.textContent = 'Se cayó en la slide ' + (i + 1) + '. Intenta de nuevo.';
+    }
+  }
+  loadSlide(startAt);
+  status.textContent = '¡Listas las ' + slides.length + '! Click derecho en cada una para guardar.';
+  btn.disabled = false;
 });
 
 loadSlide(0);
