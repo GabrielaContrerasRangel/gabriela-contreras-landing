@@ -153,9 +153,9 @@ select, .gen-panel input[type=text], .gen-panel input[type=number]{
         <option value="top">Arriba</option>
       </select>
 
-      <label>Textura de fondo</label>
-      <button class="btn ghost" id="shuffleBtn" type="button" style="width:100%;justify-content:center;">🔀 Variar patrón de esta slide</button>
-      <div class="hint">Cada slide ya sale con su propia variación. Dale click si no te gusta cómo cayó esta.</div>
+      <label>Grid de puntos</label>
+      <button class="btn ghost" id="shuffleBtn" type="button" style="width:100%;justify-content:center;">🔀 Variar grid de esta slide</button>
+      <div class="hint">Cada slide ya sale con su propia variación de tamaño y posición. El fondo (color, foto) lo manejas tú aparte.</div>
     </div>
 
     <div class="preview-wrap">
@@ -309,23 +309,16 @@ const slidePattern = document.getElementById('slidePattern');
 const textPos = document.getElementById('textPos');
 const slideEl = document.getElementById('slide');
 
-const patterns = {}; // random pattern style per slide index, so slides don't all look identical
+const patterns = {}; // random grid variation per slide index, so slides don't all look identical
 function randomPattern(){
-  const corners = ['85% 10%','10% 10%','90% 90%','8% 88%','50% 0%','100% 50%'];
-  const colors = ['rgba(212,96,124,.45)','rgba(140,30,55,.45)','rgba(212,96,124,.3)','rgba(140,30,55,.3)'];
-  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
-  const c1 = pick(corners);
-  let c2 = pick(corners);
-  if (c2 === c1) c2 = pick(corners);
-  const dotSize = 16 + Math.floor(Math.random() * 12); // 16-28px
+  const dotSize = 16 + Math.floor(Math.random() * 14); // 16-30px
   const dotOpacity = (0.16 + Math.random() * 0.14).toFixed(2);
+  const offsetX = Math.floor(Math.random() * dotSize);
+  const offsetY = Math.floor(Math.random() * dotSize);
   return {
-    backgroundImage:
-      'radial-gradient(circle at ' + c1 + ', ' + pick(colors) + ', transparent 55%),' +
-      'radial-gradient(circle at ' + c2 + ', ' + pick(colors) + ', transparent 50%),' +
-      'radial-gradient(rgba(245,241,234,' + dotOpacity + ') 1px, transparent 1.4px)',
-    backgroundSize: '100% 100%, 100% 100%, ' + dotSize + 'px ' + dotSize + 'px',
-    backgroundPosition: '0 0, 0 0, 0 0'
+    backgroundImage: 'radial-gradient(rgba(245,241,234,' + dotOpacity + ') 1px, transparent 1.4px)',
+    backgroundSize: dotSize + 'px ' + dotSize + 'px',
+    backgroundPosition: offsetX + 'px ' + offsetY + 'px'
   };
 }
 function applyPattern(i){
