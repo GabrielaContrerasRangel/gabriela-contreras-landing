@@ -51,11 +51,17 @@ input[type=file]{ font-size:12.5px; color:var(--muted); }
 .slide{
   position:relative; width:100%; max-width:480px; aspect-ratio:1/1; border-radius:18px; overflow:hidden;
   background:#1a1a1a; box-shadow:0 10px 40px rgba(0,0,0,.25);
-  display:flex; flex-direction:column; justify-content:flex-end;
+  display:flex; flex-direction:column;
 }
+.slide[data-pos="bottom"]{ justify-content:flex-end; }
+.slide[data-pos="center"]{ justify-content:center; }
+.slide[data-pos="top"]{ justify-content:flex-start; }
 .slide img.bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 25%; }
 .slide .empty-ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:rgba(245,241,234,.4); font-size:13px; text-align:center; padding:20px; }
-.slide .overlay{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,17,16,.15) 0%, rgba(20,17,16,.35) 45%, rgba(20,17,16,.9) 100%); }
+.slide .overlay{ position:absolute; inset:0; }
+.slide[data-pos="bottom"] .overlay{ background:linear-gradient(180deg, rgba(20,17,16,.15) 0%, rgba(20,17,16,.35) 45%, rgba(20,17,16,.9) 100%); }
+.slide[data-pos="top"] .overlay{ background:linear-gradient(0deg, rgba(20,17,16,.15) 0%, rgba(20,17,16,.35) 45%, rgba(20,17,16,.9) 100%); }
+.slide[data-pos="center"] .overlay{ background:linear-gradient(180deg, rgba(20,17,16,.75) 0%, rgba(20,17,16,.45) 30%, rgba(20,17,16,.45) 70%, rgba(20,17,16,.75) 100%); }
 .slide .content{ position:relative; z-index:1; padding:7% 8% 8%; color:#f5f1ea; }
 .slide .kicker{ font-size:2.6cqw; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(245,241,234,.82); margin-bottom:2.2%; }
 .slide h2{ font-weight:900; letter-spacing:-.02em; font-size:6.8cqw; line-height:1.08; margin:0; }
@@ -104,10 +110,17 @@ input[type=file]{ font-size:12.5px; color:var(--muted); }
 
       <label><input type="checkbox" id="showPill" style="width:auto;display:inline;margin-right:6px;">Mostrar botón/pill</label>
       <input type="text" id="pillText" placeholder="Texto del botón (opcional)">
+
+      <label>Posición del texto</label>
+      <select id="textPos" style="width:100%;font-family:var(--font);font-size:14px;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:transparent;color:var(--txt);">
+        <option value="bottom">Abajo</option>
+        <option value="center">Centro</option>
+        <option value="top">Arriba</option>
+      </select>
     </div>
 
     <div class="preview-wrap">
-      <div class="slide" id="slide">
+      <div class="slide" id="slide" data-pos="bottom">
         <img class="bg" id="bgImg" style="display:none">
         <div class="empty-ph" id="emptyPh">Sube una foto para ver la vista previa</div>
         <div class="overlay"></div>
@@ -132,6 +145,7 @@ input[type=file]{ font-size:12.5px; color:var(--muted); }
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 const slides = [
   { kicker:"ESTRATEGIA DE MARCA · DIRECCIÓN CREATIVA", headline:"Publicas todas las semanas, *nada se mueve*", sub:"El problema casi nunca es el contenido. Es la dirección.", pill:"" },
@@ -143,6 +157,7 @@ const slides = [
 ];
 let current = 0;
 const photos = {}; // keep an uploaded photo per slide index, in-memory only
+const positions = {}; // keep chosen text position per slide index
 
 const stepsEl = document.getElementById('steps');
 slides.forEach((_, i) => {
@@ -160,6 +175,8 @@ const showPill = document.getElementById('showPill');
 const pillText = document.getElementById('pillText');
 const bgImg = document.getElementById('bgImg');
 const emptyPh = document.getElementById('emptyPh');
+const textPos = document.getElementById('textPos');
+const slideEl = document.getElementById('slide');
 
 function renderHeadline(raw){
   const parts = raw.split('*');
@@ -182,6 +199,10 @@ function updatePreview(){
 }
 [kickerInput, headlineInput, subtextInput, pillText].forEach(el => el.addEventListener('input', updatePreview));
 showPill.addEventListener('change', updatePreview);
+textPos.addEventListener('change', () => {
+  positions[current] = textPos.value;
+  slideEl.dataset.pos = textPos.value;
+});
 
 function loadSlide(i){
   current = i;
@@ -197,6 +218,9 @@ function loadSlide(i){
   } else {
     bgImg.style.display = 'none'; emptyPh.style.display = 'flex';
   }
+  const pos = positions[i] || 'bottom';
+  textPos.value = pos;
+  slideEl.dataset.pos = pos;
   updatePreview();
   document.getElementById('exportedWrap').style.display = 'none';
 }
@@ -219,136 +243,29 @@ fileInput.addEventListener('change', () => {
 });
 
 document.getElementById('exportBtn').addEventListener('click', async () => {
-  const slideEl = document.getElementById('slide');
-  const rect = slideEl.getBoundingClientRect();
-  const scale = 1080 / rect.width;
-  const canvas = document.createElement('canvas');
-  canvas.width = 1080; canvas.height = 1080;
-  const ctx = canvas.getContext('2d');
-
-  if (photos[current]) {
-    const img = new Image();
-    await new Promise((res) => { img.onload = res; img.src = photos[current]; });
-    const ir = img.width / img.height;
-    let dw = canvas.width, dh = canvas.height, dx = 0, dy = 0;
-    if (ir > 1) { dh = canvas.height; dw = dh * ir; dx = (canvas.width - dw) / 2; }
-    else { dw = canvas.width; dh = dw / ir; dy = (canvas.height - dh) * 0.25; }
-    ctx.drawImage(img, dx, dy, dw, dh);
-  } else {
-    ctx.fillStyle = '#1a1a1a'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-  }
-
-  const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-  grad.addColorStop(0, 'rgba(20,17,16,.15)');
-  grad.addColorStop(0.45, 'rgba(20,17,16,.35)');
-  grad.addColorStop(1, 'rgba(20,17,16,.9)');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  const padX = canvas.width * 0.08;
-  let y = canvas.height * 0.92;
-
-  ctx.fillStyle = 'rgba(245,241,234,.85)';
-  ctx.font = '700 28px Manrope';
-  ctx.textBaseline = 'alphabetic';
-
-  const sub = subtextInput.value;
-  ctx.font = '500 32px Manrope';
-  const subLines = wrapText(ctx, sub, canvas.width - padX * 2);
-  let subY = y;
-  const subBlockHeight = subLines.length * 40;
-
-  const raw = headlineInput.value;
-  const segments = [];
-  raw.split('*').forEach((p, i) => segments.push({ text: p, accent: i % 2 === 1 }));
-  ctx.font = '900 64px Manrope';
-  const headLines = wrapSegments(ctx, segments, canvas.width - padX * 2);
-  const headBlockHeight = headLines.length * 72;
-
-  let cursorY = canvas.height - canvas.height * 0.08 - subBlockHeight - 20 - headBlockHeight;
-  const kickerY = cursorY - 30;
-
-  ctx.fillStyle = 'rgba(245,241,234,.82)';
-  ctx.font = '700 26px Manrope';
-  ctx.fillText(kickerInput.value.toUpperCase(), padX, kickerY);
-
-  let hy = cursorY;
-  headLines.forEach(line => {
-    let x = padX;
-    line.forEach(seg => {
-      ctx.fillStyle = seg.accent ? '#d4607c' : '#f5f1ea';
-      ctx.font = (seg.accent ? 'italic 700 ' : '900 ') + '64px Manrope';
-      ctx.fillText(seg.text, x, hy);
-      x += ctx.measureText(seg.text).width;
+  const btn = document.getElementById('exportBtn');
+  const original = btn.textContent;
+  btn.textContent = 'Generando...'; btn.disabled = true;
+  try {
+    // captures exactly what's on screen (same DOM node), so it always matches the live preview 1:1
+    const canvas = await html2canvas(slideEl, {
+      width: slideEl.offsetWidth,
+      height: slideEl.offsetHeight,
+      scale: 1080 / slideEl.offsetWidth,
+      backgroundColor: null,
+      useCORS: true
     });
-    hy += 72;
-  });
-
-  ctx.fillStyle = 'rgba(245,241,234,.85)';
-  ctx.font = '500 32px Manrope';
-  let sy = hy + 50;
-  subLines.forEach(line => { ctx.fillText(line, padX, sy); sy += 40; });
-
-  if (showPill.checked && pillText.value.trim()) {
-    ctx.font = '700 30px Manrope';
-    const text = pillText.value;
-    const tw = ctx.measureText(text).width;
-    const pw = tw + 60, ph = 60;
-    const px = padX, py = sy + 30;
-    ctx.fillStyle = '#8c1e37';
-    roundRect(ctx, px, py, pw, ph, 999);
-    ctx.fill();
-    ctx.fillStyle = '#fff';
-    ctx.fillText(text, px + 30, py + 40);
+    canvas.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
+      document.getElementById('exportedImg').src = url;
+      document.getElementById('exportedWrap').style.display = 'block';
+      btn.textContent = original; btn.disabled = false;
+    });
+  } catch (err) {
+    btn.textContent = original; btn.disabled = false;
+    alert('No se pudo generar la imagen. Intenta de nuevo.');
   }
-
-  canvas.toBlob((blob) => {
-    const url = URL.createObjectURL(blob);
-    document.getElementById('exportedImg').src = url;
-    document.getElementById('exportedWrap').style.display = 'block';
-  });
 });
-
-function wrapText(ctx, text, maxWidth){
-  const words = text.split(' ');
-  const lines = []; let line = '';
-  words.forEach(w => {
-    const test = line ? line + ' ' + w : w;
-    if (ctx.measureText(test).width > maxWidth && line) { lines.push(line); line = w; }
-    else line = test;
-  });
-  if (line) lines.push(line);
-  return lines;
-}
-
-function wrapSegments(ctx, segments, maxWidth){
-  const lines = []; let line = []; let lineWidth = 0;
-  segments.forEach(seg => {
-    ctx.font = (seg.accent ? 'italic 700 ' : '900 ') + '64px Manrope';
-    const words = seg.text.split(' ');
-    words.forEach((w, wi) => {
-      const piece = (wi === 0 ? w : ' ' + w);
-      const pw = ctx.measureText(piece).width;
-      if (lineWidth + pw > maxWidth && line.length) { lines.push(line); line = []; lineWidth = 0; }
-      const last = line[line.length - 1];
-      if (last && last.accent === seg.accent) { last.text += piece; }
-      else { line.push({ text: piece.trimStart(), accent: seg.accent }); }
-      lineWidth += pw;
-    });
-  });
-  if (line.length) lines.push(line);
-  return lines;
-}
-
-function roundRect(ctx, x, y, w, h, r){
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.arcTo(x + w, y, x + w, y + h, r);
-  ctx.arcTo(x + w, y + h, x, y + h, r);
-  ctx.arcTo(x, y + h, x, y, r);
-  ctx.arcTo(x, y, x + w, y, r);
-  ctx.closePath();
-}
 
 loadSlide(0);
 </script>
