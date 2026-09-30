@@ -70,6 +70,12 @@ input[type=file]{ font-size:12.5px; color:var(--muted); }
 .slide[data-pos="top"] .overlay{ background:linear-gradient(0deg, rgba(20,17,16,.15) 0%, rgba(20,17,16,.35) 45%, rgba(20,17,16,.9) 100%); }
 .slide[data-pos="center"] .overlay{ background:linear-gradient(180deg, rgba(20,17,16,.75) 0%, rgba(20,17,16,.45) 30%, rgba(20,17,16,.45) 70%, rgba(20,17,16,.75) 100%); }
 .slide .content{ position:relative; z-index:1; padding:7% 8% 8%; color:#f5f1ea; }
+.slide.txt-dark .content{ color:#1f1f1f; }
+.slide.txt-dark .kicker{ color:rgba(31,31,31,.75); }
+.slide.txt-dark .sub{ color:rgba(31,31,31,.75); }
+.slide.txt-dark .counter{ color:rgba(31,31,31,.85); }
+.slide.txt-dark .corners span{ border-color:rgba(31,31,31,.75); }
+.slide.txt-dark .accent-line{ background:var(--acc); }
 .slide .kicker{ font-size:2.6cqw; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(245,241,234,.82); margin-bottom:2.2%; }
 .slide h2{ font-weight:900; letter-spacing:-.02em; font-size:6.8cqw; line-height:1.08; margin:0; }
 .slide h2 em{ font-style:italic; color:var(--rosa); font-weight:200; }
@@ -171,13 +177,15 @@ select, .gen-panel input[type=text], .gen-panel input[type=number]{
       </select>
 
       <label>Elementos gráficos</label>
+      <label class="check-row"><input type="checkbox" id="elGradient">Degradado oscuro</label>
+      <label class="check-row"><input type="checkbox" id="elTxtDark">Texto oscuro (para fondos claros)</label>
       <label class="check-row"><input type="checkbox" id="elGrid">Grid de puntos</label>
       <button class="btn ghost" id="shuffleBtn" type="button" style="width:100%;justify-content:center;margin-top:8px;">🔀 Variar grid</button>
       <label class="check-row"><input type="checkbox" id="elCounter">Contador de slide (01/06)</label>
       <label class="check-row"><input type="checkbox" id="elLine">Línea de acento</label>
       <label class="check-row"><input type="checkbox" id="elCorners">Esquinas de marco</label>
       <label class="check-row"><input type="checkbox" id="elGrain">Grano de película</label>
-      <div class="hint">Todo apagado por defecto. Actívalos como quieras, cada slide guarda su propia combinación.</div>
+      <div class="hint">Todo apagado por defecto. Si tu fondo es claro, deja el degradado apagado y ajusta el color del texto tú misma si hace falta. Cada slide guarda su propia combinación.</div>
     </div>
 
     <div class="preview-wrap">
@@ -186,7 +194,7 @@ select, .gen-panel input[type=text], .gen-panel input[type=number]{
         <img class="bg" id="bgImg" style="display:none">
         <div class="pattern" id="slidePattern"></div>
         <div class="grain" id="slideGrain" style="display:none"></div>
-        <div class="overlay"></div>
+        <div class="overlay" id="slideOverlay"></div>
         <div class="content">
           <div class="accent-line" id="accentLine" style="display:none"></div>
           <div class="kicker" id="outKicker"></div>
@@ -358,20 +366,25 @@ document.getElementById('shuffleBtn').addEventListener('click', () => {
   applyPattern(current);
 });
 
-const elements = {}; // { grid, counter, line, corners, grain } per slide index, all off by default
+const elements = {}; // { gradient, txtDark, grid, counter, line, corners, grain } per slide index, all off by default
+const elGradient = document.getElementById('elGradient');
+const elTxtDark = document.getElementById('elTxtDark');
 const elGrid = document.getElementById('elGrid');
 const elCounter = document.getElementById('elCounter');
 const elLine = document.getElementById('elLine');
 const elCorners = document.getElementById('elCorners');
 const elGrain = document.getElementById('elGrain');
+const slideOverlay = document.getElementById('slideOverlay');
 const accentLine = document.getElementById('accentLine');
 const slideCounter = document.getElementById('slideCounter');
 const slideCorners = document.getElementById('slideCorners');
 const slideGrain = document.getElementById('slideGrain');
 function pad2(n){ return n < 10 ? '0' + n : '' + n; }
-function defaultElements(){ return { grid:false, counter:false, line:false, corners:false, grain:false }; }
+function defaultElements(){ return { gradient:false, txtDark:false, grid:false, counter:false, line:false, corners:false, grain:false }; }
 function applyElements(i){
   const e = elements[i] || (elements[i] = defaultElements());
+  elGradient.checked = e.gradient; slideOverlay.style.display = e.gradient ? 'block' : 'none';
+  elTxtDark.checked = e.txtDark; slideEl.classList.toggle('txt-dark', e.txtDark);
   elGrid.checked = e.grid; slidePattern.style.display = e.grid ? 'block' : 'none';
   elCounter.checked = e.counter; slideCounter.style.display = e.counter ? 'block' : 'none';
   if (e.counter) slideCounter.textContent = pad2(i + 1) + '/' + pad2(slides.length);
@@ -379,7 +392,7 @@ function applyElements(i){
   elCorners.checked = e.corners; slideCorners.style.display = e.corners ? 'block' : 'none';
   elGrain.checked = e.grain; slideGrain.style.display = e.grain ? 'block' : 'none';
 }
-[[elGrid,'grid'], [elCounter,'counter'], [elLine,'line'], [elCorners,'corners'], [elGrain,'grain']].forEach(([el, key]) => {
+[[elGradient,'gradient'], [elTxtDark,'txtDark'], [elGrid,'grid'], [elCounter,'counter'], [elLine,'line'], [elCorners,'corners'], [elGrain,'grain']].forEach(([el, key]) => {
   el.addEventListener('change', () => {
     if (!elements[current]) elements[current] = defaultElements();
     elements[current][key] = el.checked;
