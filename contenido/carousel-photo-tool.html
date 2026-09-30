@@ -82,11 +82,43 @@ input[type=file]{ font-size:12.5px; color:var(--muted); }
 .btn.ghost{ background:transparent; border:1.5px solid var(--line); color:var(--txt); }
 .exported{ margin-top:6px; }
 .exported img{ max-width:200px; border-radius:10px; border:1px solid var(--line); }
+
+.gen-panel{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px; margin-bottom:26px; }
+.gen-panel h2{ font-weight:900; font-size:17px; margin:0 0 4px; }
+.gen-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+@media (max-width:640px){ .gen-row{ grid-template-columns:1fr; } }
+select, .gen-panel input[type=text], .gen-panel input[type=number]{
+  width:100%; font-family:var(--font); font-size:14px; padding:10px 12px; border-radius:10px;
+  border:1.5px solid var(--line); background:transparent; color:var(--txt);
+}
+.cat-desc{ font-size:12px; color:var(--muted); margin-top:5px; }
+.gen-status{ font-size:13px; color:var(--muted); margin-top:12px; min-height:18px; }
+.gen-status.err{ color:#c0392b; }
 </style>
 
 <div class="wrap">
   <h1>Generador de carrusel con tu foto</h1>
   <p class="note">Sube tu foto, el texto ya viene precargado del post del blog (6 slides). Se ve exactamente como el tratamiento de tu hero: overlay oscuro, kicker, palabra en itálica rosa, la estrella. Cuando te guste, click derecho sobre la imagen final → "Guardar imagen como" para descargarla.</p>
+
+  <div class="gen-panel">
+    <h2>Generar contenido nuevo</h2>
+    <p class="note" style="margin-bottom:0;">Elige categoría y (opcional) tema — yo armo las slides, y de ahí sigues con tu foto igual que siempre.</p>
+    <div class="gen-row">
+      <div>
+        <label>Categoría</label>
+        <select id="category"></select>
+        <div class="cat-desc" id="catDesc"></div>
+      </div>
+      <div>
+        <label>Número de slides</label>
+        <input type="number" id="slideCount" min="3" max="8" value="6">
+      </div>
+    </div>
+    <label>Tema (opcional — si lo dejas vacío, yo propongo uno según la categoría)</label>
+    <input type="text" id="topicInput" placeholder="Ej: por qué mi marca no vende aunque publico seguido">
+    <button class="btn" id="generateBtn" style="margin-top:14px;">Generar contenido →</button>
+    <div class="gen-status" id="genStatus"></div>
+  </div>
 
   <div class="layout">
     <div class="panel">
@@ -159,13 +191,101 @@ let current = 0;
 const photos = {}; // keep an uploaded photo per slide index, in-memory only
 const positions = {}; // keep chosen text position per slide index
 
+const categories = [
+  { name:"Conectar", desc:"dolor, deseo, identidad" },
+  { name:"Hacer consciente", desc:"necesidad, problema real" },
+  { name:"Educar", desc:"criterio, perspectiva" },
+  { name:"Posicionar", desc:"visión, diferenciación" },
+  { name:"Demostrar", desc:"autoridad, prueba" },
+  { name:"Resolver objeciones", desc:"frenos y dudas" },
+  { name:"Mostrar proceso", desc:"método, cómo trabajas" },
+  { name:"Convertir", desc:"oferta, CTA, diagnóstico" }
+];
+const categorySelect = document.getElementById('category');
+const catDesc = document.getElementById('catDesc');
+categories.forEach((c, i) => {
+  const opt = document.createElement('option');
+  opt.value = i; opt.textContent = c.name;
+  categorySelect.appendChild(opt);
+});
+function updateCatDesc(){ catDesc.textContent = categories[categorySelect.value].desc; }
+categorySelect.addEventListener('change', updateCatDesc);
+updateCatDesc();
+
 const stepsEl = document.getElementById('steps');
-slides.forEach((_, i) => {
-  const b = document.createElement('button');
-  b.className = 'step-btn' + (i === 0 ? ' active' : '');
-  b.textContent = i + 1;
-  b.addEventListener('click', () => loadSlide(i));
-  stepsEl.appendChild(b);
+function renderSteps(){
+  stepsEl.innerHTML = '';
+  slides.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.className = 'step-btn' + (i === current ? ' active' : '');
+    b.textContent = i + 1;
+    b.addEventListener('click', () => loadSlide(i));
+    stepsEl.appendChild(b);
+  });
+}
+renderSteps();
+
+let samplePromise = null;
+function getSample(){
+  if (!samplePromise) samplePromise = (window.claude && window.claude.use) ? window.claude.use('sample') : Promise.resolve(null);
+  return samplePromise;
+}
+
+document.getElementById('generateBtn').addEventListener('click', async () => {
+  const genBtn = document.getElementById('generateBtn');
+  const status = document.getElementById('genStatus');
+  status.className = 'gen-status'; status.textContent = '';
+  const sampleApi = await getSample();
+  if (!sampleApi) {
+    status.className = 'gen-status err';
+    status.textContent = 'Esta función necesita abrir el artifact en claude.ai (no funciona en vista local/archivo).';
+    return;
+  }
+  const cat = categories[categorySelect.value];
+  const topic = document.getElementById('topicInput').value.trim();
+  const count = Math.max(3, Math.min(8, parseInt(document.getElementById('slideCount').value, 10) || 6));
+
+  genBtn.disabled = true; genBtn.textContent = 'Generando...';
+  status.textContent = 'Escribiendo el contenido...';
+
+  const prompt = `Eres redactora de marca para Gabriela Contreras, Brand Strategist & Creative Director. Su voz: directa, segura, cálida pero con criterio, sin clichés vacíos (nunca "apasionada por el marketing", "creativa y proactiva", "orientada a resultados"), de tú. Regla estricta: NUNCA uses el guion largo (—) en ningún texto, usa punto, coma o dos puntos en su lugar.
+
+Genera el contenido de un carrusel de Instagram de ${count} slides.
+Categoría de la pieza: "${cat.name}" (objetivo: ${cat.desc}).
+Tema: ${topic ? '"' + topic + '"' : 'no se dio uno específico — elige tú un tema relevante para dueños de negocio o marcas personales que necesitan estrategia de marca, acorde a la categoría "' + cat.name + '"'}.
+
+Estructura: la primera slide engancha con una tensión o dolor real de esa audiencia. Las del medio desarrollan el tema según el objetivo de la categoría. La última cierra con una acción concreta.
+
+Para cada slide devuelve:
+- kicker: siempre exactamente "ESTRATEGIA DE MARCA · DIRECCIÓN CREATIVA"
+- headline: frase corta y directa (máximo 12 palabras), con la parte que debe resaltar en color de acento marcada entre *asteriscos* (solo una palabra o frase corta, no la oración completa)
+- sub: una frase de apoyo, distinta al headline, que añade información nueva
+- pill: cadena vacía "" en todas las slides EXCEPTO la última, donde va un texto corto de llamada a la acción (ej: "Diagnóstico gratis →")
+
+Devuelve SOLO un array JSON válido, sin explicación ni texto adicional, con esta forma exacta:
+[{"kicker":"...","headline":"...","sub":"...","pill":"..."}]`;
+
+  try {
+    const result = await sampleApi.json(prompt);
+    const arr = Array.isArray(result) ? result : (result && result.slides) ? result.slides : null;
+    if (!arr || !arr.length) throw new Error('empty');
+    slides.length = 0;
+    arr.forEach(s => slides.push({
+      kicker: s.kicker || "ESTRATEGIA DE MARCA · DIRECCIÓN CREATIVA",
+      headline: s.headline || "",
+      sub: s.sub || "",
+      pill: s.pill || ""
+    }));
+    renderSteps();
+    loadSlide(0);
+    status.className = 'gen-status';
+    status.textContent = '¡Listo! ' + slides.length + ' slides generadas. Ahora sube tu foto para cada una.';
+  } catch (err) {
+    status.className = 'gen-status err';
+    status.textContent = 'No se pudo generar el contenido. Intenta de nuevo.';
+  } finally {
+    genBtn.disabled = false; genBtn.textContent = 'Generar contenido →';
+  }
 });
 
 const kickerInput = document.getElementById('kicker');
