@@ -57,7 +57,15 @@ input[type=file]{ font-size:12.5px; color:var(--muted); }
 .slide[data-pos="center"]{ justify-content:center; }
 .slide[data-pos="top"]{ justify-content:flex-start; }
 .slide img.bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 25%; }
-.slide .empty-ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:rgba(245,241,234,.4); font-size:13px; text-align:center; padding:20px; }
+.slide .pattern{
+  position:absolute; inset:0; background-color:#1a1a1a;
+  background-image:
+    radial-gradient(circle at 88% 12%, rgba(212,96,124,.4), transparent 55%),
+    radial-gradient(circle at 10% 90%, rgba(140,30,55,.35), transparent 50%),
+    radial-gradient(rgba(245,241,234,.14) 1px, transparent 1.4px);
+  background-size: 100% 100%, 100% 100%, 22px 22px;
+  background-position: 0 0, 0 0, 0 0;
+}
 .slide .overlay{ position:absolute; inset:0; }
 .slide[data-pos="bottom"] .overlay{ background:linear-gradient(180deg, rgba(20,17,16,.15) 0%, rgba(20,17,16,.35) 45%, rgba(20,17,16,.9) 100%); }
 .slide[data-pos="top"] .overlay{ background:linear-gradient(0deg, rgba(20,17,16,.15) 0%, rgba(20,17,16,.35) 45%, rgba(20,17,16,.9) 100%); }
@@ -153,8 +161,8 @@ select, .gen-panel input[type=text], .gen-panel input[type=number]{
 
     <div class="preview-wrap">
       <div class="slide" id="slide" data-pos="bottom">
+        <div class="pattern" id="slidePattern"></div>
         <img class="bg" id="bgImg" style="display:none">
-        <div class="empty-ph" id="emptyPh">Sube una foto para ver la vista previa</div>
         <div class="overlay"></div>
         <div class="content">
           <div class="kicker" id="outKicker"></div>
@@ -297,7 +305,7 @@ const subtextInput = document.getElementById('subtext');
 const showPill = document.getElementById('showPill');
 const pillText = document.getElementById('pillText');
 const bgImg = document.getElementById('bgImg');
-const emptyPh = document.getElementById('emptyPh');
+const slidePattern = document.getElementById('slidePattern');
 const textPos = document.getElementById('textPos');
 const slideEl = document.getElementById('slide');
 
@@ -337,9 +345,9 @@ function loadSlide(i){
   pillText.value = s.pill;
   showPill.checked = !!s.pill;
   if (photos[i]) {
-    bgImg.src = photos[i]; bgImg.style.display = 'block'; emptyPh.style.display = 'none';
+    bgImg.src = photos[i]; bgImg.style.display = 'block'; slidePattern.style.display = 'none';
   } else {
-    bgImg.style.display = 'none'; emptyPh.style.display = 'flex';
+    bgImg.style.display = 'none'; slidePattern.style.display = 'block';
   }
   const pos = positions[i] || 'bottom';
   textPos.value = pos;
@@ -360,7 +368,7 @@ fileInput.addEventListener('change', () => {
   const reader = new FileReader();
   reader.onload = (e) => {
     photos[current] = e.target.result;
-    bgImg.src = e.target.result; bgImg.style.display = 'block'; emptyPh.style.display = 'none';
+    bgImg.src = e.target.result; bgImg.style.display = 'block'; slidePattern.style.display = 'none';
   };
   reader.readAsDataURL(file);
 });
