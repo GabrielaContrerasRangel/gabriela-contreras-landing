@@ -242,11 +242,11 @@ select, .gen-panel input[type=text], .gen-panel input[type=number]{
         <button class="btn ghost" id="prevBtn">← Anterior</button>
         <button class="btn" id="nextBtn">Siguiente →</button>
       </div>
-      <div class="hint">Vista previa en vivo. Para exportar: click derecho sobre el recuadro → "Guardar imagen como" (en Chrome/Edge captura el recuadro completo si primero haces click en "Preparar para guardar").</div>
-      <button class="btn" id="exportBtn">Preparar para guardar ↓</button>
+      <div class="hint">Genera la imagen y descárgala con el botón (sin clicks derechos ni capturas).</div>
+      <button class="btn" id="exportBtn">Descargar esta slide ↓</button>
       <div class="exported" id="exportedWrap" style="display:none">
-        <div class="hint" style="margin-bottom:6px;">Click derecho aquí → Guardar imagen como:</div>
         <img id="exportedImg">
+        <div class="hint" id="exportHint" style="margin-top:6px;"></div>
       </div>
     </div>
   </div>
@@ -255,6 +255,7 @@ select, .gen-panel input[type=text], .gen-panel input[type=number]{
     <h2>Ver todas juntas</h2>
     <p class="note" style="margin-bottom:0;">Genera todas las slides de un jalón para revisar que la secuencia se vea consistente antes de descargar. Click derecho en cada una → "Guardar imagen como".</p>
     <button class="btn" id="generateAllBtn" style="margin-top:14px;">Generar todas →</button>
+    <button class="btn ghost" id="downloadAllBtn" type="button" style="margin-top:14px;margin-left:10px;display:none;">Descargar todas ↓</button>
     <div class="gen-status" id="allStatus"></div>
     <div id="allGallery" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:14px; margin-top:16px;"></div>
   </div>
@@ -312,6 +313,14 @@ let samplePromise = null;
 function getSample(){
   if (!samplePromise) samplePromise = (window.claude && window.claude.use) ? window.claude.use('sample') : Promise.resolve(null);
   return samplePromise;
+}
+let downloadsPromise = null;
+function getDownloads(){
+  if (!downloadsPromise) downloadsPromise = (window.claude && window.claude.use) ? window.claude.use('downloads') : Promise.resolve(null);
+  return downloadsPromise;
+}
+function slugify(text){
+  return (text || 'slide').toLowerCase().replace(/\*/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 40) || 'slide';
 }
 const genHistory = []; // short summary of each previous generation this session, so "generar de nuevo" doesn't repeat itself
 
@@ -566,8 +575,10 @@ fileInput.addEventListener('change', () => {
 
 document.getElementById('exportBtn').addEventListener('click', async () => {
   const btn = document.getElementById('exportBtn');
+  const hint = document.getElementById('exportHint');
   const original = btn.textContent;
   btn.textContent = 'Generando...'; btn.disabled = true;
+  hint.textContent = '';
   try {
     // captures exactly what's on screen (same DOM node), so it always matches the live preview 1:1
     const canvas = await html2canvas(slideEl, {
@@ -577,15 +588,32 @@ document.getElementById('exportBtn').addEventListener('click', async () => {
       backgroundColor: null,
       useCORS: true
     });
-    const dataUrl = canvas.toDataURL('image/png');
-    document.getElementById('exportedImg').src = dataUrl;
+    document.getElementById('exportedImg').src = canvas.toDataURL('image/png');
     document.getElementById('exportedWrap').style.display = 'block';
+
+    const blob = await new Promise(res => canvas.toBlob(res, 'image/png'));
+    const filename = 'carrusel-slide-' + (current + 1) + '-' + slugify(slides[current].headline) + '.png';
+    const downloadsApi = await getDownloads();
+    if (downloadsApi) {
+      btn.textContent = 'Descargando...';
+      try {
+        await downloadsApi.save({ filename, data: blob });
+        hint.textContent = '¡Descargada!';
+      } catch (err) {
+        if (err && err.code === 'declined') { hint.textContent = 'Cancelado.'; }
+        else { hint.textContent = 'No se pudo descargar directo. Click derecho en la imagen de arriba → "Guardar imagen como".'; }
+      }
+    } else {
+      hint.textContent = 'Click derecho en la imagen de arriba → "Guardar imagen como".';
+    }
     btn.textContent = original; btn.disabled = false;
   } catch (err) {
     btn.textContent = original; btn.disabled = false;
     alert('No se pudo generar la imagen. Intenta de nuevo.');
   }
 });
+
+const allBlobs = []; // filled by "Generar todas", used by per-card and bulk download buttons
 
 document.getElementById('generateAllBtn').addEventListener('click', async () => {
   const btn = document.getElementById('generateAllBtn');
@@ -594,6 +622,7 @@ document.getElementById('generateAllBtn').addEventListener('click', async () => 
   const startAt = current;
   btn.disabled = true;
   gallery.innerHTML = '';
+  allBlobs.length = 0;
   for (let i = 0; i < slides.length; i++) {
     status.textContent = 'Generando ' + (i + 1) + ' de ' + slides.length + '...';
     loadSlide(i);
@@ -607,22 +636,64 @@ document.getElementById('generateAllBtn').addEventListener('click', async () => 
         backgroundColor: null,
         useCORS: true
       });
-      const dataUrl = canvas.toDataURL('image/png');
+      const blob = await new Promise(res => canvas.toBlob(res, 'image/png'));
+      allBlobs[i] = blob;
       const card = document.createElement('div');
       const img = document.createElement('img');
-      img.src = dataUrl;
+      img.src = URL.createObjectURL(blob);
       img.style.cssText = 'width:100%;border-radius:10px;border:1px solid var(--line);display:block;';
+      const dlBtn = document.createElement('button');
+      dlBtn.className = 'btn ghost';
+      dlBtn.type = 'button';
+      dlBtn.textContent = 'Descargar ↓';
+      dlBtn.style.cssText = 'width:100%;justify-content:center;margin-top:6px;font-size:12.5px;padding:8px 12px;';
+      dlBtn.addEventListener('click', () => downloadOne(i, dlBtn));
       const label = document.createElement('div');
-      label.textContent = 'Slide ' + (i + 1) + ' — click derecho → Guardar imagen';
+      label.textContent = 'Slide ' + (i + 1);
       label.style.cssText = 'font-size:11px;color:var(--muted);margin-top:6px;text-align:center;';
-      card.appendChild(img); card.appendChild(label);
+      card.appendChild(img); card.appendChild(label); card.appendChild(dlBtn);
       gallery.appendChild(card);
     } catch (err) {
       status.textContent = 'Se cayó en la slide ' + (i + 1) + '. Intenta de nuevo.';
     }
   }
   loadSlide(startAt);
-  status.textContent = '¡Listas las ' + slides.length + '! Click derecho en cada una para guardar.';
+  status.textContent = '¡Listas las ' + slides.length + '! Descárgalas una por una, o todas de un jalón abajo.';
+  btn.disabled = false;
+  document.getElementById('downloadAllBtn').style.display = 'inline-flex';
+});
+
+async function downloadOne(i, btnEl){
+  const downloadsApi = await getDownloads();
+  const filename = 'carrusel-slide-' + (i + 1) + '-' + slugify(slides[i].headline) + '.png';
+  if (!downloadsApi) { alert('La descarga directa no está disponible aquí. Click derecho sobre la imagen → Guardar imagen como.'); return; }
+  const original = btnEl.textContent;
+  btnEl.textContent = 'Descargando...'; btnEl.disabled = true;
+  try {
+    await downloadsApi.save({ filename, data: allBlobs[i] });
+    btnEl.textContent = '¡Descargada! ✓';
+  } catch (err) {
+    btnEl.textContent = err && err.code === 'declined' ? 'Cancelado' : 'Error, reintenta';
+  }
+  setTimeout(() => { btnEl.textContent = original; btnEl.disabled = false; }, 1800);
+}
+
+document.getElementById('downloadAllBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('downloadAllBtn');
+  const status = document.getElementById('allStatus');
+  const downloadsApi = await getDownloads();
+  if (!downloadsApi) { alert('La descarga directa no está disponible aquí.'); return; }
+  btn.disabled = true;
+  for (let i = 0; i < allBlobs.length; i++) {
+    if (!allBlobs[i]) continue;
+    status.textContent = 'Descargando ' + (i + 1) + ' de ' + allBlobs.length + '... confirma cada una.';
+    try {
+      await downloadsApi.save({ filename: 'carrusel-slide-' + (i + 1) + '-' + slugify(slides[i].headline) + '.png', data: allBlobs[i] });
+    } catch (err) {
+      if (err && err.code === 'declined') { status.textContent = 'Cancelaste en la slide ' + (i + 1) + '.'; break; }
+    }
+  }
+  status.textContent = 'Listo, revisa tu carpeta de descargas.';
   btn.disabled = false;
 });
 
