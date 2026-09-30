@@ -1,0 +1,354 @@
+<title>Generador de Carrusel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:ital,wght@0,400;0,500;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+/* layout: left = form + slide nav, right = live 1:1 square preview built from an uploaded photo + text overlay matching the site hero */
+:root{
+  --bg:#faf7f2; --card:#fff; --txt:#1f1f1f; --muted:#6b6660; --line:rgba(31,31,31,.12);
+  --acc:#8c1e37; --rosa:#d4607c; --font:'Manrope',ui-sans-serif,system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#141210; --card:#201d1b; --txt:#f5f1ea; --muted:#a89f97; --line:rgba(245,241,234,.12); color-scheme:dark; }
+}
+:root[data-theme="dark"]{ --bg:#141210; --card:#201d1b; --txt:#f5f1ea; --muted:#a89f97; --line:rgba(245,241,234,.12); color-scheme:dark; }
+*{box-sizing:border-box;}
+body{ margin:0; background:var(--bg); color:var(--txt); font-family:var(--font); padding-inline:20px; padding-block:32px 60px; }
+.wrap{ max-width:1040px; margin:0 auto; }
+h1{ font-weight:900; letter-spacing:-.02em; font-size:clamp(22px,4vw,28px); margin:0 0 6px; }
+.note{ color:var(--muted); font-size:14px; max-width:64ch; margin-bottom:22px; }
+
+.layout{ display:grid; grid-template-columns:340px 1fr; gap:28px; align-items:start; }
+@media (max-width:760px){ .layout{ grid-template-columns:1fr; } }
+
+.panel{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px; }
+.steps{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+.step-btn{
+  width:30px; height:30px; border-radius:8px; border:1px solid var(--line); background:transparent;
+  color:var(--muted); font-weight:700; font-size:13px; cursor:pointer;
+}
+.step-btn.active{ background:var(--acc); border-color:var(--acc); color:#fff; }
+
+label{ display:block; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:14px 0 6px; }
+label:first-of-type{ margin-top:0; }
+input[type=text], textarea{
+  width:100%; font-family:var(--font); font-size:14px; padding:10px 12px; border-radius:10px;
+  border:1.5px solid var(--line); background:transparent; color:var(--txt); resize:vertical;
+}
+textarea{ min-height:56px; }
+input[type=file]{ font-size:12.5px; color:var(--muted); }
+.file-drop{
+  border:1.5px dashed var(--line); border-radius:10px; padding:16px; text-align:center;
+  font-size:13px; color:var(--muted); cursor:pointer;
+}
+.file-drop:hover{ border-color:var(--acc); color:var(--acc); }
+.row{ display:flex; gap:8px; }
+.row > div{ flex:1; }
+.hint{ font-size:11.5px; color:var(--muted); margin-top:4px; }
+
+.preview-wrap{ display:flex; flex-direction:column; align-items:center; gap:14px; }
+.slide{
+  position:relative; width:100%; max-width:480px; aspect-ratio:1/1; border-radius:18px; overflow:hidden;
+  background:#1a1a1a; box-shadow:0 10px 40px rgba(0,0,0,.25);
+  display:flex; flex-direction:column; justify-content:flex-end;
+}
+.slide img.bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 25%; }
+.slide .empty-ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:rgba(245,241,234,.4); font-size:13px; text-align:center; padding:20px; }
+.slide .overlay{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,17,16,.15) 0%, rgba(20,17,16,.35) 45%, rgba(20,17,16,.9) 100%); }
+.slide .content{ position:relative; z-index:1; padding:7% 8% 8%; color:#f5f1ea; }
+.slide .kicker{ font-size:2.6cqw; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(245,241,234,.82); margin-bottom:2.2%; }
+.slide h2{ font-weight:900; letter-spacing:-.02em; font-size:6.8cqw; line-height:1.08; margin:0; }
+.slide h2 em{ font-style:italic; color:var(--rosa); font-weight:700; }
+.slide .spark{ color:var(--rosa); }
+.slide .sub{ font-size:3cqw; color:rgba(245,241,234,.82); margin-top:3%; max-width:92%; line-height:1.5; }
+.slide .pill{
+  display:inline-block; margin-top:5%; background:var(--acc); color:#fff; font-weight:600;
+  font-size:2.8cqw; padding:2.6% 5%; border-radius:999px;
+}
+.slide{ container-type:inline-size; }
+
+.actions{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+.btn{
+  display:inline-flex; align-items:center; gap:6px; background:var(--acc); color:#fff; border:none;
+  border-radius:999px; padding:11px 20px; font-family:var(--font); font-weight:700; font-size:13.5px; cursor:pointer;
+}
+.btn.ghost{ background:transparent; border:1.5px solid var(--line); color:var(--txt); }
+.exported{ margin-top:6px; }
+.exported img{ max-width:200px; border-radius:10px; border:1px solid var(--line); }
+</style>
+
+<div class="wrap">
+  <h1>Generador de carrusel con tu foto</h1>
+  <p class="note">Sube tu foto, el texto ya viene precargado del post del blog (6 slides). Se ve exactamente como el tratamiento de tu hero: overlay oscuro, kicker, palabra en itálica rosa, la estrella. Cuando te guste, click derecho sobre la imagen final → "Guardar imagen como" para descargarla.</p>
+
+  <div class="layout">
+    <div class="panel">
+      <label>Slide</label>
+      <div class="steps" id="steps"></div>
+
+      <label>Foto (la tuya, real)</label>
+      <div class="file-drop" id="dropZone">Click para subir una foto</div>
+      <input type="file" id="fileInput" accept="image/*" style="display:none">
+      <div class="hint">Se queda solo en tu navegador, no se sube a ningún lado.</div>
+
+      <label>Kicker</label>
+      <input type="text" id="kicker">
+
+      <label>Headline</label>
+      <textarea id="headline"></textarea>
+      <div class="hint">Escribe *entre asteriscos* la parte que va en itálica rosa. Ej: hola *mundo*</div>
+
+      <label>Subtexto</label>
+      <textarea id="subtext"></textarea>
+
+      <label><input type="checkbox" id="showPill" style="width:auto;display:inline;margin-right:6px;">Mostrar botón/pill</label>
+      <input type="text" id="pillText" placeholder="Texto del botón (opcional)">
+    </div>
+
+    <div class="preview-wrap">
+      <div class="slide" id="slide">
+        <img class="bg" id="bgImg" style="display:none">
+        <div class="empty-ph" id="emptyPh">Sube una foto para ver la vista previa</div>
+        <div class="overlay"></div>
+        <div class="content">
+          <div class="kicker" id="outKicker"></div>
+          <h2 id="outHeadline"></h2>
+          <div class="sub" id="outSub"></div>
+          <div class="pill" id="outPill" style="display:none"></div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn ghost" id="prevBtn">← Anterior</button>
+        <button class="btn" id="nextBtn">Siguiente →</button>
+      </div>
+      <div class="hint">Vista previa en vivo. Para exportar: click derecho sobre el recuadro → "Guardar imagen como" (en Chrome/Edge captura el recuadro completo si primero haces click en "Preparar para guardar").</div>
+      <button class="btn" id="exportBtn">Preparar para guardar ↓</button>
+      <div class="exported" id="exportedWrap" style="display:none">
+        <div class="hint" style="margin-bottom:6px;">Click derecho aquí → Guardar imagen como:</div>
+        <img id="exportedImg">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const slides = [
+  { kicker:"ESTRATEGIA DE MARCA · DIRECCIÓN CREATIVA", headline:"Publicas todas las semanas, *nada se mueve*", sub:"El problema casi nunca es el contenido. Es la dirección.", pill:"" },
+  { kicker:"ESTRATEGIA DE MARCA · DIRECCIÓN CREATIVA", headline:"Un calendario de contenido *no es estrategia*", sub:"Uno dice qué publicar. El otro dice para quién, y por qué.", pill:"" },
+  { kicker:"ESTRATEGIA DE MARCA · DIRECCIÓN CREATIVA", headline:"¿Puedes explicar en una frase *por qué te eligen?*", sub:"Si te toma un párrafo, ahí está el hueco.", pill:"" },
+  { kicker:"ESTRATEGIA DE MARCA · DIRECCIÓN CREATIVA", headline:"Mides likes, *no sabes si vende*", sub:"El contenido que más gusta y el que más vende casi nunca es el mismo.", pill:"" },
+  { kicker:"ESTRATEGIA DE MARCA · DIRECCIÓN CREATIVA", headline:"+440% en alcance, *cero pauta*", sub:"Con dirección clara, cada pieza construye sobre la anterior.", pill:"" },
+  { kicker:"ESTRATEGIA DE MARCA · DIRECCIÓN CREATIVA", headline:"Deja de publicar *a ciegas*", sub:"Diagnóstico gratuito, o dirección estratégica mes a mes.", pill:"Diagnóstico gratis →" }
+];
+let current = 0;
+const photos = {}; // keep an uploaded photo per slide index, in-memory only
+
+const stepsEl = document.getElementById('steps');
+slides.forEach((_, i) => {
+  const b = document.createElement('button');
+  b.className = 'step-btn' + (i === 0 ? ' active' : '');
+  b.textContent = i + 1;
+  b.addEventListener('click', () => loadSlide(i));
+  stepsEl.appendChild(b);
+});
+
+const kickerInput = document.getElementById('kicker');
+const headlineInput = document.getElementById('headline');
+const subtextInput = document.getElementById('subtext');
+const showPill = document.getElementById('showPill');
+const pillText = document.getElementById('pillText');
+const bgImg = document.getElementById('bgImg');
+const emptyPh = document.getElementById('emptyPh');
+
+function renderHeadline(raw){
+  const parts = raw.split('*');
+  let html = '';
+  parts.forEach((p, i) => { html += (i % 2 === 1) ? ('<em>' + p + '</em>') : p; });
+  return html + ' <span class="spark">✦</span>';
+}
+
+function updatePreview(){
+  document.getElementById('outKicker').textContent = kickerInput.value;
+  document.getElementById('outHeadline').innerHTML = renderHeadline(headlineInput.value);
+  document.getElementById('outSub').textContent = subtextInput.value;
+  const pillEl = document.getElementById('outPill');
+  if (showPill.checked && pillText.value.trim()) {
+    pillEl.style.display = 'inline-block';
+    pillEl.textContent = pillText.value;
+  } else {
+    pillEl.style.display = 'none';
+  }
+}
+[kickerInput, headlineInput, subtextInput, pillText].forEach(el => el.addEventListener('input', updatePreview));
+showPill.addEventListener('change', updatePreview);
+
+function loadSlide(i){
+  current = i;
+  document.querySelectorAll('.step-btn').forEach((b, idx) => b.classList.toggle('active', idx === i));
+  const s = slides[i];
+  kickerInput.value = s.kicker;
+  headlineInput.value = s.headline;
+  subtextInput.value = s.sub;
+  pillText.value = s.pill;
+  showPill.checked = !!s.pill;
+  if (photos[i]) {
+    bgImg.src = photos[i]; bgImg.style.display = 'block'; emptyPh.style.display = 'none';
+  } else {
+    bgImg.style.display = 'none'; emptyPh.style.display = 'flex';
+  }
+  updatePreview();
+  document.getElementById('exportedWrap').style.display = 'none';
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => loadSlide((current - 1 + slides.length) % slides.length));
+document.getElementById('nextBtn').addEventListener('click', () => loadSlide((current + 1) % slides.length));
+
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+dropZone.addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', () => {
+  const file = fileInput.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    photos[current] = e.target.result;
+    bgImg.src = e.target.result; bgImg.style.display = 'block'; emptyPh.style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+});
+
+document.getElementById('exportBtn').addEventListener('click', async () => {
+  const slideEl = document.getElementById('slide');
+  const rect = slideEl.getBoundingClientRect();
+  const scale = 1080 / rect.width;
+  const canvas = document.createElement('canvas');
+  canvas.width = 1080; canvas.height = 1080;
+  const ctx = canvas.getContext('2d');
+
+  if (photos[current]) {
+    const img = new Image();
+    await new Promise((res) => { img.onload = res; img.src = photos[current]; });
+    const ir = img.width / img.height;
+    let dw = canvas.width, dh = canvas.height, dx = 0, dy = 0;
+    if (ir > 1) { dh = canvas.height; dw = dh * ir; dx = (canvas.width - dw) / 2; }
+    else { dw = canvas.width; dh = dw / ir; dy = (canvas.height - dh) * 0.25; }
+    ctx.drawImage(img, dx, dy, dw, dh);
+  } else {
+    ctx.fillStyle = '#1a1a1a'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
+  const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  grad.addColorStop(0, 'rgba(20,17,16,.15)');
+  grad.addColorStop(0.45, 'rgba(20,17,16,.35)');
+  grad.addColorStop(1, 'rgba(20,17,16,.9)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const padX = canvas.width * 0.08;
+  let y = canvas.height * 0.92;
+
+  ctx.fillStyle = 'rgba(245,241,234,.85)';
+  ctx.font = '700 28px Manrope';
+  ctx.textBaseline = 'alphabetic';
+
+  const sub = subtextInput.value;
+  ctx.font = '500 32px Manrope';
+  const subLines = wrapText(ctx, sub, canvas.width - padX * 2);
+  let subY = y;
+  const subBlockHeight = subLines.length * 40;
+
+  const raw = headlineInput.value;
+  const segments = [];
+  raw.split('*').forEach((p, i) => segments.push({ text: p, accent: i % 2 === 1 }));
+  ctx.font = '900 64px Manrope';
+  const headLines = wrapSegments(ctx, segments, canvas.width - padX * 2);
+  const headBlockHeight = headLines.length * 72;
+
+  let cursorY = canvas.height - canvas.height * 0.08 - subBlockHeight - 20 - headBlockHeight;
+  const kickerY = cursorY - 30;
+
+  ctx.fillStyle = 'rgba(245,241,234,.82)';
+  ctx.font = '700 26px Manrope';
+  ctx.fillText(kickerInput.value.toUpperCase(), padX, kickerY);
+
+  let hy = cursorY;
+  headLines.forEach(line => {
+    let x = padX;
+    line.forEach(seg => {
+      ctx.fillStyle = seg.accent ? '#d4607c' : '#f5f1ea';
+      ctx.font = (seg.accent ? 'italic 700 ' : '900 ') + '64px Manrope';
+      ctx.fillText(seg.text, x, hy);
+      x += ctx.measureText(seg.text).width;
+    });
+    hy += 72;
+  });
+
+  ctx.fillStyle = 'rgba(245,241,234,.85)';
+  ctx.font = '500 32px Manrope';
+  let sy = hy + 50;
+  subLines.forEach(line => { ctx.fillText(line, padX, sy); sy += 40; });
+
+  if (showPill.checked && pillText.value.trim()) {
+    ctx.font = '700 30px Manrope';
+    const text = pillText.value;
+    const tw = ctx.measureText(text).width;
+    const pw = tw + 60, ph = 60;
+    const px = padX, py = sy + 30;
+    ctx.fillStyle = '#8c1e37';
+    roundRect(ctx, px, py, pw, ph, 999);
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.fillText(text, px + 30, py + 40);
+  }
+
+  canvas.toBlob((blob) => {
+    const url = URL.createObjectURL(blob);
+    document.getElementById('exportedImg').src = url;
+    document.getElementById('exportedWrap').style.display = 'block';
+  });
+});
+
+function wrapText(ctx, text, maxWidth){
+  const words = text.split(' ');
+  const lines = []; let line = '';
+  words.forEach(w => {
+    const test = line ? line + ' ' + w : w;
+    if (ctx.measureText(test).width > maxWidth && line) { lines.push(line); line = w; }
+    else line = test;
+  });
+  if (line) lines.push(line);
+  return lines;
+}
+
+function wrapSegments(ctx, segments, maxWidth){
+  const lines = []; let line = []; let lineWidth = 0;
+  segments.forEach(seg => {
+    ctx.font = (seg.accent ? 'italic 700 ' : '900 ') + '64px Manrope';
+    const words = seg.text.split(' ');
+    words.forEach((w, wi) => {
+      const piece = (wi === 0 ? w : ' ' + w);
+      const pw = ctx.measureText(piece).width;
+      if (lineWidth + pw > maxWidth && line.length) { lines.push(line); line = []; lineWidth = 0; }
+      const last = line[line.length - 1];
+      if (last && last.accent === seg.accent) { last.text += piece; }
+      else { line.push({ text: piece.trimStart(), accent: seg.accent }); }
+      lineWidth += pw;
+    });
+  });
+  if (line.length) lines.push(line);
+  return lines;
+}
+
+function roundRect(ctx, x, y, w, h, r){
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+loadSlide(0);
+</script>

@@ -1,0 +1,172 @@
+<title>Maqueta Carrusel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,800;0,900;1,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* layout: intro note -> responsive grid of 6 square slide mockups, each with icon placeholder standing in for the real photo */
+:root{
+  --page-bg:#faf7f2; --page-txt:#1f1f1f; --page-muted:#6b6660;
+  --crema:#f5f1ea; --vino:#8c1e37; --carbon:#1a1a1a; --rosa:#d4607c;
+  --font:'Archivo',ui-sans-serif,system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --page-bg:#141210; --page-txt:#f5f1ea; --page-muted:#a89f97; color-scheme:dark; }
+}
+:root[data-theme="dark"]{ --page-bg:#141210; --page-txt:#f5f1ea; --page-muted:#a89f97; color-scheme:dark; }
+*{box-sizing:border-box;}
+body{ margin:0; background:var(--page-bg); color:var(--page-txt); font-family:var(--font); padding-inline:20px; padding-block:40px 70px; }
+.wrap{ max-width:1080px; margin:0 auto; }
+.note{ color:var(--page-muted); font-size:14px; max-width:60ch; margin-bottom:8px; }
+h1{ font-weight:900; letter-spacing:-.02em; font-size:clamp(22px,4vw,30px); margin:0 0 10px; }
+.tag{ display:inline-block; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--vino); background:rgba(140,30,55,.08); padding:5px 10px; border-radius:6px; margin-bottom:14px; }
+
+.grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:24px; }
+@media (max-width:760px){ .grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:480px){ .grid{ grid-template-columns:1fr; } }
+
+.slide{
+  position:relative; aspect-ratio:1/1; border-radius:14px; overflow:hidden;
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:7% 8%; box-shadow:0 6px 22px rgba(0,0,0,.14);
+  container-type:inline-size;
+}
+.slide.crema{ background:var(--crema); color:#1f1f1f; }
+.slide.carbon{ background:var(--carbon); color:var(--crema); }
+.slide.vino{ background:var(--vino); color:var(--crema); }
+
+.ghost{
+  position:absolute; right:-4%; bottom:-6%; font-weight:900; font-size:24cqw;
+  line-height:.8; letter-spacing:-.02em; opacity:.14; white-space:nowrap;
+  pointer-events:none; z-index:0;
+}
+.slide.crema .ghost, .slide.vino .ghost{ color:var(--vino); }
+.slide.carbon .ghost{ color:var(--rosa); }
+
+.kicker{ position:relative; z-index:1; font-size:9.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; opacity:.72; }
+.head-block{ position:relative; z-index:1; }
+h2.headline{ font-weight:900; letter-spacing:-.02em; font-size:clamp(15px,4.6vw,20px); line-height:1.12; margin:6px 0 0; }
+h2.headline em{ font-style:italic; color:var(--rosa); font-weight:700; }
+.sub{ font-size:10.5px; opacity:.75; margin-top:6px; max-width:90%; }
+.spark{ color:var(--rosa); font-size:14px; margin-left:2px; }
+
+.icon-wrap{ position:relative; z-index:1; display:flex; align-items:center; justify-content:center; flex:1; }
+.icon-wrap svg{ width:44%; height:44%; }
+
+.sign{ position:relative; z-index:1; }
+.sign .bar{ width:22px; height:2px; background:var(--rosa); margin-bottom:6px; }
+.sign .name{ font-weight:800; font-size:10.5px; letter-spacing:.02em; }
+.sign .role{ font-size:7.5px; letter-spacing:.08em; text-transform:uppercase; opacity:.65; margin-top:2px; }
+
+footer{ margin-top:40px; padding-top:16px; border-top:1px solid rgba(0,0,0,.08); color:var(--page-muted); font-size:12.5px; }
+</style>
+
+<div class="wrap">
+  <span class="tag">Solo maqueta, no la imagen final</span>
+  <h1>Cómo se vería el carrusel</h1>
+  <p class="note">Esto es layout y color exactos (tu paleta, tu tipo de headline, el kicker de tu hero). El ícono en el centro es un placeholder plano — la imagen real la generas con el prompt del kit, ahí sale el objeto fotografiado de verdad.</p>
+
+  <div class="grid">
+
+    <div class="slide carbon">
+      <div class="ghost">PUBLICAR</div>
+      <span class="kicker">ESTRATEGIA DE MARCA · DIRECCIÓN CREATIVA</span>
+      <div class="icon-wrap">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+          <circle cx="50" cy="50" r="34"/><circle cx="50" cy="50" r="8"/>
+          <line x1="50" y1="16" x2="50" y2="30"/><line x1="50" y1="70" x2="50" y2="84"/>
+          <line x1="16" y1="50" x2="30" y2="50"/><line x1="70" y1="50" x2="84" y2="50"/>
+        </svg>
+      </div>
+      <div class="head-block">
+        <h2 class="headline">Publicas todas las semanas, <em>nada se mueve</em><span class="spark">✦</span></h2>
+        <div class="sub">El problema casi nunca es el contenido. Es la dirección.</div>
+      </div>
+      <div class="sign"><div class="bar"></div><div class="name">GABRIELA CONTRERAS</div><div class="role">Brand Strategist &amp; Creative Director</div></div>
+    </div>
+
+    <div class="slide crema">
+      <div class="ghost">ESTRATEGIA</div>
+      <span class="kicker">ESTRATEGIA DE MARCA · DIRECCIÓN CREATIVA</span>
+      <div class="icon-wrap">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+          <circle cx="50" cy="50" r="34"/>
+          <path d="M50 30 L58 50 L50 70 L42 50 Z"/>
+        </svg>
+      </div>
+      <div class="head-block">
+        <h2 class="headline">Un calendario de contenido <em>no es estrategia</em></h2>
+        <div class="sub">Uno dice qué publicar. El otro dice para quién, y por qué.</div>
+      </div>
+      <div class="sign"><div class="bar"></div><div class="name">GABRIELA CONTRERAS</div><div class="role">Brand Strategist &amp; Creative Director</div></div>
+    </div>
+
+    <div class="slide crema">
+      <div class="ghost">POSICIÓN</div>
+      <span class="kicker">ESTRATEGIA DE MARCA · DIRECCIÓN CREATIVA</span>
+      <div class="icon-wrap">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+          <path d="M50 20 L58 45 L50 50 L42 45 Z"/><rect x="46" y="50" width="8" height="22"/><rect x="38" y="72" width="24" height="7" rx="2"/>
+        </svg>
+      </div>
+      <div class="head-block">
+        <h2 class="headline">¿Puedes explicar en una frase <em>por qué te eligen?</em></h2>
+        <div class="sub">Si te toma un párrafo, ahí está el hueco.</div>
+      </div>
+      <div class="sign"><div class="bar"></div><div class="name">GABRIELA CONTRERAS</div><div class="role">Brand Strategist &amp; Creative Director</div></div>
+    </div>
+
+    <div class="slide carbon">
+      <div class="ghost">MÉTRICA</div>
+      <span class="kicker">ESTRATEGIA DE MARCA · DIRECCIÓN CREATIVA</span>
+      <div class="icon-wrap">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+          <path d="M35 20 C20 20 20 45 35 45 L35 65"/>
+          <rect x="27" y="62" width="16" height="12" rx="2"/>
+        </svg>
+      </div>
+      <div class="head-block">
+        <h2 class="headline">Mides likes, <em>no sabes si vende</em></h2>
+        <div class="sub">El contenido que más gusta y el que más vende casi nunca es el mismo.</div>
+      </div>
+      <div class="sign"><div class="bar"></div><div class="name">GABRIELA CONTRERAS</div><div class="role">Brand Strategist &amp; Creative Director</div></div>
+    </div>
+
+    <div class="slide crema">
+      <div class="ghost">RESULTADOS</div>
+      <span class="kicker">ESTRATEGIA DE MARCA · DIRECCIÓN CREATIVA</span>
+      <div class="icon-wrap">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+          <rect x="18" y="55" width="10" height="26" rx="2" transform="rotate(-18 23 68)"/>
+          <rect x="40" y="45" width="10" height="36" rx="2" transform="rotate(-9 45 63)"/>
+          <rect x="63" y="35" width="10" height="46" rx="2"/>
+        </svg>
+      </div>
+      <div class="head-block">
+        <h2 class="headline">+440% en alcance, <em>cero pauta</em></h2>
+        <div class="sub">Con dirección clara, cada pieza construye sobre la anterior.</div>
+      </div>
+      <div class="sign"><div class="bar"></div><div class="name">GABRIELA CONTRERAS</div><div class="role">Brand Strategist &amp; Creative Director</div></div>
+    </div>
+
+    <div class="slide vino">
+      <div class="ghost">RUMBO</div>
+      <span class="kicker">ESTRATEGIA DE MARCA · DIRECCIÓN CREATIVA</span>
+      <div class="icon-wrap">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3">
+          <path d="M50 20 L50 55"/><path d="M35 55 L65 55 L60 78 L40 78 Z"/>
+          <path d="M50 12 L20 40 M50 12 L50 40 M50 12 L80 40" opacity=".55"/>
+        </svg>
+      </div>
+      <div class="head-block">
+        <h2 class="headline">Deja de publicar <em>a ciegas</em></h2>
+        <div class="sub">Diagnóstico gratuito, o dirección estratégica mes a mes.</div>
+      </div>
+      <div class="sign"><div class="bar"></div><div class="name">GABRIELA CONTRERAS</div><div class="role">Brand Strategist &amp; Creative Director</div></div>
+    </div>
+
+  </div>
+
+  <footer>Orden de publicación: 1 → 6, de izquierda a derecha. Los íconos son solo referencia de composición — la imagen real (objeto fotografiado, textura, luz) sale del prompt maestro en el kit de carrusel.</footer>
+</div>
