@@ -85,6 +85,24 @@ input[type=file]{ font-size:12.5px; color:var(--muted); }
   display:inline-block; margin-top:5%; background:var(--acc); color:#fff; font-weight:600;
   font-size:2.8cqw; padding:2.6% 5%; border-radius:999px;
 }
+.slide .pill-list{ display:none; flex-wrap:wrap; gap:2.2%; margin-top:4%; }
+.slide .pill-chip{
+  display:inline-block; padding:2.2% 4.2%; border-radius:999px; font-weight:600; font-size:2.4cqw;
+  background:var(--acc); color:#fff; border:1.5px solid transparent;
+}
+.slide .pill-chip.outline{ background:transparent; color:#f5f1ea; border-color:#f5f1ea; }
+.slide.txt-dark .pill-chip.outline{ color:#1f1f1f; border-color:#1f1f1f; }
+
+.pill-builder-row{ display:flex; gap:6px; margin-top:8px; }
+.pill-builder-row input[type=text]{ flex:1; }
+.pill-builder-row select{ width:auto; font-family:var(--font); font-size:13px; padding:10px 8px; border-radius:10px; border:1.5px solid var(--line); background:transparent; color:var(--txt); }
+.pill-builder-row .btn{ padding:10px 16px; }
+.pill-chips-list{ display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+.pill-chip-tag{
+  display:inline-flex; align-items:center; gap:6px; background:var(--bg); border:1px solid var(--line);
+  border-radius:999px; padding:5px 10px; font-size:12.5px;
+}
+.pill-chip-tag button{ background:none; border:none; color:var(--muted); cursor:pointer; font-size:13px; line-height:1; padding:0; }
 .slide .accent-line{ width:34px; height:3px; background:var(--rosa); margin-bottom:10px; }
 .slide .counter{
   position:absolute; top:6%; right:7%; z-index:3; font-weight:800; font-size:2.6cqw;
@@ -169,6 +187,18 @@ select, .gen-panel input[type=text], .gen-panel input[type=number]{
       <label><input type="checkbox" id="showPill" style="width:auto;display:inline;margin-right:6px;">Mostrar botón/pill</label>
       <input type="text" id="pillText" placeholder="Texto del botón (opcional)">
 
+      <label>Pills adicionales (etiquetas)</label>
+      <div class="pill-builder-row">
+        <input type="text" id="pillTagInput" placeholder="Ej: Branding">
+        <select id="pillTagStyle">
+          <option value="filled">Relleno</option>
+          <option value="outline">Contorno</option>
+        </select>
+        <button class="btn" id="addPillTagBtn" type="button">+</button>
+      </div>
+      <div class="pill-chips-list" id="pillChipsList"></div>
+      <div class="hint">Como una nube de servicios/tags. Cada slide guarda las suyas.</div>
+
       <label>Posición del texto</label>
       <select id="textPos" style="width:100%;font-family:var(--font);font-size:14px;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:transparent;color:var(--txt);">
         <option value="bottom">Abajo</option>
@@ -200,6 +230,7 @@ select, .gen-panel input[type=text], .gen-panel input[type=number]{
           <div class="kicker" id="outKicker"></div>
           <h2 id="outHeadline"></h2>
           <div class="sub" id="outSub"></div>
+          <div class="pill-list" id="outPillList"></div>
           <div class="pill" id="outPill" style="display:none"></div>
         </div>
         <div class="counter" id="slideCounter" style="display:none"></div>
@@ -400,6 +431,55 @@ function applyElements(i){
   });
 });
 
+const pillTagInput = document.getElementById('pillTagInput');
+const pillTagStyle = document.getElementById('pillTagStyle');
+const pillChipsList = document.getElementById('pillChipsList');
+const outPillList = document.getElementById('outPillList');
+const pillTags = {}; // per slide index: array of {text, style}
+
+function renderPillChipsUI(i){
+  const tags = pillTags[i] || [];
+  pillChipsList.innerHTML = '';
+  tags.forEach((t, idx) => {
+    const chip = document.createElement('span');
+    chip.className = 'pill-chip-tag';
+    const label = document.createElement('span');
+    label.textContent = t.text + ' (' + (t.style === 'outline' ? 'contorno' : 'relleno') + ')';
+    const rm = document.createElement('button');
+    rm.type = 'button'; rm.textContent = '✕'; rm.setAttribute('aria-label', 'Quitar');
+    rm.addEventListener('click', () => {
+      tags.splice(idx, 1);
+      renderPillChipsUI(current);
+      renderPillListPreview(current);
+    });
+    chip.appendChild(label); chip.appendChild(rm);
+    pillChipsList.appendChild(chip);
+  });
+}
+function renderPillListPreview(i){
+  const tags = pillTags[i] || [];
+  outPillList.innerHTML = '';
+  outPillList.style.display = tags.length ? 'flex' : 'none';
+  tags.forEach(t => {
+    const span = document.createElement('span');
+    span.className = 'pill-chip' + (t.style === 'outline' ? ' outline' : '');
+    span.textContent = t.text;
+    outPillList.appendChild(span);
+  });
+}
+document.getElementById('addPillTagBtn').addEventListener('click', () => {
+  const text = pillTagInput.value.trim();
+  if (!text) return;
+  if (!pillTags[current]) pillTags[current] = [];
+  pillTags[current].push({ text, style: pillTagStyle.value });
+  pillTagInput.value = '';
+  renderPillChipsUI(current);
+  renderPillListPreview(current);
+});
+pillTagInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') { e.preventDefault(); document.getElementById('addPillTagBtn').click(); }
+});
+
 function renderHeadline(raw){
   const parts = raw.split('*');
   let html = '';
@@ -442,6 +522,8 @@ function loadSlide(i){
   }
   applyPattern(i);
   applyElements(i);
+  renderPillChipsUI(i);
+  renderPillListPreview(i);
   const pos = positions[i] || 'bottom';
   textPos.value = pos;
   slideEl.dataset.pos = pos;
