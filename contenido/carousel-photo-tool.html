@@ -61,6 +61,10 @@ input[type=file]{ font-size:12.5px; color:var(--muted); }
 .slide .pattern{
   position:absolute; inset:0; mix-blend-mode:screen; opacity:.9;
 }
+.slide .grain{
+  position:absolute; inset:0; z-index:2; opacity:.35; mix-blend-mode:overlay; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 .slide .overlay{ position:absolute; inset:0; }
 .slide[data-pos="bottom"] .overlay{ background:linear-gradient(180deg, rgba(20,17,16,.15) 0%, rgba(20,17,16,.35) 45%, rgba(20,17,16,.9) 100%); }
 .slide[data-pos="top"] .overlay{ background:linear-gradient(0deg, rgba(20,17,16,.15) 0%, rgba(20,17,16,.35) 45%, rgba(20,17,16,.9) 100%); }
@@ -75,7 +79,20 @@ input[type=file]{ font-size:12.5px; color:var(--muted); }
   display:inline-block; margin-top:5%; background:var(--acc); color:#fff; font-weight:600;
   font-size:2.8cqw; padding:2.6% 5%; border-radius:999px;
 }
+.slide .accent-line{ width:34px; height:3px; background:var(--rosa); margin-bottom:10px; }
+.slide .counter{
+  position:absolute; top:6%; right:7%; z-index:3; font-weight:800; font-size:2.6cqw;
+  letter-spacing:.04em; color:rgba(245,241,234,.9); font-variant-numeric:tabular-nums;
+}
+.slide .corners span{ position:absolute; width:20px; height:20px; z-index:3; border-color:rgba(245,241,234,.8); }
+.slide .corners .tl{ top:5%; left:5%; border-top:2px solid; border-left:2px solid; }
+.slide .corners .tr{ top:5%; right:5%; border-top:2px solid; border-right:2px solid; }
+.slide .corners .bl{ bottom:5%; left:5%; border-bottom:2px solid; border-left:2px solid; }
+.slide .corners .br{ bottom:5%; right:5%; border-bottom:2px solid; border-right:2px solid; }
 .slide{ container-type:inline-size; }
+
+.check-row{ display:flex; align-items:center; gap:8px; font-weight:400; text-transform:none; letter-spacing:0; font-size:14px; color:var(--txt); margin-top:10px; }
+.check-row input{ width:auto; }
 
 .actions{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
 .btn{
@@ -153,9 +170,14 @@ select, .gen-panel input[type=text], .gen-panel input[type=number]{
         <option value="top">Arriba</option>
       </select>
 
-      <label>Grid de puntos</label>
-      <button class="btn ghost" id="shuffleBtn" type="button" style="width:100%;justify-content:center;">🔀 Variar grid de esta slide</button>
-      <div class="hint">Cada slide ya sale con su propia variación de tamaño y posición. El fondo (color, foto) lo manejas tú aparte.</div>
+      <label>Elementos gráficos</label>
+      <label class="check-row"><input type="checkbox" id="elGrid">Grid de puntos</label>
+      <button class="btn ghost" id="shuffleBtn" type="button" style="width:100%;justify-content:center;margin-top:8px;">🔀 Variar grid</button>
+      <label class="check-row"><input type="checkbox" id="elCounter">Contador de slide (01/06)</label>
+      <label class="check-row"><input type="checkbox" id="elLine">Línea de acento</label>
+      <label class="check-row"><input type="checkbox" id="elCorners">Esquinas de marco</label>
+      <label class="check-row"><input type="checkbox" id="elGrain">Grano de película</label>
+      <div class="hint">Todo apagado por defecto. Actívalos como quieras, cada slide guarda su propia combinación.</div>
     </div>
 
     <div class="preview-wrap">
@@ -163,12 +185,18 @@ select, .gen-panel input[type=text], .gen-panel input[type=number]{
         <div class="flatbg"></div>
         <img class="bg" id="bgImg" style="display:none">
         <div class="pattern" id="slidePattern"></div>
+        <div class="grain" id="slideGrain" style="display:none"></div>
         <div class="overlay"></div>
         <div class="content">
+          <div class="accent-line" id="accentLine" style="display:none"></div>
           <div class="kicker" id="outKicker"></div>
           <h2 id="outHeadline"></h2>
           <div class="sub" id="outSub"></div>
           <div class="pill" id="outPill" style="display:none"></div>
+        </div>
+        <div class="counter" id="slideCounter" style="display:none"></div>
+        <div class="corners" id="slideCorners" style="display:none">
+          <span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span>
         </div>
       </div>
       <div class="actions">
@@ -330,6 +358,35 @@ document.getElementById('shuffleBtn').addEventListener('click', () => {
   applyPattern(current);
 });
 
+const elements = {}; // { grid, counter, line, corners, grain } per slide index, all off by default
+const elGrid = document.getElementById('elGrid');
+const elCounter = document.getElementById('elCounter');
+const elLine = document.getElementById('elLine');
+const elCorners = document.getElementById('elCorners');
+const elGrain = document.getElementById('elGrain');
+const accentLine = document.getElementById('accentLine');
+const slideCounter = document.getElementById('slideCounter');
+const slideCorners = document.getElementById('slideCorners');
+const slideGrain = document.getElementById('slideGrain');
+function pad2(n){ return n < 10 ? '0' + n : '' + n; }
+function defaultElements(){ return { grid:false, counter:false, line:false, corners:false, grain:false }; }
+function applyElements(i){
+  const e = elements[i] || (elements[i] = defaultElements());
+  elGrid.checked = e.grid; slidePattern.style.display = e.grid ? 'block' : 'none';
+  elCounter.checked = e.counter; slideCounter.style.display = e.counter ? 'block' : 'none';
+  if (e.counter) slideCounter.textContent = pad2(i + 1) + '/' + pad2(slides.length);
+  elLine.checked = e.line; accentLine.style.display = e.line ? 'block' : 'none';
+  elCorners.checked = e.corners; slideCorners.style.display = e.corners ? 'block' : 'none';
+  elGrain.checked = e.grain; slideGrain.style.display = e.grain ? 'block' : 'none';
+}
+[[elGrid,'grid'], [elCounter,'counter'], [elLine,'line'], [elCorners,'corners'], [elGrain,'grain']].forEach(([el, key]) => {
+  el.addEventListener('change', () => {
+    if (!elements[current]) elements[current] = defaultElements();
+    elements[current][key] = el.checked;
+    applyElements(current);
+  });
+});
+
 function renderHeadline(raw){
   const parts = raw.split('*');
   let html = '';
@@ -371,6 +428,7 @@ function loadSlide(i){
     bgImg.style.display = 'none';
   }
   applyPattern(i);
+  applyElements(i);
   const pos = positions[i] || 'bottom';
   textPos.value = pos;
   slideEl.dataset.pos = pos;
