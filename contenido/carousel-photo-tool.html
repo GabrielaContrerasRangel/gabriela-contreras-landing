@@ -230,6 +230,7 @@ function getSample(){
   if (!samplePromise) samplePromise = (window.claude && window.claude.use) ? window.claude.use('sample') : Promise.resolve(null);
   return samplePromise;
 }
+const genHistory = []; // short summary of each previous generation this session, so "generar de nuevo" doesn't repeat itself
 
 document.getElementById('generateBtn').addEventListener('click', async () => {
   const genBtn = document.getElementById('generateBtn');
@@ -252,9 +253,10 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
 
 Genera el contenido de un carrusel de Instagram de ${count} slides.
 Categoría de la pieza: "${cat.name}" (objetivo: ${cat.desc}).
-Tema: ${topic ? '"' + topic + '"' : 'no se dio uno específico — elige tú un tema relevante para dueños de negocio o marcas personales que necesitan estrategia de marca, acorde a la categoría "' + cat.name + '"'}.
+Tema: ${topic ? '"' + topic + '"' : 'no se dio uno específico, elige tú un tema relevante para dueños de negocio o marcas personales que necesitan estrategia de marca, acorde a la categoría "' + cat.name + '"'}.
 
 Estructura: la primera slide engancha con una tensión o dolor real de esa audiencia. Las del medio desarrollan el tema según el objetivo de la categoría. La última cierra con una acción concreta.
+${genHistory.length ? '\nYa generaste estas opciones antes en esta misma sesión, NO las repitas ni uses ángulos muy parecidos, dame algo genuinamente distinto:\n' + genHistory.map((h, i) => (i + 1) + '. ' + h).join('\n') + '\n' : ''}
 
 Para cada slide devuelve:
 - kicker: siempre exactamente "ESTRATEGIA DE MARCA · DIRECCIÓN CREATIVA"
@@ -266,7 +268,7 @@ Devuelve SOLO un array JSON válido, sin explicación ni texto adicional, con es
 [{"kicker":"...","headline":"...","sub":"...","pill":"..."}]`;
 
   try {
-    const result = await sampleApi.json(prompt);
+    const result = await sampleApi.json(prompt, { cache: false });
     const arr = Array.isArray(result) ? result : (result && result.slides) ? result.slides : null;
     if (!arr || !arr.length) throw new Error('empty');
     slides.length = 0;
@@ -276,10 +278,11 @@ Devuelve SOLO un array JSON válido, sin explicación ni texto adicional, con es
       sub: s.sub || "",
       pill: s.pill || ""
     }));
+    genHistory.push(cat.name + (topic ? ' / "' + topic + '"' : '') + ': "' + (slides[0].headline || '').replace(/\*/g, '') + '"');
     renderSteps();
     loadSlide(0);
     status.className = 'gen-status';
-    status.textContent = '¡Listo! ' + slides.length + ' slides generadas. Ahora sube tu foto para cada una.';
+    status.textContent = '¡Listo! ' + slides.length + ' slides generadas. Ahora sube tu foto para cada una. Dale a "Generar contenido" otra vez si quieres otra opción distinta.';
   } catch (err) {
     status.className = 'gen-status err';
     status.textContent = 'No se pudo generar el contenido. Intenta de nuevo.';
