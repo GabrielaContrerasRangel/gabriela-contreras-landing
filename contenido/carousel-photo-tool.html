@@ -158,8 +158,8 @@ select, .gen-panel input[type=text], .gen-panel input[type=number]{
         <input type="number" id="slideCount" min="3" max="8" value="6">
       </div>
     </div>
-    <label>Tema (opcional — si lo dejas vacío, yo propongo uno según la categoría)</label>
-    <input type="text" id="topicInput" placeholder="Ej: por qué mi marca no vende aunque publico seguido">
+    <label>Tema o brief (opcional — si lo dejas vacío, yo propongo uno según la categoría)</label>
+    <textarea id="topicInput" placeholder="Puede ser una frase corta, o pegar un caso/brief completo. Si mencionas un cliente o caso específico, lo generalizo: hablo de la situación, no de esa persona." style="min-height:90px;"></textarea>
     <button class="btn" id="generateBtn" style="margin-top:14px;">Generar contenido →</button>
     <div class="gen-status" id="genStatus"></div>
   </div>
@@ -345,7 +345,8 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
 
 Genera el contenido de un carrusel de Instagram de ${count} slides.
 Categoría de la pieza: "${cat.name}" (objetivo: ${cat.desc}).
-Tema: ${topic ? '"' + topic + '"' : 'no se dio uno específico, elige tú un tema relevante para dueños de negocio o marcas personales que necesitan estrategia de marca, acorde a la categoría "' + cat.name + '"'}.
+Tema o brief: ${topic ? '"' + topic + '"' : 'no se dio uno específico, elige tú un tema relevante para dueños de negocio o marcas personales que necesitan estrategia de marca, acorde a la categoría "' + cat.name + '"'}.
+${topic ? 'IMPORTANTE: si ese tema/brief menciona un caso, cliente o persona específica (nombre propio, marca de un tercero, historia particular), NO la menciones ni la identifiques en el carrusel bajo ninguna circunstancia. Extrae el patrón o situación general detrás de ese caso (el problema, el antes/después, la lección) y habla de esa situación en general, como algo con lo que cualquiera en esa posición se identifique, no como el caso de alguien en particular.' : ''}
 
 Estructura: la primera slide engancha con una tensión o dolor real de esa audiencia. Las del medio desarrollan el tema según el objetivo de la categoría. La última cierra con una acción concreta.
 ${genHistory.length ? '\nYa generaste estas opciones antes en esta misma sesión, NO las repitas ni uses ángulos muy parecidos, dame algo genuinamente distinto:\n' + genHistory.map((h, i) => (i + 1) + '. ' + h).join('\n') + '\n' : ''}
