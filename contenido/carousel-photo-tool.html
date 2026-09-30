@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:ital,wght@0,400;0,500;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:ital,wght@0,400;0,500;0,700;0,800;0,900;1,200;1,700&display=swap" rel="stylesheet">
 <style>
 /* layout: left = form + slide nav, right = live 1:1 square preview built from an uploaded photo + text overlay matching the site hero */
 :root{
@@ -65,7 +65,7 @@ input[type=file]{ font-size:12.5px; color:var(--muted); }
 .slide .content{ position:relative; z-index:1; padding:7% 8% 8%; color:#f5f1ea; }
 .slide .kicker{ font-size:2.6cqw; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(245,241,234,.82); margin-bottom:2.2%; }
 .slide h2{ font-weight:900; letter-spacing:-.02em; font-size:6.8cqw; line-height:1.08; margin:0; }
-.slide h2 em{ font-style:italic; color:var(--rosa); font-weight:700; }
+.slide h2 em{ font-style:italic; color:var(--rosa); font-weight:200; }
 .slide .spark{ color:var(--rosa); }
 .slide .sub{ font-size:3cqw; color:rgba(245,241,234,.82); margin-top:3%; max-width:92%; line-height:1.5; }
 .slide .pill{
@@ -255,12 +255,10 @@ document.getElementById('exportBtn').addEventListener('click', async () => {
       backgroundColor: null,
       useCORS: true
     });
-    canvas.toBlob((blob) => {
-      const url = URL.createObjectURL(blob);
-      document.getElementById('exportedImg').src = url;
-      document.getElementById('exportedWrap').style.display = 'block';
-      btn.textContent = original; btn.disabled = false;
-    });
+    const dataUrl = canvas.toDataURL('image/png');
+    document.getElementById('exportedImg').src = dataUrl;
+    document.getElementById('exportedWrap').style.display = 'block';
+    btn.textContent = original; btn.disabled = false;
   } catch (err) {
     btn.textContent = original; btn.disabled = false;
     alert('No se pudo generar la imagen. Intenta de nuevo.');
