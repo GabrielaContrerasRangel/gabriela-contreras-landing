@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuéntame de tu marca · Gabriela Contreras</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/mona-sans/index.css">
+<style>
+/* ── TOKENS: copiados de gabrielacontrerasmarketing.com ── */
+:root {
+  --bg:         #f5f1ea;
+  --acc:        #8c1e37;
+  --acc-contact:#b53d5b;
+  --rose:       #d4607c;
+  --txt:        #1f1f1f;
+  --muted:      #666666;
+  --dim:        #999999;
+  --card:       #fffdf8;
+  --warm-black: #1a1a1a;
+  --stone:      #a8a39c;
+  --pale:       #d8d3cb;
+  --line:       rgba(31,31,31,.10);
+  --shadow:     rgba(140,30,55,.18);
+  --font: 'Mona Sans Variable', 'Mona Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { font-family: var(--font); font-weight: 300; line-height: 1.7; background: var(--bg); color: var(--txt); -webkit-font-smoothing: antialiased; overflow-x: hidden; min-height: 100vh; }
+button, input, textarea { font-family: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+
+/* ── NAV (igual que la web) ── */
+.top { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.top-in { max-width: 720px; margin: 0 auto; padding: 0 20px; height: 64px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.brand { font-weight: 700; letter-spacing: -0.03em; font-size: 19px; display: flex; align-items: center; gap: 9px; }
+.brand .acc { color: var(--acc); }
+.brand .mk { color: var(--acc); font-weight: 700; letter-spacing: -0.06em; }
+.where { font-size: 13px; font-weight: 400; color: var(--muted); text-align: right; }
+.bar { height: 3px; background: var(--line); }
+.bar > i { display: block; height: 100%; width: 0; background: var(--acc); transition: width .35s ease; }
+
+/* ── LAYOUT ── */
+main { max-width: 720px; margin: 0 auto; padding: 14px 14px 80px; }
+.pad { padding: 0 6px; }
+h1 { font-weight: 700; letter-spacing: -0.03em; line-height: 1.0; font-size: clamp(38px, 9vw, 64px); }
+h1 em { font-style: italic; font-weight: 200; color: var(--acc); }
+.spark { width: .46em; height: .46em; display: inline-block; vertical-align: .1em; margin-left: .06em; }
+.mono { font-weight: 500; text-transform: uppercase; letter-spacing: .16em; font-size: 11px; color: var(--muted); }
+.eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.eyebrow::before { content: ""; width: 28px; height: 1.5px; background: var(--acc); flex-shrink: 0; }
+.lead { font-size: 18px; font-weight: 300; color: var(--muted); max-width: 54ch; }
+
+/* ── BIENVENIDA: marco oscuro como el hero de la web ── */
+.hero-frame { position: relative; overflow: hidden; border-radius: 28px; color: var(--bg); background: var(--warm-black); padding: clamp(34px, 8vw, 64px) clamp(24px, 6vw, 56px); }
+.hero-frame::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 0% 100%, rgba(140,30,55,.55), transparent 65%), radial-gradient(ellipse 50% 50% at 100% 0%, rgba(181,61,91,.20), transparent 60%); }
+.hero-frame > * { position: relative; }
+.hero-frame .mono { color: var(--stone); }
+.hero-frame .eyebrow::before { background: var(--acc-contact); }
+.hero-frame h1 { margin-top: 6px; }
+.hero-frame h1 em { color: var(--rose); }
+.hero-frame .tagline { font-size: clamp(17px, 2vw, 21px); font-weight: 200; color: var(--pale); max-width: 460px; margin: 24px 0 0; }
+.hero-frame .tagline + .tagline { margin-top: 12px; }
+.hero-frame .tagline strong { font-weight: 500; color: var(--bg); }
+.cta-row { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+.sign { margin: 22px 6px 0; font-size: 13px; color: var(--muted); }
+
+.gate-row { margin-top: 26px; display: flex; gap: 12px; align-items: flex-start; flex-wrap: wrap; }
+.gate-row .f { flex: 1 1 200px; margin: 0; }
+.gate-row .in { background: rgba(255,255,255,.95); }
+.hero-frame .err { color: #ffb3c4; }
+
+/* ── BANNER DE GRUPO ── */
+.banner { background: var(--warm-black); position: relative; overflow: hidden; border-radius: 20px; padding: 24px 24px 22px; display: flex; align-items: center; gap: 18px; margin-bottom: 14px; }
+.banner::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 90% at 0% 50%, rgba(140,30,55,.5), transparent 62%); }
+.banner .bn { position: relative; font-size: 64px; font-weight: 700; letter-spacing: -0.06em; line-height: 1; color: var(--rose); opacity: .4; }
+.banner .bt { position: relative; }
+.banner h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; color: var(--bg); margin-bottom: 4px; }
+.banner p { font-size: 15px; font-weight: 200; color: var(--pale); line-height: 1.55; }
+
+/* ── PREGUNTAS ── */
+.q { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 24px 22px 22px; margin-bottom: 14px; }
+.q-n { margin-bottom: 8px; }
+.q-t { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 6px; }
+.q-h { font-size: 15px; font-weight: 300; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+.f { margin-bottom: 14px; }
+.f:last-child { margin-bottom: 0; }
+.f-l { display: block; font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+.req { color: var(--acc); }
+input.in, textarea.in { width: 100%; font-size: 16px; font-weight: 300; background: #fff; border: 1.5px solid var(--line); border-radius: 10px; padding: 12px 14px; line-height: 1.5; color: var(--txt); }
+textarea.in { min-height: 116px; resize: vertical; }
+input.in:focus, textarea.in:focus { border-color: var(--acc); box-shadow: 0 0 0 3px var(--shadow); outline: none; }
+.in::placeholder { color: var(--dim); font-style: italic; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 14.5px; font-weight: 400; background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 9px 16px; cursor: pointer; line-height: 1.3; text-align: left; color: var(--muted); transition: border-color .2s, color .2s; }
+.chip:hover { border-color: var(--acc); color: var(--txt); }
+.chip[aria-pressed="true"] { background: var(--acc); border-color: var(--acc); color: #fff; font-weight: 500; }
+.err { display: none; margin-top: 6px; font-size: 13px; color: var(--acc); font-weight: 500; }
+.f.bad .err { display: block; }
+.f.bad .in, .f.bad .chip { border-color: var(--acc); }
+.nudge { display: none; margin-top: 8px; font-size: 13.5px; color: var(--muted); border-left: 3px solid var(--acc); padding: 7px 12px; background: rgba(140,30,55,.05); border-radius: 0 10px 10px 0; }
+.f.thin .nudge { display: block; }
+
+/* ── AYUDA "NO SÉ QUÉ RESPONDER" ── */
+details.help { margin-top: 16px; }
+details.help summary { list-style: none; cursor: pointer; display: inline-block; font-size: 14.5px; font-weight: 500; color: var(--acc); border-bottom: 1.5px solid var(--acc); padding-bottom: 1px; }
+details.help summary::-webkit-details-marker { display: none; }
+.help-box { margin-top: 12px; border-left: 3px solid var(--acc); background: rgba(140,30,55,.05); border-radius: 0 12px 12px 0; padding: 14px 16px; font-size: 14.5px; line-height: 1.65; color: #3a3030; }
+.help-box h4 { font-size: 13px; font-weight: 600; margin-bottom: 4px; color: var(--txt); }
+.help-box h4:not(:first-child) { margin-top: 12px; }
+.help-box ul { padding-left: 18px; }
+.help-box li + li { margin-top: 3px; }
+.help-box .ej { font-style: italic; font-weight: 200; font-size: 15.5px; }
+.help-box .chips { margin-top: 8px; }
+.help-box .chip { font-size: 13px; padding: 6px 12px; }
+
+/* ── BOTONES (pastilla, como la web) ── */
+.nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 22px; padding: 0 6px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--acc); color: #fff; text-decoration: none; border: 1px solid var(--acc); padding: 15px 28px; border-radius: 999px; font-weight: 500; font-size: 15px; letter-spacing: -0.01em; cursor: pointer; transition: transform .25s ease, box-shadow .25s ease; }
+.btn:hover { transform: translateY(-4px); box-shadow: 0 14px 34px var(--shadow); }
+.btn.ghost { background: transparent; border-color: currentColor; color: var(--acc); }
+.hero-frame .btn.ghost { color: var(--bg); }
+.btn.link { background: none; border: none; color: var(--muted); padding: 15px 4px; font-weight: 400; }
+.btn.link:hover { transform: none; box-shadow: none; color: var(--txt); }
+.btn.big { width: 100%; }
+.small { font-size: 13px; color: var(--muted); margin: 18px 6px 0; }
+.small button { background: none; border: none; color: var(--muted); text-decoration: underline; cursor: pointer; font-size: 13px; }
+
+/* ── PANTALLA FINAL ── */
+.fin { padding: 22px 8px 0; }
+.steps { list-style: none; counter-reset: s; margin: 24px 0; }
+.steps li { counter-increment: s; position: relative; padding: 0 0 16px 46px; font-size: 17px; font-weight: 500; line-height: 1.5; }
+.steps li::before { content: counter(s); position: absolute; left: 0; top: -2px; width: 32px; height: 32px; border-radius: 50%; background: var(--acc); color: #fff; font-weight: 600; font-size: 14px; display: grid; place-items: center; }
+.steps li small { display: block; color: var(--muted); font-size: 14px; font-weight: 300; margin-top: 2px; }
+.actions { display: grid; gap: 10px; margin-top: 8px; }
+.cierre { margin: 26px 0 0; background: var(--warm-black); color: var(--bg); border-radius: 20px; padding: 26px 26px; font-size: clamp(20px, 4.5vw, 26px); font-weight: 200; letter-spacing: -0.02em; line-height: 1.3; position: relative; overflow: hidden; }
+.cierre::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 0% 50%, rgba(140,30,55,.5), transparent 65%); }
+.cierre span { position: relative; }
+.cierre em { font-style: italic; color: var(--rose); }
+.review { margin-top: 30px; border-top: 1px solid var(--line); padding-top: 22px; }
+.review h3 { font-size: 15px; font-weight: 600; margin-bottom: 14px; }
+
+/* ── DOCUMENTO (repaso en pantalla + PDF) ── */
+.doc-g { margin-bottom: 22px; }
+.doc-g h4 { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: var(--acc); padding-bottom: 6px; border-bottom: 2px solid var(--acc); margin-bottom: 12px; }
+.doc-q { padding: 10px 0; border-bottom: 1px solid var(--line); break-inside: avoid; }
+.doc-q .dq { font-size: 12.5px; font-weight: 500; color: var(--muted); margin-bottom: 3px; }
+.doc-q .da { font-size: 15px; font-weight: 400; line-height: 1.65; }
+.doc-q .da .sub { display: block; }
+.doc-q .da .sub b { font-weight: 500; font-size: 12.5px; color: var(--muted); }
+.doc-q .da.vacia { color: var(--dim); font-style: italic; }
+.cover { display: none; }
+#doc { display: none; }
+.pie { display: none; }
+
+/* ── IMPRESIÓN / PDF ── */
+@page { size: A4; margin: 20mm 18mm 22mm; }
+@media print {
+  html, body { background: #fff; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .top, main { display: none !important; }
+  #doc { display: block; }
+  .cover { display: block; padding: 30mm 0 22mm; border-bottom: 3px solid var(--acc); margin-bottom: 14mm; }
+  .cover .cv-eyebrow { margin-bottom: 8mm; }
+  .cover h1 { font-size: 40pt; margin-bottom: 8mm; }
+  .cover .cv-marca { font-size: 18pt; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 2mm; }
+  .cover .cv-meta { font-size: 11pt; color: var(--muted); font-weight: 300; line-height: 1.7; }
+  .doc-g h4 { break-after: avoid; }
+  .doc-q .da { font-size: 10.5pt; }
+  .doc-q .dq { font-size: 9pt; }
+  .pie { display: block; margin-top: 12mm; font-size: 8.5pt; color: var(--dim); border-top: 1px solid var(--line); padding-top: 4mm; }
+}
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .bar > i, .btn { transition: none; } }
+@media (max-width: 420px) { .banner { flex-direction: column; align-items: flex-start; gap: 6px; } .banner .bn { font-size: 46px; } .brand { font-size: 17px; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <span class="brand"><span class="mk">GC</span><span>Gabriela <span class="acc">Contreras</span></span></span>
+    <span class="where" id="where"></span>
+  </div>
+  <div class="bar"><i id="bar"></i></div>
+</header>
+
+<main id="app" aria-live="polite"></main>
+<div id="doc"></div>
+
+<script>
+/* ═══════════ CONFIGURACIÓN (lo único que tienes que tocar) ═══════════ */
+const CONFIG = {
+  correo: "gabrielacontrerasredes@gmail.com",
+  whatsapp: "34627879574", // Código de país + número, sin + ni espacios. Vacío = no se muestra el botón.
+  titulo: "Conoce tu marca",
+  codigo: "ALMARUMBO"       // Código de acceso único. Para cambiarlo, cambia solo esta palabra.
+};
+
+/* ═══════════ PREGUNTAS ═══════════ */
+const GRUPOS = [
+  { id: "quien", titulo: "Quién eres", intro: "Lo básico, para saber con quién hablo.", preguntas: [
+    { n: 1, t: "¿A qué se dedica tu marca y dónde?", campos: [
+      { id: "dedica", l: "¿A qué se dedica, en una frase?", k: "text", req: true, ph: "Ej: Hago tortas por encargo para cumpleaños" },
+      { id: "ubicacion", l: "¿En qué ciudad y país está? ¿Dónde quieres vender?", k: "text", req: true, ph: "Ej: San Cristóbal, Venezuela; también Rubio" }
+    ], ayuda: {
+      guia: ["Completa esta frase: “Yo ___ para ___”.", "Si tuvieras que explicárselo a alguien en un ascensor, ¿qué le dirías?", "Para el lugar: piensa en dónde están hoy tus clientes, o dónde te gustaría tenerlos."],
+      ejemplo: "Tengo una floristería pequeña y hago arreglos para regalar, con flores de temporada. Estoy en una ciudad pequeña y quiero llegar también a los pueblos cercanos."
+    }},
+    { n: 2, t: "¿En qué rubro está tu marca?", h: "Elige el que más se parezca, o hasta dos si tu marca es de dos rubros. Si ninguno encaja, toca “Otro” y cuéntame.", campos: [
+      { id: "rubro", l: "", k: "multi", max: 2, req: true, op: ["Comida y bebida", "Salud y bienestar", "Belleza y estética", "Marca personal (coach, mentora, creadora)", "Servicios profesionales (abogados, contadores, consultoría)", "Educación y formación", "Moda y accesorios", "Tienda o comercio", "Hogar, construcción y diseño de interiores", "Insumos e industria (venta a empresas)", "Arte, fotografía y creativos", "Eventos, turismo y hospedaje", "Flores, regalos y artesanía", "Tecnología y software", "Fundación u organización social", "Otro"] },
+      { id: "rubro_otro", l: "Cuéntame cuál", k: "text", solo: { id: "rubro", val: "Otro" } }
+    ]},
+    { n: 3, t: "¿En qué etapa está tu marca?", campos: [
+      { id: "etapa", l: "", k: "single", req: true, op: ["Es solo una idea", "Estoy empezando", "Ya funciona", "Quiero reinventarme"] }
+    ]}
+  ]},
+  { id: "hoy", titulo: "Qué tienes hoy", intro: "Lo que ya existe, aunque esté a medias.", preguntas: [
+    { n: 4, t: "¿Qué parte de tu marca ya está construida?", h: "Una marca es mucho más que un logo. Marca todo lo que ya existe, aunque esté a medias.", campos: [
+      { id: "definido", l: "", k: "multi", req: true, op: ["Nombre", "Logo", "Paleta de colores", "Tipografías", "Manual de marca", "Mensaje y propuesta de valor claros", "Voz y tono definidos", "Página web", "Redes con una imagen coherente", "Material impreso o digital (menú, catálogo, empaques)", "Nada de esto todavía"] }
+    ]},
+    { n: 5, t: "¿Dónde estás presente hoy?", h: "Pega los enlaces: web, Instagram, TikTok, Google Maps, lo que tengas.", campos: [
+      { id: "presencia", l: "", k: "area", ph: "Un enlace por línea" }
+    ], ayuda: {
+      guia: ["Si no tienes nada todavía, escribe “aún no tengo nada” y listo.", "Busca tu negocio en Google Maps: si aparece, copia el enlace y pégalo aquí.", "En Instagram, entra a tu perfil y copia el enlace desde el botón de compartir."]
+    }},
+    { n: 6, t: "Si alguien te pregunta qué haces, ¿cómo se lo explicas?", h: "Tal cual lo dices tú, sin arreglarlo.", campos: [
+      { id: "explica", l: "", k: "area" }
+    ], ayuda: {
+      guia: ["Imagina que un vecino te lo pregunta en la calle. ¿Qué le contestas?", "¿Qué haces, para quién y qué cambia en esa persona después de trabajar contigo?", "No importa si suena torpe. Eso es justo lo que me sirve."],
+      ejemplo: "Ayudo a mujeres que acaban de ser mamás a volver a moverse sin dolor, con ejercicios suaves y en su casa."
+    }},
+    { n: 7, t: "¿Quién es tu mejor cliente hoy, o a quién quieres atraer?", campos: [
+      { id: "cliente", l: "", k: "area" }
+    ], ayuda: {
+      guia: ["Piensa en la última persona que te compró o te contrató y quedó feliz. ¿Cómo era?", "¿Más o menos qué edad tenía, dónde vive, a qué se dedica?", "¿Qué le preocupaba justo antes de buscarte?", "Si aún no tienes clientes: describe a la persona a la que más te gustaría servir."],
+      ejemplo: "Mujeres de 30 a 45 que trabajan mucho, no tienen tiempo para cocinar y quieren comer bien sin complicarse."
+    }}
+  ]},
+  { id: "quiere", titulo: "Qué quieres", intro: "Hacia dónde vas y qué te ha frenado.", preguntas: [
+    { n: 8, t: "¿Qué quieres lograr en los próximos 6 a 12 meses?", campos: [
+      { id: "meta", l: "", k: "area" }
+    ], ayuda: {
+      guia: ["¿Cuántos clientes o ventas te gustaría tener al mes?", "¿Qué cambiaría en tu día a día si todo saliera bien?", "Puede ser algo concreto (abrir un local, lanzar un producto) o algo más amplio (vivir de esto)."],
+      ejemplo: "Tener clientes fijos cada mes y dejar de depender de que alguien me recomiende."
+    }},
+    { n: 9, t: "¿Qué crees que necesitas?", h: "Marca todo lo que aplique. Si no lo sabes, está bien: para eso estamos aquí.", campos: [
+      { id: "necesita", l: "", k: "multi", req: true, op: ["Crear mi marca desde cero", "Renovar mi marca (rebranding)", "Una página web", "Estrategia de comunicación y redes", "No sé qué necesito"] }
+    ]},
+    { n: 10, t: "¿Qué te ha frenado hasta ahora?", campos: [
+      { id: "freno", l: "", k: "area" }
+    ], ayuda: {
+      guia: ["¿Qué has intentado antes y no te funcionó?", "¿Qué es lo que más te cuesta de dar el siguiente paso?"],
+      ideas: ["Falta de tiempo", "Presupuesto", "No sé por dónde empezar", "Probé y no funcionó", "Miedo a cambiar lo que ya tengo", "No tengo quién me ayude"],
+      nota: "Toca las que te suenen y se agregan a tu respuesta. Después las puedes explicar con tus palabras."
+    }}
+  ]},
+  { id: "practico", titulo: "Lo práctico", intro: "Dos últimas cosas y terminamos.", preguntas: [
+    { n: 11, t: "¿Qué marcas admiras y por qué?", h: "No tienen que ser de tu rubro.", campos: [
+      { id: "admira", l: "", k: "area" }
+    ], ayuda: {
+      guia: ["Piensa en una marca a la que le compras o que sigues sin cansarte.", "¿Qué te hace sentir? ¿Qué te gusta de cómo se ve o de cómo habla?"],
+      ejemplo: "Me gusta una panadería de mi barrio porque se siente cercana, nada pretenciosa, y siempre huele a hogar."
+    }},
+    { n: 12, t: "¿Para cuándo lo necesitas?", campos: [
+      { id: "plazo", l: "", k: "single", op: ["Lo antes posible", "En 1 a 3 meses", "En 3 a 6 meses", "Sin prisa"] }
+    ]}
+  ]}
+];
+
+/* ═══════════ DATOS OBLIGATORIOS (para poder empezar) ═══════════ */
+const DATOS = [
+  { id: "nombre",   l: "Tu nombre", k: "text", req: true },
+  { id: "correo",   l: "Correo electrónico", k: "text", req: true, type: "email", ph: "nombre@ejemplo.com" },
+  { id: "telefono", l: "WhatsApp o teléfono, con código de país", k: "text", req: true, type: "tel", ph: "Ej: 58 412 5550198" },
+  { id: "marca",    l: "Nombre de tu marca o negocio", k: "text", req: true, ph: "Si todavía no tiene nombre, escríbelo así" }
+];
+const MAIL_FALSOS = ["mailinator.com","tempmail.com","10minutemail.com","guerrillamail.com","yopmail.com","trashmail.com","example.com","test.com","correo.com","email.com"];
+const MAIL_ERRATAS = { "gmial.com":"gmail.com","gmai.com":"gmail.com","gamil.com":"gmail.com","gmail.co":"gmail.com","gmail.con":"gmail.com","hotmial.com":"hotmail.com","hotmai.com":"hotmail.com","hotmail.con":"hotmail.com","outlok.com":"outlook.com","yaho.com":"yahoo.com","yahooo.com":"yahoo.com" };
+function validarDato(id) {
+  const v = txt(id);
+  if (!v) return id === "correo" ? "Escribe tu correo." : id === "telefono" ? "Escribe tu número." : "Falta este dato.";
+  if (id === "nombre") return (v.length < 2 || /^\d+$/.test(v)) ? "Escribe tu nombre." : "";
+  if (id === "marca") return (v.length < 2 || /^\d+$/.test(v) || /^(.)\1+$/.test(v)) ? "Escribe el nombre de tu marca, o cómo la llamas por ahora." : "";
+  if (id === "correo") {
+    const m = v.toLowerCase().match(/^([^\s@]+)@([^\s@]+\.[a-z]{2,})$/);
+    if (!m) return "Ese correo no parece válido. Revisa que tenga @ y un dominio, como nombre@gmail.com.";
+    const l = m[1], d = m[2], base = d.split(".")[0];
+    if (MAIL_ERRATAS[d]) return "¿Quisiste decir " + l + "@" + MAIL_ERRATAS[d] + "?";
+    const raro = MAIL_FALSOS.includes(d) || /^\d+$/.test(base) || base.length < 2 ||
+      /^(.)\1*$/.test(l) || /^(test|prueba|asdf|qwerty|correo|email|admin|abc|xxx|nada)\d*$/.test(l) || /^\d{1,8}$/.test(l);
+    return raro ? "Escribe un correo real, al que sí tengas acceso." : "";
+  }
+  if (id === "telefono") {
+    const d = v.replace(/[\s\-().+]/g, "");
+    if (!/^\d+$/.test(d)) return "Usa solo números. Ejemplo: 58 412 5550198.";
+    if (d.length < 9 || d.length > 15) return "Revisa el número e incluye el código de país (Venezuela 58, España 34).";
+    const secuencia = /(0123456|1234567|2345678|3456789|9876543|8765432|7654321|6543210)/.test(d);
+    const repetido = /(\d)\1{5,}/.test(d) || new Set(d.split("")).size <= 2;
+    return (secuencia || repetido) ? "Ese número no parece real. Escribe el tuyo, con código de país." : "";
+  }
+  return "";
+}
+
+/* ═══════════ ESTADO ═══════════ */
+const KEY = "gc_etapa1_v1";
+const TOTAL = GRUPOS.length + 2;           // bienvenida + grupos + final
+let S = { paso: 0, r: {}, avisado: {} };
+try { const g = JSON.parse(localStorage.getItem(KEY)); if (g && g.r) S = g; } catch (e) {}
+S.paso = 0; // siempre abre en la bienvenida; "Seguir donde iba" la lleva a su último punto
+const guardar = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const val = id => S.r[id];
+const cumple = so => Array.isArray(val(so.id)) ? val(so.id).includes(so.val) : val(so.id) === so.val;
+const txt = id => (typeof val(id) === "string" ? val(id).trim() : "");
+const lista = id => Array.isArray(val(id)) ? val(id) : [];
+
+/* ═══════════ RENDER ═══════════ */
+function campoHTML(c) {
+  if (c.solo && !cumple(c.solo)) return "";
+  const lab = c.l ? `<label class="f-l" for="${c.id}">${esc(c.l)}${c.req ? ' <span class="req">*</span>' : ""}</label>` : "";
+  let ctl = "";
+  if (c.k === "text") ctl = `<input class="in" id="${c.id}" data-id="${c.id}" type="${c.type || "text"}"${c.type === "tel" ? ' inputmode="tel"' : c.type === "email" ? ' inputmode="email" autocapitalize="off"' : ""} value="${esc(val(c.id) || "")}" placeholder="${esc(c.ph || "")}" autocomplete="off">`;
+  if (c.k === "area") ctl = `<textarea class="in" id="${c.id}" data-id="${c.id}" placeholder="${esc(c.ph || "")}">${esc(val(c.id) || "")}</textarea>`;
+  if (c.k === "single" || c.k === "multi") {
+    const sel = c.k === "single" ? [val(c.id)] : lista(c.id);
+    ctl = `<div class="chips" role="group" aria-label="${esc(c.l || "Opciones")}">` +
+      c.op.map(o => `<button type="button" class="chip" data-chip="${c.id}" data-k="${c.k}" data-v="${esc(o)}" aria-pressed="${sel.includes(o)}">${esc(o)}</button>`).join("") + `</div>`;
+  }
+  const nudge = c.k === "area" ? `<div class="nudge">Esta respuesta quedó cortita. Si puedes, cuéntame un poco más: me ayuda a conocerte mejor. Si así está bien, sigue.</div>` : "";
+  return `<div class="f" id="f-${c.id}" data-campo="${c.id}">${lab}${ctl}<div class="err">${c.k === "text" || c.k === "area" ? "Falta este dato." : "Elige al menos una opción."}</div>${nudge}</div>`;
+}
+
+function ayudaHTML(q) {
+  const a = q.ayuda; if (!a) return "";
+  const idArea = q.campos.find(c => c.k === "area" || c.k === "text").id;
+  let h = `<details class="help"><summary>No sé qué responder</summary><div class="help-box">`;
+  if (a.guia) h += `<h4>Piensa en esto</h4><ul>${a.guia.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+  if (a.ejemplo) h += `<h4>Un ejemplo de otra persona (no lo copies, solo para que te inspires)</h4><p class="ej">${esc(a.ejemplo)}</p>`;
+  if (a.ideas) h += `<h4>¿Alguna te suena?</h4>${a.nota ? `<p>${esc(a.nota)}</p>` : ""}<div class="chips">${a.ideas.map(i => `<button type="button" class="chip" data-idea="${esc(i)}" data-to="${idArea}">${esc(i)}</button>`).join("")}</div>`;
+  return h + `</div></details>`;
+}
+
+function preguntaHTML(q) {
+  return `<section class="q" aria-labelledby="q${q.n}">
+    <div class="q-n mono eyebrow">Pregunta ${q.n} de 12</div>
+    <h3 class="q-t" id="q${q.n}">${esc(q.t)}</h3>
+    ${q.h ? `<p class="q-h">${esc(q.h)}</p>` : ""}
+    ${q.campos.map(campoHTML).join("")}
+    ${ayudaHTML(q)}
+  </section>`;
+}
+
+function respuestaDe(c) {
+  if (c.k === "multi") return lista(c.id).join(" · ");
+  return txt(c.id);
+}
+
+function datosHTML() {
+  const fila = (q, a) => `<div class="doc-q"><div class="dq">${q}</div><div class="da">${esc(a || "—")}</div></div>`;
+  return `<div class="doc-g"><h4>Tus datos</h4>${fila("Nombre", txt("nombre"))}${fila("Marca o negocio", txt("marca"))}${fila("Correo", txt("correo"))}${fila("WhatsApp o teléfono", txt("telefono"))}</div>`;
+}
+
+function docHTML() {
+  return datosHTML() + GRUPOS.map((g, i) => `<div class="doc-g"><h4>${i + 1}. ${esc(g.titulo)}</h4>` +
+    g.preguntas.map(q => {
+      const partes = q.campos.map(c => {
+        if (c.solo && !cumple(c.solo)) return "";
+        const r = respuestaDe(c); if (!r) return "";
+        return q.campos.length > 1 ? `<span class="sub"><b>${esc(c.l || "")}${c.l ? (/[?]$/.test(c.l) ? " " : ": ") : ""}</b>${esc(r).replace(/\n/g, "<br>")}</span>` : esc(r).replace(/\n/g, "<br>");
+      }).join("");
+      return `<div class="doc-q"><div class="dq">${q.n}. ${esc(q.t)}</div><div class="da${partes ? "" : " vacia"}">${partes || "Sin respuesta"}</div></div>`;
+    }).join("") + `</div>`).join("");
+}
+
+function portadaHTML() {
+  const f = new Date().toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" });
+  return `<div class="cover"><div class="cv-eyebrow mono eyebrow">Estrategia de marca · Dirección creativa</div><h1>${esc(CONFIG.titulo.split(" ")[0])} <em>${esc(CONFIG.titulo.split(" ").slice(1).join(" "))}</em><svg class="spark" viewBox="0 0 24 24" fill="#b53d5b" aria-hidden="true"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg></h1>
+    <div class="cv-marca">${esc(txt("marca") || "Marca sin nombre")}</div>
+    <div class="cv-meta">${esc(txt("nombre"))}${[txt("correo"), txt("telefono")].filter(Boolean).map(esc).join(" · ") ? " · " + [txt("correo"), txt("telefono")].filter(Boolean).map(esc).join(" · ") : ""}<br>${f}</div></div>`;
+}
+
+function render() {
+  const app = $("#app");
+  const p = S.paso;
+  $("#bar").style.width = (p / (TOTAL - 1)) * 100 + "%";
+  $("#where").textContent = p === 0 ? "" : p === TOTAL - 1 ? "Listo" : `${p} de ${GRUPOS.length} · ${GRUPOS[p - 1].titulo}`;
+
+  if (p === 0 && !S.acceso) {
+    const wa = CONFIG.whatsapp ? `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent("Hola Gabi, quiero empezar a trabajar mi marca contigo.")}` : "";
+    app.innerHTML = `<div class="hero-frame">
+        <div class="mono eyebrow">Estrategia de marca · Dirección creativa</div>
+        <h1>Conoce <em>tu marca</em><svg class="spark" viewBox="0 0 24 24" fill="#b53d5b" aria-hidden="true"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg></h1>
+        <p class="tagline">Este formulario es para quienes ya están en conversación conmigo. Escribe el código que te envié para entrar.</p>
+        <div class="gate-row"><div class="f" id="f-codigo"><input class="in" id="codigo" type="text" autocomplete="off" autocapitalize="characters" placeholder="Tu código de acceso" aria-label="Código de acceso"><div class="err">Ese código no coincide. Revisa el que te envié o escríbeme.</div></div>
+        <button class="btn" id="entrar">Entrar →</button></div>
+      </div>
+      ${wa ? `<p class="small">¿Aún no tienes código? <a href="${wa}" target="_blank" rel="noopener" style="color:var(--acc)">Escríbeme por WhatsApp</a> y empezamos.</p>` : ""}
+      <p class="sign">Gabriela Contreras · Estrategia de Marca · Dirección Creativa</p>`;
+    const norm = x => String(x || "").toUpperCase().replace(/[\s\-_]/g, "");
+    const probar = () => {
+      if (norm($("#codigo").value) === norm(CONFIG.codigo)) { S.acceso = true; guardar(); render(); }
+      else $("#f-codigo").classList.add("bad");
+    };
+    $("#entrar").onclick = probar;
+    $("#codigo").addEventListener("keydown", e => { if (e.key === "Enter") probar(); });
+    $("#codigo").addEventListener("input", () => $("#f-codigo").classList.remove("bad"));
+    return;
+  }
+
+  if (p === 0) {
+    const hay = !!S.ultimo;
+    const algo = Object.keys(S.r).length > 0;
+    app.innerHTML = `<div class="hero-frame">
+        <div class="mono eyebrow">Estrategia de marca · Dirección creativa</div>
+        <h1>Cuéntame de <em>tu marca</em><svg class="spark" viewBox="0 0 24 24" fill="#b53d5b" aria-hidden="true"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg></h1>
+        <p class="tagline">Son 12 preguntas y te toman unos 15 minutos. No hay respuestas buenas ni malas: mientras más real, mejor.</p>
+        <p class="tagline">Puedes parar cuando quieras y seguir después, tu avance queda guardado en este dispositivo. Si una pregunta te traba, toca <strong>“No sé qué responder”</strong>.</p>
+      </div>
+      <section class="q" style="margin-top:14px" aria-labelledby="antes">
+        <div class="q-n mono eyebrow">Antes de empezar</div>
+        <h3 class="q-t" id="antes">Déjame tus datos para poder responderte</h3>
+        <p class="q-h">Necesito que sean reales: por aquí te escribo cuando revise tu formulario. Si tienes más de un negocio o marca, llena este formulario una vez por cada uno.</p>
+        ${DATOS.map(campoHTML).join("")}
+      </section>
+      <div class="nav"><span></span><button class="btn" id="go">${hay ? "Seguir donde iba" : "Empezar"} →</button></div>
+      <p class="sign">Gabriela Contreras · Estrategia de Marca · Dirección Creativa</p>
+      ${hay ? `<p class="small"><button id="otra">Empezar un formulario para otra marca</button></p>` : ""}
+      ${algo ? `<p class="small" style="margin-top:6px"><button id="borrar">Borrar mis respuestas y empezar de cero</button></p>` : ""}`;
+    const o = $("#otra"); if (o) o.onclick = nuevaMarca;
+    $("#go").onclick = () => {
+      let primera = null;
+      DATOS.forEach(c => {
+        const f = $("#f-" + c.id), m = validarDato(c.id);
+        f.classList.toggle("bad", !!m);
+        if (m) { f.querySelector(".err").textContent = m; if (!primera) primera = f; }
+      });
+      guardar();
+      if (primera) { primera.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+      ir(hay ? S.ultimo : 1);
+    };
+    const b = $("#borrar"); if (b) b.onclick = () => { if (confirm("¿Seguro? Se borran todas tus respuestas.")) { S = { paso: 0, r: {}, avisado: {}, acceso: true }; guardar(); render(); } };
+    return;
+  }
+
+  if (p === TOTAL - 1) {
+    const mail = `mailto:${CONFIG.correo}?subject=${encodeURIComponent(CONFIG.titulo + " · " + (txt("marca") || txt("nombre")))}&body=${encodeURIComponent("Hola Gabi, te envío mi formulario completo. Va el PDF adjunto.")}`;
+    const wa = CONFIG.whatsapp ? `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent("Hola Gabi, soy " + (txt("nombre") || "una clienta") + (txt("marca") ? " (" + txt("marca") + ")" : "") + ". Ya completé mi formulario. Te envío el PDF.")}` : "";
+    app.innerHTML = `<div class="fin"><h1>Terminaste, <em>${esc(txt("nombre").split(" ")[0] || "gracias")}</em><svg class="spark" viewBox="0 0 24 24" fill="#b53d5b" aria-hidden="true"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg></h1>
+      <p class="lead" style="margin-top:16px">Ahora falta que me lo hagas llegar. Son tres pasos:</p>
+      <ol class="steps">
+        <li>Descarga tu PDF<small>Toca el botón de abajo y, en la ventana que se abre, elige “Guardar como PDF”.</small></li>
+        <li>Envíamelo<small>Por correo o por WhatsApp, adjuntando el PDF que acabas de guardar.</small></li>
+        <li>Yo lo reviso<small>Lo leo con calma y te escribo para contarte cómo seguimos.</small></li>
+      </ol>
+      <div class="actions">
+        <button class="btn big" id="pdf">Descargar mi PDF</button>
+        <a class="btn ghost big" href="${mail}">Enviar por correo</a>
+        ${wa ? `<a class="btn ghost big" href="${wa}" target="_blank" rel="noopener">Enviar por WhatsApp</a>` : ""}
+      </div>
+      <p class="small" style="margin:18px 0 0">¿Tienes otra marca? <button id="otra">Llenar otro formulario</button></p>
+      <div class="cierre"><span>Ya diste el primer paso: ponerle palabras a tu marca. Lo demás lo construimos <em>en equipo</em>.</span></div>
+      <div class="review"><h3>Tus respuestas</h3>${docHTML()}</div>
+      <div class="nav" style="padding:0"><button class="btn link" id="atras">← Corregir algo</button><span></span></div></div>`;
+    $("#pdf").onclick = descargarPDF;
+    $("#otra").onclick = nuevaMarca;
+    $("#atras").onclick = () => ir(TOTAL - 2);
+    return;
+  }
+
+  const g = GRUPOS[p - 1];
+  app.innerHTML = `<div class="banner"><div class="bn">${p}</div><div class="bt"><h2>${esc(g.titulo)}</h2><p>${esc(g.intro)}</p></div></div>
+    ${g.preguntas.map(preguntaHTML).join("")}
+    <div class="nav"><button class="btn link" id="atras">← Atrás</button><button class="btn" id="sig">${p === GRUPOS.length ? "Ver mi resumen" : "Continuar"}</button></div>
+    <p class="small">Tu avance se guarda solo.</p>`;
+  $("#atras").onclick = () => ir(p - 1);
+  $("#sig").onclick = continuar;
+}
+
+function nuevaMarca() {
+  if (!confirm("Antes de empezar otro formulario, asegúrate de haber descargado y enviado el PDF de esta marca. Se borran las respuestas de esta marca; tus datos de contacto se quedan.")) return;
+  const keep = { nombre: S.r.nombre, correo: S.r.correo, telefono: S.r.telefono };
+  S = { paso: 0, r: keep, avisado: {}, acceso: true };
+  guardar(); render(); window.scrollTo({ top: 0 });
+}
+
+function ir(n) { S.paso = n; if (n > 0 && n < TOTAL - 1) S.ultimo = n; guardar(); render(); window.scrollTo({ top: 0 }); }
+
+/* ═══════════ EVENTOS ═══════════ */
+document.addEventListener("input", e => {
+  const id = e.target.dataset && e.target.dataset.id; if (!id) return;
+  S.r[id] = e.target.value; guardar();
+  const f = $("#f-" + id); if (f) { f.classList.remove("bad"); if (e.target.value.trim().length >= 20) f.classList.remove("thin"); }
+});
+
+document.addEventListener("click", e => {
+  const chip = e.target.closest("[data-chip]");
+  if (chip) {
+    const id = chip.dataset.chip, v = chip.dataset.v;
+    if (chip.dataset.k === "single") {
+      S.r[id] = v;
+      document.querySelectorAll(`[data-chip="${id}"]`).forEach(b => b.setAttribute("aria-pressed", b === chip));
+      // si cambia el rubro, mostrar/ocultar el campo "otro" sin perder el foco de la página
+      if (id === "rubro") { const keep = window.scrollY; render(); window.scrollTo({ top: keep }); }
+    } else {
+      const arr = lista(id), i = arr.indexOf(v);
+      const max = (GRUPOS.flatMap(g => g.preguntas).flatMap(q => q.campos).find(c => c.id === id) || {}).max;
+      if (i >= 0) arr.splice(i, 1); else { arr.push(v); if (max && arr.length > max) arr.shift(); }
+      S.r[id] = arr;
+      document.querySelectorAll(`[data-chip="${id}"]`).forEach(b => b.setAttribute("aria-pressed", arr.includes(b.dataset.v)));
+      if (id === "rubro") { guardar(); const keep = window.scrollY; render(); window.scrollTo({ top: keep }); return; }
+    }
+    const f = $("#f-" + id); if (f) f.classList.remove("bad");
+    guardar(); return;
+  }
+  const idea = e.target.closest("[data-idea]");
+  if (idea) {
+    const t = $("#" + idea.dataset.to), v = idea.dataset.idea;
+    if (!t.value.includes(v)) { t.value = (t.value.trim() ? t.value.trim() + ". " : "") + v; S.r[idea.dataset.to] = t.value; guardar(); }
+    idea.setAttribute("aria-pressed", "true");
+  }
+});
+
+function continuar() {
+  const g = GRUPOS[S.paso - 1];
+  let primeraMala = null, hayCorto = false;
+  g.preguntas.forEach(q => q.campos.forEach(c => {
+    if (c.solo && !cumple(c.solo)) return;
+    const f = $("#f-" + c.id); if (!f) return;
+    f.classList.remove("bad");
+    const vacio = c.k === "multi" ? lista(c.id).length === 0 : !txt(c.id) && !(c.k === "single" && val(c.id));
+    if (c.req && vacio) { f.classList.add("bad"); if (!primeraMala) primeraMala = f; }
+    // aviso suave: respuesta muy corta en preguntas abiertas (se avisa una sola vez)
+    if (c.k === "area" && txt(c.id) && txt(c.id).length < 20 && !S.avisado[c.id]) { f.classList.add("thin"); S.avisado[c.id] = true; hayCorto = true; if (!primeraMala) primeraMala = f; }
+  }));
+  guardar();
+  if (primeraMala) { primeraMala.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+  ir(S.paso + 1);
+}
+
+/* ═══════════ PDF (imprimir → guardar como PDF) ═══════════ */
+function descargarPDF() {
+  $("#doc").innerHTML = portadaHTML() + docHTML() + `<div class="pie">${esc(CONFIG.titulo)} · Preparado para Gabriela Contreras · Estrategia de Marca · Dirección Creativa</div>`;
+  const antes = document.title;
+  document.title = "Conoce-tu-marca-" + (txt("marca") || txt("nombre") || "cliente").replace(/[^\wáéíóúñÁÉÍÓÚÑ-]+/g, "-");
+  window.print();
+  setTimeout(() => { document.title = antes; }, 1500);
+}
+
+render();
+</script>
+</body>
+</html>
