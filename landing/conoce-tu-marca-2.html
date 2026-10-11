@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conoce tu marca · Formulario completo · Gabriela Contreras</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/mona-sans/index.css">
+<style>
+/* ── TOKENS: copiados de gabrielacontrerasmarketing.com ── */
+:root {
+  --bg:         #f5f1ea;
+  --acc:        #8c1e37;
+  --acc-contact:#b53d5b;
+  --rose:       #d4607c;
+  --txt:        #1f1f1f;
+  --muted:      #666666;
+  --dim:        #999999;
+  --card:       #fffdf8;
+  --warm-black: #1a1a1a;
+  --stone:      #a8a39c;
+  --pale:       #d8d3cb;
+  --line:       rgba(31,31,31,.10);
+  --shadow:     rgba(140,30,55,.18);
+  --font: 'Mona Sans Variable', 'Mona Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { font-family: var(--font); font-weight: 300; line-height: 1.7; background: var(--bg); color: var(--txt); -webkit-font-smoothing: antialiased; overflow-x: hidden; min-height: 100vh; }
+button, input, textarea { font-family: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+
+/* ── NAV (igual que la web) ── */
+.top { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.top-in { max-width: 720px; margin: 0 auto; padding: 0 20px; height: 64px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.brand { font-weight: 700; letter-spacing: -0.03em; font-size: 19px; display: flex; align-items: center; gap: 9px; }
+.brand .acc { color: var(--acc); }
+.brand .mk { color: var(--acc); font-weight: 700; letter-spacing: -0.06em; }
+.where { font-size: 13px; font-weight: 400; color: var(--muted); text-align: right; }
+.bar { height: 3px; background: var(--line); }
+.bar > i { display: block; height: 100%; width: 0; background: var(--acc); transition: width .35s ease; }
+
+/* ── LAYOUT ── */
+main { max-width: 720px; margin: 0 auto; padding: 14px 14px 80px; }
+.pad { padding: 0 6px; }
+h1 { font-weight: 700; letter-spacing: -0.03em; line-height: 1.0; font-size: clamp(38px, 9vw, 64px); }
+h1 em { font-style: italic; font-weight: 200; color: var(--acc); }
+.spark { width: .46em; height: .46em; display: inline-block; vertical-align: .1em; margin-left: .06em; }
+.mono { font-weight: 500; text-transform: uppercase; letter-spacing: .16em; font-size: 11px; color: var(--muted); }
+.eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.eyebrow::before { content: ""; width: 28px; height: 1.5px; background: var(--acc); flex-shrink: 0; }
+.lead { font-size: 18px; font-weight: 300; color: var(--muted); max-width: 54ch; }
+
+/* ── BIENVENIDA: marco oscuro como el hero de la web ── */
+.hero-frame { position: relative; overflow: hidden; border-radius: 28px; color: var(--bg); background: var(--warm-black); padding: clamp(34px, 8vw, 64px) clamp(24px, 6vw, 56px); }
+.hero-frame::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 0% 100%, rgba(140,30,55,.55), transparent 65%), radial-gradient(ellipse 50% 50% at 100% 0%, rgba(181,61,91,.20), transparent 60%); }
+.hero-frame > * { position: relative; }
+.hero-frame .mono { color: var(--stone); }
+.hero-frame .eyebrow::before { background: var(--acc-contact); }
+.hero-frame h1 { margin-top: 6px; }
+.hero-frame h1 em { color: var(--rose); }
+.hero-frame .tagline { font-size: clamp(17px, 2vw, 21px); font-weight: 200; color: var(--pale); max-width: 460px; margin: 24px 0 0; }
+.hero-frame .tagline + .tagline { margin-top: 12px; }
+.hero-frame .tagline strong { font-weight: 500; color: var(--bg); }
+.cta-row { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+.sign { margin: 22px 6px 0; font-size: 13px; color: var(--muted); }
+
+.gate-row { margin-top: 26px; display: flex; gap: 12px; align-items: flex-start; flex-wrap: wrap; }
+.gate-row .f { flex: 1 1 200px; margin: 0; }
+.gate-row .in { background: rgba(255,255,255,.95); }
+.hero-frame .err { color: #ffb3c4; }
+
+/* ── BANNER DE GRUPO ── */
+.banner { background: var(--warm-black); position: relative; overflow: hidden; border-radius: 20px; padding: 24px 24px 22px; display: flex; align-items: center; gap: 18px; margin-bottom: 14px; }
+.banner::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 90% at 0% 50%, rgba(140,30,55,.5), transparent 62%); }
+.banner .bn { position: relative; font-size: 64px; font-weight: 700; letter-spacing: -0.06em; line-height: 1; color: var(--rose); opacity: .4; }
+.banner .bt { position: relative; }
+.banner h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; color: var(--bg); margin-bottom: 4px; }
+.banner p { font-size: 15px; font-weight: 200; color: var(--pale); line-height: 1.55; }
+
+/* ── PREGUNTAS ── */
+.q { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 24px 22px 22px; margin-bottom: 14px; }
+.q-n { margin-bottom: 8px; }
+.q-t { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 6px; }
+.q-h { font-size: 15px; font-weight: 300; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+.f { margin-bottom: 14px; }
+.f:last-child { margin-bottom: 0; }
+.f-l { display: block; font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+.req { color: var(--acc); }
+input.in, textarea.in { width: 100%; font-size: 16px; font-weight: 300; background: #fff; border: 1.5px solid var(--line); border-radius: 10px; padding: 12px 14px; line-height: 1.5; color: var(--txt); }
+textarea.in { min-height: 116px; resize: vertical; }
+input.in:focus, textarea.in:focus { border-color: var(--acc); box-shadow: 0 0 0 3px var(--shadow); outline: none; }
+.in::placeholder { color: var(--dim); font-style: italic; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 14.5px; font-weight: 400; background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 9px 16px; cursor: pointer; line-height: 1.3; text-align: left; color: var(--muted); transition: border-color .2s, color .2s; }
+.chip:hover { border-color: var(--acc); color: var(--txt); }
+.chip[aria-pressed="true"] { background: var(--acc); border-color: var(--acc); color: #fff; font-weight: 500; }
+.err { display: none; margin-top: 6px; font-size: 13px; color: var(--acc); font-weight: 500; }
+.f.bad .err { display: block; }
+.f.bad .in, .f.bad .chip { border-color: var(--acc); }
+.nudge { display: none; margin-top: 8px; font-size: 13.5px; color: var(--muted); border-left: 3px solid var(--acc); padding: 7px 12px; background: rgba(140,30,55,.05); border-radius: 0 10px 10px 0; }
+.f.thin .nudge { display: block; }
+
+/* ── AYUDA "NO SÉ QUÉ RESPONDER" ── */
+details.help { margin-top: 16px; }
+details.help summary { list-style: none; cursor: pointer; display: inline-block; font-size: 14.5px; font-weight: 500; color: var(--acc); border-bottom: 1.5px solid var(--acc); padding-bottom: 1px; }
+details.help summary::-webkit-details-marker { display: none; }
+.help-box { margin-top: 12px; border-left: 3px solid var(--acc); background: rgba(140,30,55,.05); border-radius: 0 12px 12px 0; padding: 14px 16px; font-size: 14.5px; line-height: 1.65; color: #3a3030; }
+.help-box h4 { font-size: 13px; font-weight: 600; margin-bottom: 4px; color: var(--txt); }
+.help-box h4:not(:first-child) { margin-top: 12px; }
+.help-box ul { padding-left: 18px; }
+.help-box li + li { margin-top: 3px; }
+.help-box .ej { font-style: italic; font-weight: 200; font-size: 15.5px; }
+.help-box .chips { margin-top: 8px; }
+.help-box .chip { font-size: 13px; padding: 6px 12px; }
+
+/* ── BOTONES (pastilla, como la web) ── */
+.nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 22px; padding: 0 6px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--acc); color: #fff; text-decoration: none; border: 1px solid var(--acc); padding: 15px 28px; border-radius: 999px; font-weight: 500; font-size: 15px; letter-spacing: -0.01em; cursor: pointer; transition: transform .25s ease, box-shadow .25s ease; }
+.btn:hover { transform: translateY(-4px); box-shadow: 0 14px 34px var(--shadow); }
+.btn.ghost { background: transparent; border-color: currentColor; color: var(--acc); }
+.hero-frame .btn.ghost { color: var(--bg); }
+.btn.link { background: none; border: none; color: var(--muted); padding: 15px 4px; font-weight: 400; }
+.btn.link:hover { transform: none; box-shadow: none; color: var(--txt); }
+.btn.big { width: 100%; }
+.small { font-size: 13px; color: var(--muted); margin: 18px 6px 0; }
+.small button { background: none; border: none; color: var(--muted); text-decoration: underline; cursor: pointer; font-size: 13px; }
+
+/* ── PANTALLA FINAL ── */
+.fin { padding: 22px 8px 0; }
+.steps { list-style: none; counter-reset: s; margin: 24px 0; }
+.steps li { counter-increment: s; position: relative; padding: 0 0 16px 46px; font-size: 17px; font-weight: 500; line-height: 1.5; }
+.steps li::before { content: counter(s); position: absolute; left: 0; top: -2px; width: 32px; height: 32px; border-radius: 50%; background: var(--acc); color: #fff; font-weight: 600; font-size: 14px; display: grid; place-items: center; }
+.steps li small { display: block; color: var(--muted); font-size: 14px; font-weight: 300; margin-top: 2px; }
+.actions { display: grid; gap: 10px; margin-top: 8px; }
+.cierre { margin: 26px 0 0; background: var(--warm-black); color: var(--bg); border-radius: 20px; padding: 26px 26px; font-size: clamp(20px, 4.5vw, 26px); font-weight: 200; letter-spacing: -0.02em; line-height: 1.3; position: relative; overflow: hidden; }
+.cierre::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 0% 50%, rgba(140,30,55,.5), transparent 65%); }
+.cierre span { position: relative; }
+.cierre em { font-style: italic; color: var(--rose); }
+.review { margin-top: 30px; border-top: 1px solid var(--line); padding-top: 22px; }
+.review h3 { font-size: 15px; font-weight: 600; margin-bottom: 14px; }
+
+/* ── DOCUMENTO (repaso en pantalla + PDF) ── */
+.doc-g { margin-bottom: 22px; }
+.doc-g h4 { font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: var(--acc); padding-bottom: 6px; border-bottom: 2px solid var(--acc); margin-bottom: 12px; }
+.doc-q { padding: 10px 0; border-bottom: 1px solid var(--line); break-inside: avoid; }
+.doc-q .dq { font-size: 12.5px; font-weight: 500; color: var(--muted); margin-bottom: 3px; }
+.doc-q .da { font-size: 15px; font-weight: 400; line-height: 1.65; }
+.doc-q .da .sub { display: block; }
+.doc-q .da .sub b { font-weight: 500; font-size: 12.5px; color: var(--muted); }
+.doc-q .da.vacia { color: var(--dim); font-style: italic; }
+.cover { display: none; }
+#doc { display: none; }
+.pie { display: none; }
+
+/* ── IMPRESIÓN / PDF ── */
+@page { size: A4; margin: 20mm 18mm 22mm; }
+@media print {
+  html, body { background: #fff; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .top, main { display: none !important; }
+  #doc { display: block; }
+  .cover { display: block; padding: 30mm 0 22mm; border-bottom: 3px solid var(--acc); margin-bottom: 14mm; }
+  .cover .cv-eyebrow { margin-bottom: 8mm; }
+  .cover h1 { font-size: 40pt; margin-bottom: 8mm; }
+  .cover .cv-marca { font-size: 18pt; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 2mm; }
+  .cover .cv-meta { font-size: 11pt; color: var(--muted); font-weight: 300; line-height: 1.7; }
+  .doc-g h4 { break-after: avoid; }
+  .doc-q .da { font-size: 10.5pt; }
+  .doc-q .dq { font-size: 9pt; }
+  .pie { display: block; margin-top: 12mm; font-size: 8.5pt; color: var(--dim); border-top: 1px solid var(--line); padding-top: 4mm; }
+}
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .bar > i, .btn { transition: none; } }
+@media (max-width: 420px) { .banner { flex-direction: column; align-items: flex-start; gap: 6px; } .banner .bn { font-size: 46px; } .brand { font-size: 17px; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <span class="brand"><span class="mk">GC</span><span>Gabriela <span class="acc">Contreras</span></span></span>
+    <span class="where" id="where"></span>
+  </div>
+  <div class="bar"><i id="bar"></i></div>
+</header>
+
+<main id="app" aria-live="polite"></main>
+<div id="doc"></div>
+
+<script>
+/* ═══════════ CONFIGURACIÓN (lo único que tienes que tocar) ═══════════ */
+const CONFIG = {
+  correo: "gabrielacontrerasredes@gmail.com",
+  whatsapp: "34627879574", // Código de país + número, sin + ni espacios. Vacío = no se muestra el botón.
+  titulo: "Conoce tu marca",
+  codigo: "MARCACONALMA"    // Código de acceso de la segunda parte. Para cambiarlo, cambia solo esta palabra.
+};
+const TOTAL_GENERALES = 38;
+
+/* ═══════════ LISTAS REUTILIZADAS ═══════════ */
+const RUBROS = ["Comida y bebida", "Salud y bienestar", "Belleza y estética", "Marca personal (coach, mentora, creadora)", "Servicios profesionales (abogados, contadores, consultoría)", "Educación y formación", "Moda y accesorios", "Tienda o comercio", "Hogar, construcción y diseño de interiores", "Insumos e industria (venta a empresas)", "Arte, fotografía y creativos", "Eventos, turismo y hospedaje", "Flores, regalos y artesanía", "Tecnología y software", "Fundación u organización social", "Otro"];
+const SV_MARCA = "Crear mi marca desde cero", SV_REBR = "Renovar mi marca (rebranding)", SV_WEB = "Una página web", SV_COM = "Estrategia de comunicación y redes";
+const ARQ = ["Inocente · simple, optimista, honesta", "Sabio · experta, que enseña", "Explorador · libre, aventurera", "Rebelde · rompe las reglas", "Mago · transforma y sorprende", "Héroe · valiente, logra cosas difíciles", "Amante · cercana, sensorial, apasionada", "Bufón · divertida, ligera", "Persona común · sencilla, de confianza", "Cuidador · protege y acompaña", "Creador · imagina y hace cosas nuevas", "Gobernante · líder, da orden y estatus"];
+const ENTREGABLES = ["Logo en varias versiones", "Paleta de colores y tipografías", "Manual de marca", "Tarjetas y papelería", "Perfiles de redes listos", "Plantillas para redes", "Empaques o etiquetas", "Aplicación en local, fachada, uniformes o vehículos", "Página web", "Otro"];
+
+/* ═══════════ PREGUNTAS BASE (siempre se hacen) ═══════════ */
+const BASE = [
+  { id: "inicio", titulo: "Para empezar", intro: "Tres cosas para saber por dónde arrancamos.", preguntas: [
+    { t: "¿En qué rubro está tu marca?", h: "Elige el que más se parezca, o hasta dos si tu marca es de dos rubros. Si ninguno encaja, toca “Otro” y cuéntame.", campos: [
+      { id: "rubro", l: "", k: "multi", max: 2, req: true, op: RUBROS },
+      { id: "rubro_otro", l: "Cuéntame cuál", k: "text", solo: { id: "rubro", val: "Otro" } }
+    ]},
+    { t: "¿Qué necesitas que trabajemos?", h: "Marca todo lo que aplique. Según lo que elijas, al final te haré unas preguntas más específicas.", campos: [
+      { id: "necesita", l: "", k: "multi", req: true, op: [SV_MARCA, SV_REBR, SV_WEB, SV_COM, "No sé todavía"] }
+    ]},
+    { t: "¿En qué etapa está tu marca?", campos: [
+      { id: "etapa", l: "", k: "single", req: true, op: ["Es solo una idea", "Estoy empezando", "Ya funciona", "Quiero reinventarme"] }
+    ]}
+  ]},
+
+  { id: "negocio", titulo: "Tu negocio", intro: "Cómo nace, cómo funciona y dónde está parado.", preguntas: [
+    { n: 1, t: "Explica qué hace tu negocio como si se lo contaras a alguien de 12 años", campos: [ { id: "a_explica", l: "", k: "area" } ], ayuda: {
+      guia: ["Sin palabras técnicas ni de tu rubro.", "¿Qué haces, para quién y qué cambia en esa persona?"],
+      ejemplo: "Hago tortas para cumpleaños. Las personas me dicen cómo es la fiesta y yo les preparo una torta que se ve y sabe como la imaginaron." }},
+    { n: 2, t: "¿Cuál es la historia real de por qué existe tu marca?", h: "Cómo empezó, qué la hizo nacer, quién la impulsó.", campos: [ { id: "a_historia", l: "", k: "area" } ], ayuda: {
+      guia: ["¿Qué pasó en tu vida o en tu entorno para que esto existiera?", "¿Qué momento recuerdas como el inicio?", "No tiene que ser épico. Mientras más real, mejor."] }},
+    { n: 3, t: "¿Cómo ganas dinero hoy?", campos: [
+      { id: "a_ingresos", l: "¿Cómo ganas dinero con tu marca?", k: "area" },
+      { id: "a_valor", l: "Más o menos, ¿cuánto vale un cliente promedio? (un rango sirve)", k: "text", ph: "Ej: entre 20 y 50 USD por compra" }
+    ], ayuda: { guia: ["Piensa en lo que te deja un cliente típico, en una compra o en todo el tiempo que te compra.", "Si prefieres no dar cifras, descríbelo con palabras: “compras pequeñas pero frecuentes”, “pocos clientes, trabajos grandes”."] }},
+    { n: 4, t: "¿Qué problema resuelves que nadie más resuelve igual?", campos: [ { id: "a_problema", l: "", k: "area" } ], ayuda: {
+      guia: ["¿Qué le pasa a una persona justo antes de buscarte?", "¿Qué tienes tú que otras opciones no tienen?"],
+      ejemplo: "Las personas que quieren un regalo especial no tienen tiempo de buscar. Yo les resuelvo todo en un mensaje: me cuentan para quién es y yo me encargo." }},
+    { n: 5, t: "¿Con quién te comparan?", h: "Incluye qué haría tu cliente si no te contratara.", campos: [
+      { id: "a_compara", l: "Con quién o con qué te comparan", k: "area" },
+      { id: "a_sin_ti", l: "Si no te eligiera, ¿qué haría?", k: "area" }
+    ]},
+    { n: 6, t: "¿Dónde te encuentran tus clientes principalmente?", h: "Marca todo lo que aplique.", campos: [
+      { id: "a_donde", l: "", k: "multi", op: ["Instagram", "TikTok", "Facebook", "WhatsApp", "Google o Google Maps", "Recomendaciones de boca en boca", "Mi página web", "Plataformas de pedidos o ventas", "Eventos o presencial", "Otro"] },
+      { id: "a_donde_otro", l: "¿Dónde más?", k: "text", solo: { id: "a_donde", val: "Otro" } }
+    ]},
+    { n: 7, t: "¿Dónde estás y hasta dónde quieres llegar?", campos: [
+      { id: "a_ubicacion", l: "¿En qué ciudad y país está tu marca?", k: "text", ph: "Ej: San Cristóbal, Venezuela" },
+      { id: "a_alcance", l: "Tu alcance es…", k: "single", op: ["Local", "Nacional", "Internacional", "Local y global a la vez"] }
+    ]}
+  ]},
+
+  { id: "audiencia", titulo: "Tu audiencia", intro: "A quién le hablas y qué le importa.", preguntas: [
+    { n: 8, t: "Describe a tu cliente ideal como una persona real", h: "Edad, profesión, y un día típico en su vida.", campos: [ { id: "b_ideal", l: "", k: "area" } ], ayuda: {
+      guia: ["Ponle un nombre inventado si te ayuda.", "¿A qué se dedica? ¿Cómo empieza y termina su día?", "¿Dónde pasa el tiempo, en redes y fuera de ellas?"] }},
+    { n: 9, t: "Piensa en el mejor cliente que has tenido", h: "Quién era, qué problema traía, qué cambió después y por qué te eligió.", campos: [ { id: "b_mejor", l: "", k: "area" } ], ayuda: {
+      guia: ["Escoge a alguien con quien quedaste feliz de haber trabajado.", "¿Cómo te encontró? ¿Qué te dijo que lo convenció?", "Si aún no tienes clientes: describe al cliente que más te gustaría tener."] }},
+    { n: 10, t: "¿Qué le quita el sueño y qué le da alegría a tu cliente?", campos: [
+      { id: "b_sueno", l: "Lo que le quita el sueño", k: "area" },
+      { id: "b_alegria", l: "Lo que le da alegría", k: "area" }
+    ], ayuda: { guia: ["Piensa en lo que te cuentan cuando se desahogan contigo.", "Y en lo que celebran cuando algo sale bien."] }},
+    { n: 11, t: "¿Qué objeción tiene antes de contratarte?", h: "Lo que duda, o lo que te dice para no comprar todavía.", campos: [ { id: "b_objecion", l: "", k: "area" } ], ayuda: {
+      guia: ["¿Qué te preguntan siempre antes de decidir?"],
+      ideas: ["Es caro", "No sé si funciona", "No tengo tiempo", "Ya probé y no me funcionó", "No me fío de comprar en línea", "Creen que lo pueden hacer solas"],
+      nota: "Toca las que te suenen y se agregan a tu respuesta. Después las puedes explicar con tus palabras." }},
+    { n: 12, t: "¿A quién NO le quieres vender?", campos: [ { id: "b_no", l: "", k: "area" } ], ayuda: {
+      guia: ["¿Con qué tipo de cliente te has sentido incómoda o agotada?", "¿Qué pedidos o expectativas prefieres no atender?"] }},
+    { n: 13, t: "¿Qué marcas consume y ama tu cliente? ¿Por qué crees que son distintas?", campos: [ { id: "b_marcas", l: "", k: "area" } ]}
+  ]},
+
+  { id: "valor", titulo: "Tu propuesta de valor", intro: "Lo que te hace distinta y cómo lo cuentas.", preguntas: [
+    { n: 14, t: "¿Qué haces tú que nadie más hace exactamente igual?", campos: [ { id: "c_unico", l: "", k: "area" } ], ayuda: {
+      guia: ["Puede ser tu forma de trabajar, de tratar a la gente, o un detalle que otros no cuidan.", "Si te cuesta, pregúntate qué te dicen tus clientes que valoran de ti."] }},
+    { n: 15, t: "¿Cómo llega alguien antes de conocerte y cómo se va después?", campos: [
+      { id: "c_antes", l: "Antes de conocerte, esa persona está…", k: "area" },
+      { id: "c_despues", l: "Después de trabajar contigo, esa persona…", k: "area" }
+    ]},
+    { n: 16, t: "Completa esta frase", h: "“Ayudo a ___ a lograr ___ para que puedan ___.”", campos: [
+      { id: "c_ayudo", l: "Ayudo a…", k: "text", ph: "Ej: mujeres que emprenden" },
+      { id: "c_lograr", l: "…a lograr…", k: "text", ph: "Ej: verse profesionales en redes" },
+      { id: "c_para", l: "…para que puedan…", k: "text", ph: "Ej: atraer clientes sin sentir que se exponen" }
+    ], ayuda: { guia: ["No tiene que quedar perfecta, es un borrador.", "Piensa primero en la persona, después en el resultado, y al final en lo que ese resultado le permite hacer."] }},
+    { n: 17, t: "¿Qué cree la mayoría en tu sector que está mal o incompleto?", h: "¿Y qué crees tú?", campos: [
+      { id: "c_mayoria", l: "Lo que cree la mayoría", k: "area" },
+      { id: "c_creo", l: "Lo que creo yo", k: "area" }
+    ], ayuda: { guia: ["¿Qué consejo repetido en tu rubro te parece incompleto?", "¿Qué haces distinto de lo que se hace “siempre”?"] }},
+    { n: 18, t: "¿Con qué tema quieres que te asocien?", h: "Cuando alguien piense en ese tema, ¿quieres que piense en ti?", campos: [ { id: "c_tema", l: "", k: "area" } ]}
+  ]},
+
+  { id: "voz", titulo: "Tu personalidad y voz", intro: "Cómo es tu marca si fuera una persona y cómo habla.", preguntas: [
+    { n: 19, t: "Si tu marca fuera una persona en una fiesta, ¿quién sería y de qué hablaría?", campos: [ { id: "d_fiesta", l: "", k: "area" } ], ayuda: {
+      guia: ["¿Cómo está vestida? ¿Habla mucho o escucha? ¿Hace reír, inspira, explica?", "Descríbela como si la conocieras."] }},
+    { n: 20, t: "¿Qué arquetipo se parece más a tu marca?", h: "Elige uno dominante y, si quieres, uno secundario. Piensa en cómo es tu marca hoy, no en cómo te gustaría que fuera.", campos: [
+      { id: "d_arq1", l: "Dominante", k: "single", op: ARQ },
+      { id: "d_arq2", l: "Secundario (opcional)", k: "single", op: ARQ }
+    ]},
+    { n: 21, t: "¿Cómo habla tu marca?", h: "Marca el punto que más se acerque en cada línea.", campos: [
+      { id: "d_formal", l: "Formal ↔ cercana", k: "single", op: ["Formal", "Un poco formal", "En el medio", "Un poco cercana", "Cercana"] },
+      { id: "d_seria", l: "Seria ↔ divertida", k: "single", op: ["Seria", "Un poco seria", "En el medio", "Un poco divertida", "Divertida"] },
+      { id: "d_clasica", l: "Clásica ↔ disruptiva", k: "single", op: ["Clásica", "Un poco clásica", "En el medio", "Un poco disruptiva", "Disruptiva"] },
+      { id: "d_tecnica", l: "Técnica ↔ emocional", k: "single", op: ["Técnica", "Un poco técnica", "En el medio", "Un poco emocional", "Emocional"] }
+    ]},
+    { n: 22, t: "¿Qué emoción concreta quieres que sienta alguien la primera vez que ve tu marca?", campos: [ { id: "d_emocion", l: "", k: "area" } ], ayuda: {
+      guia: ["Una sola emoción, la que más importa."],
+      ideas: ["Confianza", "Calma", "Alegría", "Cercanía", "Elegancia", "Seguridad", "Curiosidad", "Orgullo", "Ganas de comprar"],
+      nota: "Toca la que más se parezca y después cuéntame por qué." }},
+    { n: 23, t: "Tus valores y cómo quieres que te describan", campos: [
+      { id: "d_valores", l: "Tus 5 valores más importantes", k: "area", ph: "Ej: honestidad, cuidado, puntualidad…" },
+      { id: "d_adjetivos", l: "3 adjetivos con los que quieres que te describan", k: "text", ph: "Ej: cercana, cuidadosa, confiable" }
+    ], ayuda: { guia: ["Valores: lo que no negocias, aunque te cueste una venta.", "Adjetivos: lo que quieres que digan de ti cuando no estás presente."] }}
+  ]},
+
+  { id: "visual", titulo: "Tu identidad visual", intro: "Lo que tienes y lo que quieres sentir al verla.", preguntas: [
+    { n: 24, t: "¿Tienes logo, tipografías o elementos visuales? ¿Te convencen?", campos: [ { id: "e_tiene", l: "", k: "area" } ], ayuda: {
+      guia: ["Cuéntame qué tienes y qué sientes al verlo.", "Si no tienes nada, escribe “aún no tengo nada”."] }},
+    { n: 25, t: "¿Cómo debe sentirse tu marca visualmente?", h: "Sensación, nivel de sofisticación, estilo de imagen.", campos: [ { id: "e_siente", l: "", k: "area" } ], ayuda: {
+      guia: ["Imagina que alguien ve tu perfil por primera vez: ¿qué quieres que piense?"],
+      ideas: ["Elegante", "Cálida", "Minimalista", "Colorida", "Natural", "Atrevida", "Delicada", "Artesanal", "Moderna", "Lujosa pero cercana"],
+      nota: "Toca las que te suenen y se agregan a tu respuesta." }},
+    { n: 26, t: "¿Qué emoción debe disparar tu color principal?", h: "No tienes que elegir el color, solo la emoción.", campos: [ { id: "e_color", l: "", k: "area" } ]},
+    { n: 27, t: "¿Qué colores no quieres bajo ninguna circunstancia?", h: "Cuéntame también por qué.", campos: [ { id: "e_no_color", l: "", k: "area" } ]},
+    { n: 28, t: "¿Tu industria tiene un color esperado?", h: "Por ejemplo, el rojo en comida rápida o el verde en salud. ¿Lo respetas o lo rompes?", campos: [ { id: "e_codigo", l: "", k: "area" } ]},
+    { n: 29, t: "Referencias visuales", h: "Pueden ser marcas, cuentas, lugares, fotos o enlaces. Cuéntame el motivo.", campos: [
+      { id: "e_ama", l: "5 que te encantan, y por qué", k: "area" },
+      { id: "e_odia", l: "3 que detestas, y por qué", k: "area" }
+    ], ayuda: { guia: ["Mira tu galería o tus guardados de Instagram: ahí suele estar la respuesta.", "No tienen que ser de tu rubro."] }}
+  ]},
+
+  { id: "comunicas", titulo: "Cómo comunicas hoy", intro: "Lo que ya dices, lo que funciona y lo que puedes sostener.", preguntas: [
+    { n: 30, t: "¿De qué quieres hablar y de qué no?", campos: [
+      { id: "f_si", l: "Temas que quieres tratar", k: "area" },
+      { id: "f_no", l: "Temas que no quieres tocar nunca", k: "area" }
+    ]},
+    { n: 31, t: "¿Qué contenido o mensaje ha funcionado mejor y por qué crees que funcionó?", campos: [ { id: "f_funciono", l: "", k: "area" } ], ayuda: {
+      guia: ["Piensa en lo que más te comentaron, compartieron o te escribieron por privado.", "Si todavía no has publicado, escribe “aún no he publicado”."] }},
+    { n: 32, t: "¿Con qué frecuencia puedes comunicar de forma realista y sostenible?", h: "Piensa en tu semana real, no en la ideal.", campos: [
+      { id: "f_frecuencia", l: "", k: "single", op: ["Todos los días", "3 a 5 veces por semana", "1 o 2 veces por semana", "Pocas veces al mes", "No lo sé todavía"] }
+    ]},
+    { n: 33, t: "¿Qué preguntas o comentarios recibes con más frecuencia de tu audiencia?", campos: [ { id: "f_preguntas", l: "", k: "area" } ]},
+    { n: 34, t: "¿Qué tanta comodidad sientes al vender o promocionar lo que haces?", h: "Del 1 al 5.", campos: [
+      { id: "f_comodidad", l: "", k: "single", op: ["1 · Me incomoda mucho", "2", "3", "4", "5 · Lo disfruto"] }
+    ]},
+    { n: 35, t: "Cuando te recomiendan, ¿qué dicen de ti?", campos: [
+      { id: "f_dicen", l: "¿Qué dicen hoy?", k: "area" },
+      { id: "f_quiero", l: "¿Qué quieres que digan?", k: "area" }
+    ]}
+  ]},
+
+  { id: "objetivos", titulo: "Hacia dónde vas", intro: "Lo último: lo que quieres lograr.", preguntas: [
+    { n: 36, t: "¿Qué quieres lograr?", campos: [
+      { id: "g_corto", l: "En los próximos 6 a 12 meses", k: "area" },
+      { id: "g_largo", l: "Dentro de 2 años", k: "area" }
+    ], ayuda: { guia: ["Puede ser algo concreto (abrir un local, lanzar un producto) o más amplio (vivir de esto).", "¿Cuántos clientes o ventas te gustaría tener al mes?"] }},
+    { n: 37, t: "¿Qué servicios o productos ofreces o planeas ofrecer?", campos: [ { id: "g_ofrece", l: "", k: "area" } ]},
+    { n: 38, t: "¿Qué te gustaría que fuera distinto dentro de un año en tu negocio?", campos: [ { id: "g_distinto", l: "", k: "area" } ], ayuda: {
+      guia: ["Si pudieras cambiar una sola cosa de cómo está hoy, ¿cuál sería?"] }}
+  ]}
+];
+
+/* ═══════════ RAMAS (se abren según lo que marcó) ═══════════ */
+const RAMAS = [
+  /* ── por servicio ── */
+  { si: { id: "necesita", val: SV_MARCA }, g: { id: "r_marca", titulo: "Tu marca desde cero", intro: "Para empezar bien desde el primer día.", preguntas: [
+    { t: "¿Ya tienes nombre?", h: "Si lo tienes, ¿revisaste si está libre como dominio web y como usuario en redes?", campos: [ { id: "rm_nombre", l: "", k: "area" } ], ayuda: {
+      guia: ["Si aún no lo tienes, cuéntame las ideas que has considerado.", "Si no has revisado la disponibilidad, no pasa nada: lo vemos juntas."] }},
+    { t: "¿Qué quieres que transmita tu nombre?", campos: [ { id: "rm_transmite", l: "", k: "area" } ]},
+    { t: "¿Dónde va a vivir el logo la mayor parte del tiempo?", h: "Marca todo lo que aplique.", campos: [
+      { id: "rm_donde", l: "", k: "multi", op: ["Redes sociales", "Empaques o etiquetas", "Local o fachada", "Uniformes", "Vehículos o carritos", "Página web", "Papelería y tarjetas", "Productos", "Otro"] },
+      { id: "rm_donde_otro", l: "¿Dónde más?", k: "text", solo: { id: "rm_donde", val: "Otro" } }
+    ]},
+    { t: "¿Tu logo tiene que verse bien en un solo color y en tamaño muy pequeño?", h: "Por ejemplo, en un sello, un grabado o una etiqueta pequeña.", campos: [
+      { id: "rm_mono", l: "", k: "single", op: ["Sí, es importante", "Sí, pero no es prioridad", "No", "No lo sé"] }
+    ]},
+    { t: "¿Qué tipo de logo te atrae?", h: "Marca los que te atraen y el que descartas de plano.", campos: [
+      { id: "rm_tipo", l: "Los que te atraen", k: "multi", op: ["Solo el nombre en letras", "Iniciales", "Un símbolo reconocible", "Una forma abstracta", "Un personaje o mascota", "Un sello o escudo", "Símbolo y nombre juntos"] },
+      { id: "rm_tipo_no", l: "El que descartas de plano", k: "single", op: ["Solo el nombre en letras", "Iniciales", "Un símbolo reconocible", "Una forma abstracta", "Un personaje o mascota", "Un sello o escudo", "Símbolo y nombre juntos"] }
+    ]},
+    { t: "¿Qué necesitas que esté listo desde el día 1?", h: "Marca todo lo que aplique.", campos: [
+      { id: "rm_entrega", l: "", k: "multi", op: ENTREGABLES },
+      { id: "rm_entrega_otro", l: "¿Qué más?", k: "text", solo: { id: "rm_entrega", val: "Otro" } }
+    ]},
+    { t: "¿Cuál es el primer momento público de la marca?", h: "Cuándo y dónde la vas a presentar por primera vez.", campos: [ { id: "rm_momento", l: "", k: "area" } ], ayuda: {
+      guia: ["Una inauguración, un evento, el lanzamiento en redes, la primera venta…", "Si no hay fecha, escribe cuándo te gustaría."] }}
+  ]}},
+
+  { si: { id: "necesita", val: SV_REBR }, g: { id: "r_rebranding", titulo: "Renovar tu marca", intro: "Para entender qué cambiar y qué cuidar.", preguntas: [
+    { t: "¿Qué no te funciona hoy de tu marca?", campos: [ { id: "rr_nofunciona", l: "", k: "area" } ]},
+    { t: "¿Qué conservarías sí o sí y por qué?", campos: [ { id: "rr_conserva", l: "", k: "area" } ], ayuda: {
+      guia: ["El nombre, un color, algo que tus clientes reconocen, una historia."] }},
+    { t: "¿Por qué quieres cambiar ahora?", campos: [ { id: "rr_porque", l: "", k: "area" } ]},
+    { t: "¿Qué te da miedo del cambio?", campos: [ { id: "rr_miedo", l: "", k: "area" } ]},
+    { t: "¿Qué materiales actuales existen?", h: "Marca todo lo que tengas.", campos: [
+      { id: "rr_material", l: "", k: "multi", op: ["Logo", "Manual de marca", "Plantillas de redes", "Empaques", "Papelería", "Menú o catálogo", "Página web", "Rotulación o fachada", "Nada formal"] }
+    ]},
+    { t: "¿Qué necesitas que esté listo primero y para cuándo?", campos: [
+      { id: "rr_entrega", l: "Qué necesitas", k: "multi", op: ENTREGABLES },
+      { id: "rr_momento", l: "¿Cuál es el primer momento público de la marca renovada, y para cuándo?", k: "area" }
+    ]}
+  ]}},
+
+  { si: { id: "necesita", val: SV_WEB }, g: { id: "r_web", titulo: "Tu página web", intro: "Lo que ya tienes y lo que necesita lograr.", preguntas: [
+    { t: "¿Tienes web hoy?", h: "Pega el enlace y cuéntame qué no te gusta.", campos: [ { id: "rw_hoy", l: "", k: "area" } ]},
+    { t: "¿Tienes dominio?", h: "El dominio es la dirección de tu web (algo como tumarca.com). ¿Dónde lo registraste?", campos: [ { id: "rw_dominio", l: "", k: "area" } ], ayuda: {
+      guia: ["Si no sabes qué es o no tienes, escribe “no sé” y lo vemos juntas."] }},
+    { t: "¿Qué debe lograr tu web?", h: "Marca todo lo que aplique.", campos: [
+      { id: "rw_logra", l: "", k: "multi", op: ["Que me contacten", "Que reserven", "Que pidan", "Que compren", "Que se informen", "Mostrar mi trabajo", "Otro"] },
+      { id: "rw_logra_otro", l: "¿Qué más?", k: "text", solo: { id: "rw_logra", val: "Otro" } }
+    ]},
+    { t: "¿Qué contenido ya tienes?", h: "Marca todo lo que aplique.", campos: [
+      { id: "rw_contenido", l: "", k: "multi", op: ["Textos", "Fotos propias", "Logo", "Menú o catálogo", "Testimonios", "Videos", "Nada todavía"] }
+    ]},
+    { t: "¿Quién la va a actualizar después?", campos: [
+      { id: "rw_actualiza", l: "", k: "single", op: ["Yo", "Alguien de mi equipo", "Prefiero no tocarla", "No lo sé"] }
+    ]},
+    { t: "3 webs que te gustan y por qué", campos: [ { id: "rw_gustan", l: "", k: "area" } ], ayuda: {
+      guia: ["Pueden ser de tu rubro o no. Pega los enlaces si los tienes.", "¿Qué te gusta de ellas: cómo se ven, qué te cuentan, qué fácil es encontrar lo que buscas?"] }}
+  ]}},
+
+  { si: { id: "necesita", val: SV_COM }, g: { id: "r_com", titulo: "Tu comunicación y redes", intro: "Cómo trabajas hoy tus redes y qué te gusta hacer.", preguntas: [
+    { t: "¿Qué formatos disfrutas crear y cuáles evitas?", h: "Videos, fotos, textos, historias, directos…", campos: [
+      { id: "rc_disfruta", l: "Los que disfrutas", k: "area" },
+      { id: "rc_evita", l: "Los que evitas", k: "area" }
+    ]},
+    { t: "¿Qué otras plataformas usas y con qué frecuencia?", campos: [ { id: "rc_plataformas", l: "", k: "area" } ]},
+    { t: "¿Has colaborado con otras cuentas o marcas?", h: "¿Con quién te gustaría colaborar?", campos: [ { id: "rc_colabora", l: "", k: "area" } ]},
+    { t: "¿Cómo has manejado críticas o comentarios negativos?", campos: [ { id: "rc_criticas", l: "", k: "area" } ]},
+    { t: "¿Quién publica hoy y qué ya has probado?", campos: [ { id: "rc_publica", l: "", k: "area" } ]}
+  ]}},
+
+  /* ── por rubro ── */
+  { si: { id: "rubro", val: "Comida y bebida" }, g: { id: "r_comida", titulo: "Tu comida y bebida", intro: "Cómo vendes y cómo te encuentran.", preguntas: [
+    { t: "¿Vendes en local, a domicilio, para llevar o todo?", h: "Marca todo lo que aplique.", campos: [
+      { id: "rco_canal", l: "", k: "multi", op: ["En local", "A domicilio", "Para llevar", "Eventos o catering", "Solo por encargo"] }
+    ]},
+    { t: "¿Qué plataformas de pedidos usas?", h: "¿Tienes también pedidos propios, por WhatsApp o tu web?", campos: [ { id: "rco_plataformas", l: "", k: "area" } ]},
+    { t: "¿Tienes menú digital?", campos: [
+      { id: "rco_menu", l: "", k: "single", op: ["Sí, con QR o enlace", "Sí, en PDF o imagen", "Solo impreso", "No"] }
+    ]},
+    { t: "¿Tu ficha de Google Maps está reclamada y al día?", h: "¿Tienes reseñas?", campos: [ { id: "rco_maps", l: "", k: "area" } ], ayuda: {
+      guia: ["Busca tu negocio en Google Maps. Si aparece y puedes editarlo, está reclamada.", "Si no sabes, escribe “no sé”."] }},
+    { t: "¿Tienes fotos propias de tus platos o productos?", campos: [
+      { id: "rco_fotos", l: "", k: "single", op: ["Sí, profesionales", "Sí, las hice yo", "Pocas", "No"] }
+    ]},
+    { t: "¿Una sola ubicación o varias?", h: "¿Qué horarios manejas?", campos: [ { id: "rco_ubic", l: "", k: "area" } ]}
+  ]}},
+
+  { si: { id: "rubro", val: "Marca personal (coach, mentora, creadora)" }, g: { id: "r_personal", titulo: "Tu marca personal", intro: "Tú y tu negocio, juntos o por separado.", preguntas: [
+    { t: "¿Cómo te presentarías en 3 oraciones sin mencionar tu profesión?", campos: [ { id: "rp_presenta", l: "", k: "area" } ]},
+    { t: "¿Qué parte de tu vida compartes y cuál mantienes privada?", campos: [ { id: "rp_privada", l: "", k: "area" } ]},
+    { t: "¿Qué vendes tú como persona y qué vende tu negocio?", h: "Si son cosas distintas.", campos: [ { id: "rp_vende", l: "", k: "area" } ]}
+  ]}},
+
+  { si: { id: "rubro", val: ["Salud y bienestar", "Belleza y estética", "Servicios profesionales (abogados, contadores, consultoría)"] }, g: { id: "r_servicios", titulo: "Tus servicios", intro: "Cómo atiendes y qué puedes mostrar.", preguntas: [
+    { t: "¿Atiendes presencial, en línea o ambos?", campos: [
+      { id: "rs_modalidad", l: "", k: "single", op: ["Presencial", "En línea", "Ambos"] }
+    ]},
+    { t: "¿Tu profesión tiene normas sobre cómo puedes publicitarte o mostrar resultados?", campos: [ { id: "rs_normas", l: "", k: "area" } ], ayuda: {
+      guia: ["Por ejemplo, si no puedes mostrar fotos de antes y después, o hablar de precios.", "Si no lo sabes, escribe “no sé”."] }},
+    { t: "¿Cómo agendan citas hoy?", h: "Marca todo lo que aplique.", campos: [
+      { id: "rs_citas", l: "", k: "multi", op: ["WhatsApp", "Llamada", "Mensaje directo en redes", "Web o app de reservas", "Recepción", "Otro"] },
+      { id: "rs_citas_otro", l: "¿Cómo más?", k: "text", solo: { id: "rs_citas", val: "Otro" } }
+    ]},
+    { t: "¿Qué testimonios puedes usar y con qué autorización?", campos: [ { id: "rs_testimonios", l: "", k: "area" } ]}
+  ]}},
+
+  { si: { id: "rubro", val: "Eventos, turismo y hospedaje" }, g: { id: "r_eventos", titulo: "Tus eventos y experiencias", intro: "Qué ofreces, cómo reservan y qué tienes para mostrar.", preguntas: [
+    { t: "¿Qué tipos de eventos o experiencias ofreces?", h: "Marca todo lo que aplique.", campos: [
+      { id: "re_tipos", l: "", k: "multi", op: ["Bodas o matrimonios", "Cumpleaños y fiestas", "Eventos de empresas", "Bautizos, comuniones o graduaciones", "Shows o música en vivo", "Hospedaje", "Tours o experiencias", "Otro"] },
+      { id: "re_tipos_otro", l: "¿Cuáles más?", k: "text", solo: { id: "re_tipos", val: "Otro" } }
+    ]},
+    { t: "¿Para cuántas personas puedes atender?", h: "El rango más chico y el más grande.", campos: [ { id: "re_capacidad", l: "", k: "area" } ]},
+    { t: "¿Cómo te piden información y cómo reservan hoy?", campos: [ { id: "re_reserva", l: "", k: "area" } ]},
+    { t: "¿Tienes temporadas o fechas fuertes?", campos: [ { id: "re_fechas", l: "", k: "area" } ], ayuda: {
+      guia: ["Fechas en las que se llena la agenda, y meses donde baja el movimiento."] }},
+    { t: "¿Tienes fotos o videos de eventos anteriores?", campos: [
+      { id: "re_fotos", l: "", k: "single", op: ["Sí, profesionales", "Sí, los tomé yo", "Pocos", "No"] }
+    ]},
+    { t: "¿Trabajas con aliados?", h: "Planners, proveedores, salones, otras marcas.", campos: [ { id: "re_aliados", l: "", k: "area" } ]}
+  ]}}
+];
+
+/* ═══════════ DATOS OBLIGATORIOS (para poder empezar) ═══════════ */
+const DATOS = [
+  { id: "nombre",   l: "Tu nombre", k: "text", req: true },
+  { id: "correo",   l: "Correo electrónico", k: "text", req: true, type: "email", ph: "nombre@ejemplo.com" },
+  { id: "telefono", l: "WhatsApp o teléfono, con código de país", k: "text", req: true, type: "tel", ph: "Ej: 58 412 5550198" },
+  { id: "marca",    l: "Nombre de tu marca o negocio", k: "text", req: true, ph: "Si todavía no tiene nombre, escríbelo así" }
+];
+const MAIL_FALSOS = ["mailinator.com","tempmail.com","10minutemail.com","guerrillamail.com","yopmail.com","trashmail.com","example.com","test.com","correo.com","email.com"];
+const MAIL_ERRATAS = { "gmial.com":"gmail.com","gmai.com":"gmail.com","gamil.com":"gmail.com","gmail.co":"gmail.com","gmail.con":"gmail.com","hotmial.com":"hotmail.com","hotmai.com":"hotmail.com","hotmail.con":"hotmail.com","outlok.com":"outlook.com","yaho.com":"yahoo.com","yahooo.com":"yahoo.com" };
+function validarDato(id) {
+  const v = txt(id);
+  if (!v) return id === "correo" ? "Escribe tu correo." : id === "telefono" ? "Escribe tu número." : "Falta este dato.";
+  if (id === "nombre") return (v.length < 2 || /^\d+$/.test(v)) ? "Escribe tu nombre." : "";
+  if (id === "marca") return (v.length < 2 || /^\d+$/.test(v) || /^(.)\1+$/.test(v)) ? "Escribe el nombre de tu marca, o cómo la llamas por ahora." : "";
+  if (id === "correo") {
+    const m = v.toLowerCase().match(/^([^\s@]+)@([^\s@]+\.[a-z]{2,})$/);
+    if (!m) return "Ese correo no parece válido. Revisa que tenga @ y un dominio, como nombre@gmail.com.";
+    const l = m[1], d = m[2], base = d.split(".")[0];
+    if (MAIL_ERRATAS[d]) return "¿Quisiste decir " + l + "@" + MAIL_ERRATAS[d] + "?";
+    const raro = MAIL_FALSOS.includes(d) || /^\d+$/.test(base) || base.length < 2 ||
+      /^(.)\1*$/.test(l) || /^(test|prueba|asdf|qwerty|correo|email|admin|abc|xxx|nada)\d*$/.test(l) || /^\d{1,8}$/.test(l);
+    return raro ? "Escribe un correo real, al que sí tengas acceso." : "";
+  }
+  if (id === "telefono") {
+    const d = v.replace(/[\s\-().+]/g, "");
+    if (!/^\d+$/.test(d)) return "Usa solo números. Ejemplo: 58 412 5550198.";
+    if (d.length < 9 || d.length > 15) return "Revisa el número e incluye el código de país (Venezuela 58, Colombia 57, España 34).";
+    const secuencia = /(0123456|1234567|2345678|3456789|9876543|8765432|7654321|6543210)/.test(d);
+    const repetido = /(\d)\1{5,}/.test(d) || new Set(d.split("")).size <= 2;
+    return (secuencia || repetido) ? "Ese número no parece real. Escribe el tuyo, con código de país." : "";
+  }
+  return "";
+}
+
+/* ═══════════ ESTADO ═══════════ */
+const KEY = "gc_etapa2_v1";
+let S = { paso: 0, r: {}, avisado: {} };
+try { const g = JSON.parse(localStorage.getItem(KEY)); if (g && g.r) S = g; } catch (e) {}
+S.paso = 0;
+try { if (sessionStorage.getItem("gc_pase2")) { S.acceso = true; sessionStorage.removeItem("gc_pase2"); } } catch (e) {}
+const guardar = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const val = id => S.r[id];
+const lista = id => Array.isArray(val(id)) ? val(id) : [];
+const txt = id => (typeof val(id) === "string" ? val(id).trim() : "");
+const cumple = so => {
+  const vals = Array.isArray(so.val) ? so.val : [so.val];
+  const v = val(so.id);
+  return Array.isArray(v) ? vals.some(x => v.includes(x)) : vals.includes(v);
+};
+
+/* grupos activos = base + las ramas que le tocan */
+function grupos() { return BASE.concat(RAMAS.filter(r => cumple(r.si)).map(r => r.g)); }
+const todosLosCampos = () => BASE.concat(RAMAS.map(r => r.g)).flatMap(g => g.preguntas).flatMap(q => q.campos);
+const SOLO_IDS = new Set(todosLosCampos().filter(c => c.solo).map(c => c.solo.id));
+
+/* ═══════════ RENDER ═══════════ */
+function campoHTML(c) {
+  if (c.solo && !cumple(c.solo)) return "";
+  const lab = c.l ? `<label class="f-l" for="${c.id}">${esc(c.l)}${c.req ? ' <span class="req">*</span>' : ""}</label>` : "";
+  let ctl = "";
+  if (c.k === "text") ctl = `<input class="in" id="${c.id}" data-id="${c.id}" type="${c.type || "text"}"${c.type === "tel" ? ' inputmode="tel"' : c.type === "email" ? ' inputmode="email" autocapitalize="off"' : ""} value="${esc(val(c.id) || "")}" placeholder="${esc(c.ph || "")}" autocomplete="off">`;
+  if (c.k === "area") ctl = `<textarea class="in" id="${c.id}" data-id="${c.id}" placeholder="${esc(c.ph || "")}">${esc(val(c.id) || "")}</textarea>`;
+  if (c.k === "single" || c.k === "multi") {
+    const sel = c.k === "single" ? [val(c.id)] : lista(c.id);
+    ctl = `<div class="chips" role="group" aria-label="${esc(c.l || "Opciones")}">` +
+      c.op.map(o => `<button type="button" class="chip" data-chip="${c.id}" data-k="${c.k}" data-v="${esc(o)}" aria-pressed="${sel.includes(o)}">${esc(o)}</button>`).join("") + `</div>`;
+  }
+  const nudge = c.k === "area" ? `<div class="nudge">Esta respuesta está vacía o quedó cortita. Si puedes, cuéntame un poco más: me ayuda a conocerte mejor. Si no aplica, sigue.</div>` : "";
+  return `<div class="f" id="f-${c.id}" data-campo="${c.id}">${lab}${ctl}<div class="err">${c.k === "text" || c.k === "area" ? "Falta este dato." : "Elige al menos una opción."}</div>${nudge}</div>`;
+}
+
+function ayudaHTML(q) {
+  const a = q.ayuda; if (!a) return "";
+  const area = q.campos.find(c => c.k === "area" || c.k === "text");
+  let h = `<details class="help"><summary>No sé qué responder</summary><div class="help-box">`;
+  if (a.guia) h += `<h4>Piensa en esto</h4><ul>${a.guia.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+  if (a.ejemplo) h += `<h4>Un ejemplo de otra persona (no lo copies, solo para que te inspires)</h4><p class="ej">${esc(a.ejemplo)}</p>`;
+  if (a.ideas && area) h += `<h4>¿Alguna te suena?</h4>${a.nota ? `<p>${esc(a.nota)}</p>` : ""}<div class="chips">${a.ideas.map(i => `<button type="button" class="chip" data-idea="${esc(i)}" data-to="${area.id}">${esc(i)}</button>`).join("")}</div>`;
+  return h + `</div></details>`;
+}
+
+function preguntaHTML(q, g, i) {
+  const etiqueta = q.n ? `Pregunta ${q.n} de ${TOTAL_GENERALES}` : `${g.titulo} · ${i + 1} de ${g.preguntas.length}`;
+  return `<section class="q" aria-labelledby="q-${g.id}-${i}">
+    <div class="q-n mono eyebrow">${esc(etiqueta)}</div>
+    <h3 class="q-t" id="q-${g.id}-${i}">${esc(q.t)}</h3>
+    ${q.h ? `<p class="q-h">${esc(q.h)}</p>` : ""}
+    ${q.campos.map(campoHTML).join("")}
+    ${ayudaHTML(q)}
+  </section>`;
+}
+
+function respuestaDe(c) { return c.k === "multi" ? lista(c.id).join(" · ") : txt(c.id); }
+
+function datosHTML() {
+  const fila = (q, a) => `<div class="doc-q"><div class="dq">${q}</div><div class="da">${esc(a || "—")}</div></div>`;
+  return `<div class="doc-g"><h4>Tus datos</h4>${fila("Nombre", txt("nombre"))}${fila("Marca o negocio", txt("marca"))}${fila("Correo", txt("correo"))}${fila("WhatsApp o teléfono", txt("telefono"))}</div>`;
+}
+
+function docHTML() {
+  return datosHTML() + grupos().map((g, i) => `<div class="doc-g"><h4>${i + 1}. ${esc(g.titulo)}</h4>` +
+    g.preguntas.map(q => {
+      const partes = q.campos.map(c => {
+        if (c.solo && !cumple(c.solo)) return "";
+        const r = respuestaDe(c); if (!r) return "";
+        return q.campos.length > 1 ? `<span class="sub"><b>${esc(c.l || "")}${c.l ? (/[?…]$/.test(c.l) ? " " : ": ") : ""}</b>${esc(r).replace(/\n/g, "<br>")}</span>` : esc(r).replace(/\n/g, "<br>");
+      }).join("");
+      return `<div class="doc-q"><div class="dq">${q.n ? q.n + ". " : ""}${esc(q.t)}</div><div class="da${partes ? "" : " vacia"}">${partes || "Sin respuesta"}</div></div>`;
+    }).join("") + `</div>`).join("");
+}
+
+const SPARK = `<svg class="spark" viewBox="0 0 24 24" fill="#b53d5b" aria-hidden="true"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg>`;
+
+function portadaHTML() {
+  const f = new Date().toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" });
+  const contacto = [txt("correo"), txt("telefono")].filter(Boolean).map(esc).join(" · ");
+  return `<div class="cover"><div class="cv-eyebrow mono eyebrow">Formulario completo · Estrategia de marca · Dirección creativa</div><h1>Conoce <em>tu marca</em>${SPARK}</h1>
+    <div class="cv-marca">${esc(txt("marca") || "Marca sin nombre")}</div>
+    <div class="cv-meta">${esc(txt("nombre"))}${contacto ? " · " + contacto : ""}<br>${f}</div></div>`;
+}
+
+function render() {
+  const app = $("#app");
+  const G = grupos(), N = G.length, TOTAL = N + 2, p = S.paso;
+  $("#bar").style.width = (p / (TOTAL - 1)) * 100 + "%";
+  $("#where").textContent = p === 0 ? "" : p === TOTAL - 1 ? "Listo" : p === 1 ? G[0].titulo : `${p} de ${N} · ${G[p - 1].titulo}`;
+
+  /* — puerta: código de acceso — */
+  if (p === 0 && !S.acceso) {
+    const wa = CONFIG.whatsapp ? `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent("Hola Gabi, quiero seguir con el formulario completo de mi marca.")}` : "";
+    app.innerHTML = `<div class="hero-frame">
+        <div class="mono eyebrow">Estrategia de marca · Dirección creativa</div>
+        <h1>Conoce <em>tu marca</em>${SPARK}</h1>
+        <p class="tagline">Esta parte es para quienes ya vamos a trabajar juntas. Escribe el código que te envié para entrar.</p>
+        <div class="gate-row"><div class="f" id="f-codigo"><input class="in" id="codigo" type="text" autocomplete="off" autocapitalize="characters" placeholder="Tu código de acceso" aria-label="Código de acceso"><div class="err">Ese código no coincide. Revisa el que te envié o escríbeme.</div></div>
+        <button class="btn" id="entrar">Entrar →</button></div>
+      </div>
+      ${wa ? `<p class="small">¿No encuentras tu código? <a href="${wa}" target="_blank" rel="noopener" style="color:var(--acc)">Escríbeme por WhatsApp</a>.</p>` : ""}
+      <p class="sign">Gabriela Contreras · Estrategia de Marca · Dirección Creativa</p>`;
+    const norm = x => String(x || "").toUpperCase().replace(/[\s\-_]/g, "");
+    const probar = () => {
+      if (norm($("#codigo").value) === norm(CONFIG.codigo)) { S.acceso = true; guardar(); render(); }
+      else $("#f-codigo").classList.add("bad");
+    };
+    $("#entrar").onclick = probar;
+    $("#codigo").addEventListener("keydown", e => { if (e.key === "Enter") probar(); });
+    $("#codigo").addEventListener("input", () => $("#f-codigo").classList.remove("bad"));
+    return;
+  }
+
+  /* — bienvenida y datos — */
+  if (p === 0) {
+    const hay = !!S.ultimo;
+    const algo = Object.keys(S.r).length > 0;
+    app.innerHTML = `<div class="hero-frame">
+        <div class="mono eyebrow">Estrategia de marca · Dirección creativa</div>
+        <h1>Ahora, <em>a fondo</em>${SPARK}</h1>
+        <p class="tagline">Este es el formulario completo. Con tus respuestas conozco tu marca por dentro y puedo trabajar con la información real, no con suposiciones.</p>
+        <p class="tagline">Tómate tu tiempo: calcula entre 40 y 60 minutos. Puedes parar cuando quieras y seguir después, tu avance queda guardado en este dispositivo. Si una pregunta te traba, toca <strong>“No sé qué responder”</strong>.</p>
+      </div>
+      <section class="q" style="margin-top:14px" aria-labelledby="antes">
+        <div class="q-n mono eyebrow">Antes de empezar</div>
+        <h3 class="q-t" id="antes">Déjame tus datos</h3>
+        <p class="q-h">Aunque ya los hayas dado antes, los pido otra vez para que este documento quede completo y tenga todo en un solo lugar. Si tienes más de un negocio o marca, llena este formulario una vez por cada uno.</p>
+        ${DATOS.map(campoHTML).join("")}
+      </section>
+      <div class="nav"><span></span><button class="btn" id="go">${hay ? "Seguir donde iba" : "Empezar"} →</button></div>
+      <p class="sign">Gabriela Contreras · Estrategia de Marca · Dirección Creativa</p>
+      ${hay ? `<p class="small"><button id="otra">Empezar un formulario para otra marca</button></p>` : ""}
+      ${algo ? `<p class="small" style="margin-top:6px"><button id="borrar">Borrar mis respuestas y empezar de cero</button></p>` : ""}`;
+    const o = $("#otra"); if (o) o.onclick = nuevaMarca;
+    $("#go").onclick = () => {
+      let primera = null;
+      DATOS.forEach(c => {
+        const f = $("#f-" + c.id), m = validarDato(c.id);
+        f.classList.toggle("bad", !!m);
+        if (m) { f.querySelector(".err").textContent = m; if (!primera) primera = f; }
+      });
+      guardar();
+      if (primera) { primera.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+      ir(hay ? Math.min(S.ultimo, grupos().length) : 1);
+    };
+    const b = $("#borrar"); if (b) b.onclick = () => { if (confirm("¿Seguro? Se borran todas tus respuestas.")) { S = { paso: 0, r: {}, avisado: {}, acceso: true }; guardar(); render(); } };
+    return;
+  }
+
+  /* — pantalla final — */
+  if (p === TOTAL - 1) {
+    const mail = `mailto:${CONFIG.correo}?subject=${encodeURIComponent(CONFIG.titulo + " (formulario completo) · " + (txt("marca") || txt("nombre")))}&body=${encodeURIComponent("Hola Gabi, te envío mi formulario completo. Va el PDF adjunto.")}`;
+    const wa = CONFIG.whatsapp ? `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent("Hola Gabi, soy " + (txt("nombre") || "una clienta") + (txt("marca") ? " (" + txt("marca") + ")" : "") + ". Ya completé el formulario completo. Te envío el PDF.")}` : "";
+    app.innerHTML = `<div class="fin"><h1>Terminaste, <em>${esc(txt("nombre").split(" ")[0] || "gracias")}</em>${SPARK}</h1>
+      <p class="lead" style="margin-top:16px">Ahora falta que me lo hagas llegar. Son tres pasos:</p>
+      <ol class="steps">
+        <li>Descarga tu PDF<small>Toca el botón de abajo y, en la ventana que se abre, elige “Guardar como PDF”.</small></li>
+        <li>Envíamelo<small>Por correo o por WhatsApp, adjuntando el PDF que acabas de guardar.</small></li>
+        <li>Yo lo reviso<small>Lo leo con calma y te escribo para contarte cómo seguimos.</small></li>
+      </ol>
+      <div class="actions">
+        <button class="btn big" id="pdf">Descargar mi PDF</button>
+        <a class="btn ghost big" href="${mail}">Enviar por correo</a>
+        ${wa ? `<a class="btn ghost big" href="${wa}" target="_blank" rel="noopener">Enviar por WhatsApp</a>` : ""}
+      </div>
+      <p class="small" style="margin:18px 0 0">¿Tienes otra marca? <button id="otra">Llenar otro formulario</button></p>
+      <div class="cierre"><span>Gracias por contarme tu marca con tanto detalle. Lo que sigue lo construimos <em>en equipo</em>.</span></div>
+      <div class="review"><h3>Tus respuestas</h3>${docHTML()}</div>
+      <div class="nav" style="padding:0"><button class="btn link" id="atras">← Corregir algo</button><span></span></div></div>`;
+    $("#pdf").onclick = descargarPDF;
+    $("#otra").onclick = nuevaMarca;
+    $("#atras").onclick = () => ir(TOTAL - 2);
+    return;
+  }
+
+  /* — un grupo de preguntas — */
+  const g = G[p - 1];
+  app.innerHTML = `<div class="banner"><div class="bn">${p}</div><div class="bt"><h2>${esc(g.titulo)}</h2><p>${esc(g.intro)}</p></div></div>
+    ${g.preguntas.map((q, i) => preguntaHTML(q, g, i)).join("")}
+    <div class="nav"><button class="btn link" id="atras">← Atrás</button><button class="btn" id="sig">${p === N ? "Ver mi resumen" : "Continuar"}</button></div>
+    <p class="small">Tu avance se guarda solo.</p>`;
+  $("#atras").onclick = () => ir(p - 1);
+  $("#sig").onclick = continuar;
+}
+
+function nuevaMarca() {
+  if (!confirm("Antes de empezar otro formulario, asegúrate de haber descargado y enviado el PDF de esta marca. Se borran las respuestas de esta marca; tus datos de contacto se quedan.")) return;
+  const keep = { nombre: S.r.nombre, correo: S.r.correo, telefono: S.r.telefono };
+  S = { paso: 0, r: keep, avisado: {}, acceso: true };
+  guardar(); render(); window.scrollTo({ top: 0 });
+}
+
+function ir(n) { S.paso = n; if (n > 0 && n < grupos().length + 1) S.ultimo = n; guardar(); render(); window.scrollTo({ top: 0 }); }
+
+/* ═══════════ EVENTOS ═══════════ */
+document.addEventListener("input", e => {
+  const id = e.target.dataset && e.target.dataset.id; if (!id) return;
+  S.r[id] = e.target.value; guardar();
+  const f = $("#f-" + id); if (f) { f.classList.remove("bad"); if (e.target.value.trim().length >= 20) f.classList.remove("thin"); }
+});
+
+document.addEventListener("click", e => {
+  const chip = e.target.closest("[data-chip]");
+  if (chip) {
+    const id = chip.dataset.chip, v = chip.dataset.v;
+    if (chip.dataset.k === "single") {
+      S.r[id] = v;
+      document.querySelectorAll(`[data-chip="${id}"]`).forEach(b => b.setAttribute("aria-pressed", b === chip));
+    } else {
+      const arr = lista(id), i = arr.indexOf(v);
+      const max = (todosLosCampos().find(c => c.id === id) || {}).max;
+      if (i >= 0) arr.splice(i, 1); else { arr.push(v); if (max && arr.length > max) arr.shift(); }
+      S.r[id] = arr;
+      document.querySelectorAll(`[data-chip="${id}"]`).forEach(b => b.setAttribute("aria-pressed", arr.includes(b.dataset.v)));
+    }
+    const f = $("#f-" + id); if (f) f.classList.remove("bad");
+    guardar();
+    // si otra pregunta depende de esta (por ejemplo "Otro"), se redibuja sin mover la pantalla
+    if (SOLO_IDS.has(id)) { const keep = window.scrollY; render(); window.scrollTo({ top: keep }); }
+    return;
+  }
+  const idea = e.target.closest("[data-idea]");
+  if (idea) {
+    const t = $("#" + idea.dataset.to), v = idea.dataset.idea;
+    if (!t.value.includes(v)) { t.value = (t.value.trim() ? t.value.trim() + ". " : "") + v; S.r[idea.dataset.to] = t.value; guardar(); }
+    idea.setAttribute("aria-pressed", "true");
+  }
+});
+
+function continuar() {
+  const g = grupos()[S.paso - 1];
+  let primeraMala = null;
+  g.preguntas.forEach(q => q.campos.forEach(c => {
+    if (c.solo && !cumple(c.solo)) return;
+    const f = $("#f-" + c.id); if (!f) return;
+    f.classList.remove("bad");
+    const vacio = c.k === "multi" ? lista(c.id).length === 0 : !txt(c.id) && !(c.k === "single" && val(c.id));
+    if (c.req && vacio) { f.classList.add("bad"); if (!primeraMala) primeraMala = f; }
+    // aviso suave en preguntas abiertas vacías o muy cortas (una sola vez por pregunta)
+    if (c.k === "area" && txt(c.id).length < 20 && !S.avisado[c.id]) { f.classList.add("thin"); S.avisado[c.id] = true; if (!primeraMala) primeraMala = f; }
+  }));
+  guardar();
+  if (primeraMala) { primeraMala.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+  ir(S.paso + 1);
+}
+
+/* ═══════════ PDF (imprimir → guardar como PDF) ═══════════ */
+function descargarPDF() {
+  $("#doc").innerHTML = portadaHTML() + docHTML() + `<div class="pie">${esc(CONFIG.titulo)} · Formulario completo · Preparado para Gabriela Contreras · Estrategia de Marca · Dirección Creativa</div>`;
+  const antes = document.title;
+  document.title = "Conoce-tu-marca-completo-" + (txt("marca") || txt("nombre") || "cliente").replace(/[^\wáéíóúñÁÉÍÓÚÑ-]+/g, "-");
+  window.print();
+  setTimeout(() => { document.title = antes; }, 1500);
+}
+
+render();
+</script>
+</body>
+</html>

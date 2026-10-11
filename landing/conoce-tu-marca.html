@@ -194,7 +194,9 @@ const CONFIG = {
   correo: "gabrielacontrerasredes@gmail.com",
   whatsapp: "34627879574", // Código de país + número, sin + ni espacios. Vacío = no se muestra el botón.
   titulo: "Conoce tu marca",
-  codigo: "ALMARUMBO"       // Código de acceso único. Para cambiarlo, cambia solo esta palabra.
+  codigo: "ALMARUMBO",      // Código de acceso del primer formulario. Para cambiarlo, cambia solo esta palabra.
+  codigo2: "MARCACONALMA",  // Código del formulario completo: lleva a conoce-tu-marca-2.html
+  pagina2: "conoce-tu-marca-2.html"
 };
 
 /* ═══════════ PREGUNTAS ═══════════ */
@@ -401,7 +403,9 @@ function render() {
       <p class="sign">Gabriela Contreras · Estrategia de Marca · Dirección Creativa</p>`;
     const norm = x => String(x || "").toUpperCase().replace(/[\s\-_]/g, "");
     const probar = () => {
-      if (norm($("#codigo").value) === norm(CONFIG.codigo)) { S.acceso = true; guardar(); render(); }
+      const c = norm($("#codigo").value);
+      if (c === norm(CONFIG.codigo)) { S.acceso = true; guardar(); render(); }
+      else if (c === norm(CONFIG.codigo2)) { try { sessionStorage.setItem("gc_pase2", "1"); } catch (e) {} location.href = CONFIG.pagina2; }
       else $("#f-codigo").classList.add("bad");
     };
     $("#entrar").onclick = probar;
