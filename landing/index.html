@@ -298,6 +298,12 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
 .carousel-slide:hover { transform: translateY(-4px); box-shadow: 0 16px 40px var(--shadow); }
 .carousel--sq .carousel-slide { aspect-ratio: 1/1; flex-basis: min(78vw, 480px); }
 .carousel + .carousel, .svc + .carousel { border-top: 1px solid var(--line); }
+.carousel--port .carousel-slide { aspect-ratio: 1092/1440; flex-basis: min(74vw, 400px); }
+@media (min-width: 1000px) {
+  .carousel--side .car-stage { display: grid; grid-template-columns: minmax(280px, 380px) 1fr; gap: 56px; align-items: center; }
+  .carousel--side .car-intro { margin: 0; }
+  .carousel--side .car-viewport { overflow: hidden; min-width: 0; }
+}
 .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .carousel-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
 .carousel-dots { display: flex; gap: 8px; }
@@ -1101,6 +1107,37 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 </section>
 
 <!-- PRODUCTOS -->
+<!-- CARRUSEL 3: mitos de Instagram (faltan las slides 3 y 5: ver carousel/mitos-3.webp y mitos-5.webp) -->
+<section class="carousel carousel--port carousel--side" id="mitos">
+  <div class="car-stage">
+    <div class="car-intro">
+      <div class="eyebrow"><span class="mono">Para dueñas de boutiques</span></div>
+      <h2 class="s-head disp">3 mitos que le cuestan <em>ventas</em> a tu boutique.</h2>
+      <p class="s-sub">Desliza y deja de repetirlos.</p>
+    </div>
+    <div class="car-viewport">
+      <div class="carousel-shell">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="carousel/mitos-1.webp" width="1092" height="1440" alt="3 mitos de Instagram que le cuestan ventas a tu boutique. Para dueñas de boutiques. Desliza y deja de repetirlos." loading="lazy" /></div>
+        <div class="carousel-slide"><img src="carousel/mitos-2.webp" width="1092" height="1440" alt="Mito 01: “Sin reels bailando, no crezco.” Tu prenda necesita movimiento, no una coreografía. Muestra cómo queda puesta: de frente, de espalda y en detalle." loading="lazy" /></div>
+        <div class="carousel-slide"><img src="carousel/mitos-4.webp" width="1092" height="1440" alt="Mito 03: “Tengo que publicar todo el inventario.” Dale protagonismo a las prendas que más conectan." loading="lazy" /></div>
+      </div>
+      <div class="carousel-nav">
+        <div class="carousel-dots">
+          <button class="carousel-dot active" data-i="0" aria-label="Slide 1"></button>
+          <button class="carousel-dot" data-i="1" aria-label="Slide 2"></button>
+          <button class="carousel-dot" data-i="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-arrows">
+          <button class="carousel-btn c-prev" aria-label="Anterior">←</button>
+          <button class="carousel-btn c-next" aria-label="Siguiente">→</button>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="soon" id="productos">
   <div class="wrap">
     <div class="eyebrow"><span class="mono">Productos digitales</span></div>
