@@ -250,13 +250,17 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
   background-size: 200px 200px;
 }
 .hero .wrap { position: relative; z-index: 2; width: 100%; }
-.hero-inner { max-width: 560px; padding: clamp(56px,9vh,110px) 0; }
+.hero-inner { max-width: 560px; padding: clamp(32px,5.5vh,72px) 0; }
 .hero .mono { color: #a8a39c; }
-.hero h1 { font-size: clamp(42px, 6.4vw, 88px); margin: 20px 0 0; line-height: 1.0; }
+.hero h1 { font-size: clamp(40px, 5.2vw, 74px); margin: 20px 0 0; line-height: 1.0; }
 .hero h1 em { font-style: italic; font-weight: 200; color: #d4607c; }
 .hero h1 .spark { width: .46em; height: .46em; display: inline-block; vertical-align: .1em; margin-left: .06em; }
-.hero .tagline { font-size: clamp(17px, 2vw, 22px); font-weight: 200; color: #d8d3cb; max-width: 460px; margin: 26px 0 0; }
-.hero .cta-row { margin-top: 38px; display: flex; gap: 14px; flex-wrap: wrap; }
+.hero .tagline { font-size: clamp(16px, 1.6vw, 20px); font-weight: 200; color: #d8d3cb; max-width: 460px; margin: 18px 0 0; }
+.hero-svc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; max-width: 540px; }
+.hero-svc a { border: 1px solid rgba(245,241,234,.38); color: #f5f1ea; text-decoration: none; padding: 7px 15px; border-radius: 999px; font-size: 13.5px; font-weight: 400; letter-spacing: -0.005em;
+  background: rgba(26,6,12,.28); transition: background .2s ease, border-color .2s ease, transform .2s ease; }
+.hero-svc a:hover { background: var(--acc); border-color: var(--acc); transform: translateY(-2px); }
+.hero .cta-row { margin-top: 24px; display: flex; gap: 14px; flex-wrap: wrap; }
 @media (max-width: 820px){
   .hero-bg::after { background: linear-gradient(180deg, rgba(5,2,3,.65) 0%, rgba(5,2,3,.82) 52%, rgba(5,2,3,.95) 100%); }
   .hero-inner { padding: clamp(48px,9vh,90px) 0 clamp(36px,6vh,60px); max-width: none; }
@@ -813,9 +817,10 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
     </div>
     <div class="wrap">
       <div class="hero-inner">
-        <div class="mono">Estrategia de marca · Dirección creativa</div>
+        <div class="mono">Marca · Web · Redes · Dirección creativa</div>
         <h1 class="disp">Marcas con alma,<br /><em>estrategia</em> con rumbo<svg class="spark" viewBox="0 0 24 24" fill="#b53d5b" aria-hidden="true"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg></h1>
         <p class="tagline">El cruce exacto entre estrategia de negocio y dirección creativa. Marketing con sentido. El propósito y la ejecución caminan de la mano.</p>
+        <div class="hero-svc" aria-label="Lo que puedo hacer por ti"><a href="#servicios" data-open="0">Logo</a><a href="#servicios" data-open="0">Identidad visual</a><a href="#servicios" data-open="1">Página web</a><a href="#servicios" data-open="1">SEO y GEO</a><a href="#servicios" data-open="2">Auditoría de redes</a><a href="#servicios" data-open="2">Estrategia de contenido</a></div>
         <div class="cta-row">
           <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Construyamos%20algo%20con%20sentido" data-subject="Contacto general: Hero">¿Construimos algo con sentido? →</a>
           <a class="btn ghost" href="#servicios">Ver servicios</a>
@@ -830,12 +835,12 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   <h2 id="hago-t" class="sr-only">Lo que hago</h2>
   <button class="marq-pause" type="button" aria-pressed="false">Pausar</button>
   <div class="marq-row">
-    <div class="marq-group"><span class="marq-item">Estrategia de marca<i>✦</i></span><span class="marq-item">Dirección creativa<i>✦</i></span><span class="marq-item">Posicionamiento<i>✦</i></span><span class="marq-item">Identidad visual<i>✦</i></span><span class="marq-item">Naming<i>✦</i></span></div>
-    <div class="marq-group" aria-hidden="true"><span class="marq-item">Estrategia de marca<i>✦</i></span><span class="marq-item">Dirección creativa<i>✦</i></span><span class="marq-item">Posicionamiento<i>✦</i></span><span class="marq-item">Identidad visual<i>✦</i></span><span class="marq-item">Naming<i>✦</i></span></div>
+    <div class="marq-group"><span class="marq-item">Estrategia de marca<i>✦</i></span><span class="marq-item">Logo<i>✦</i></span><span class="marq-item">Identidad visual<i>✦</i></span><span class="marq-item">Guía de marca<i>✦</i></span><span class="marq-item">Página web<i>✦</i></span></div>
+    <div class="marq-group" aria-hidden="true"><span class="marq-item">Estrategia de marca<i>✦</i></span><span class="marq-item">Logo<i>✦</i></span><span class="marq-item">Identidad visual<i>✦</i></span><span class="marq-item">Guía de marca<i>✦</i></span><span class="marq-item">Página web<i>✦</i></span></div>
   </div>
   <div class="marq-row" aria-hidden="true">
-    <div class="marq-group"><span class="marq-item">Arquitectura de marca<i>✦</i></span><span class="marq-item">Dirección de arte<i>✦</i></span><span class="marq-item">Propósito<i>✦</i></span><span class="marq-item">Comunicación<i>✦</i></span><span class="marq-item">Coherencia<i>✦</i></span><span class="marq-item">Visión a largo plazo<i>✦</i></span></div>
-    <div class="marq-group"><span class="marq-item">Arquitectura de marca<i>✦</i></span><span class="marq-item">Dirección de arte<i>✦</i></span><span class="marq-item">Propósito<i>✦</i></span><span class="marq-item">Comunicación<i>✦</i></span><span class="marq-item">Coherencia<i>✦</i></span><span class="marq-item">Visión a largo plazo<i>✦</i></span></div>
+    <div class="marq-group"><span class="marq-item">SEO y GEO<i>✦</i></span><span class="marq-item">Google Maps<i>✦</i></span><span class="marq-item">Auditoría de redes<i>✦</i></span><span class="marq-item">Estrategia de contenido<i>✦</i></span><span class="marq-item">Dirección creativa<i>✦</i></span><span class="marq-item">Consultoría de marca<i>✦</i></span></div>
+    <div class="marq-group"><span class="marq-item">SEO y GEO<i>✦</i></span><span class="marq-item">Google Maps<i>✦</i></span><span class="marq-item">Auditoría de redes<i>✦</i></span><span class="marq-item">Estrategia de contenido<i>✦</i></span><span class="marq-item">Dirección creativa<i>✦</i></span><span class="marq-item">Consultoría de marca<i>✦</i></span></div>
   </div>
 </section>
 
@@ -1933,6 +1938,16 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   });
 })();
 </script>
+<script>
+(function(){
+  document.querySelectorAll('.hero-svc a[data-open]').forEach(function(a){
+    a.addEventListener('click',function(){
+      var heads=document.querySelectorAll('.svc-head'); var h=heads[+a.getAttribute('data-open')];
+      if(h) h.click();
+    });
+  });
+})();
+</script>
 <!-- MOVIMIENTO: GSAP (local, licencia estándar gratuita). Sin JS o con reduced-motion, todo se ve en reposo. -->
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
@@ -1948,6 +1963,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       .from(".hero .mono", { y: 14, autoAlpha: 0, duration: .7 }, .1)
       .from(".hero h1", { y: 36, autoAlpha: 0, duration: 1 }, .2)
       .from(".hero .tagline", { y: 20, autoAlpha: 0, duration: .8 }, .55)
+      .from(".hero-svc a", { y: 12, autoAlpha: 0, duration: .5, stagger: .06, clearProps: "transform,opacity,visibility" }, .7)
       .from(".hero .cta-row > *", { y: 16, autoAlpha: 0, duration: .6, stagger: .1, clearProps: "transform,opacity,visibility" }, .8);
 
     // Momento 1: el manifiesto se ilumina palabra a palabra al hacer scroll
