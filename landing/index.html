@@ -253,22 +253,33 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
   .hero-inner { padding: clamp(48px,9vh,90px) 0 clamp(36px,6vh,60px); max-width: none; }
 }
 
-/* ---------- PILL CLOUD ---------- */
-.cloud { padding: clamp(56px, 9vh, 100px) 0; border-bottom: 1px solid var(--line); }
-.cloud .eyebrow { margin-bottom: 30px; }
-.pills { display: flex; flex-wrap: wrap; gap: 13px; max-width: 940px; }
-.pill-cap {
-  border-radius: 999px; padding: 11px 22px; font-size: 15px; font-weight: 500;
-  letter-spacing: -0.01em; transition: transform .2s, box-shadow .2s;
+/* ---------- BANDA EN BUCLE ---------- */
+.sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.marq { padding: clamp(40px, 7vh, 76px) 0; border-bottom: 1px solid var(--line); overflow: hidden; position: relative; }
+.marq-row { display: flex; width: max-content; animation: marq 55s linear infinite; }
+.marq-row + .marq-row { margin-top: clamp(4px, 1vh, 12px); animation-direction: reverse; animation-duration: 70s; }
+.marq:hover .marq-row, .marq.paused .marq-row { animation-play-state: paused; }
+.marq-group { display: flex; flex: 0 0 auto; }
+.marq-item { font-weight: 700; letter-spacing: -0.035em; line-height: 1.12; white-space: nowrap;
+  font-size: clamp(44px, 8.4vw, 118px); color: var(--txt); padding-right: .1em; }
+.marq-item.out { color: transparent; -webkit-text-stroke: 1.5px var(--acc); }
+.marq-item i { font-style: normal; color: var(--acc); font-size: .42em; padding: 0 .55em; vertical-align: .32em; -webkit-text-stroke: 0; }
+.marq-pause { position: absolute; right: var(--pad); top: 10px; background: none; border: 1px solid var(--line); color: var(--muted);
+  border-radius: 999px; font: inherit; font-size: 12px; padding: 6px 14px; cursor: pointer; transition: border-color .2s, color .2s; z-index: 2; }
+.marq-pause:hover { border-color: var(--acc); color: var(--acc); }
+@keyframes marq { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .marq-row { animation: none; flex-wrap: wrap; width: auto; padding: 0 var(--pad); }
+  .marq-group[aria-hidden="true"], .marq-pause { display: none; }
 }
-.pill-cap:hover { transform: translateY(-3px); box-shadow: 0 10px 24px var(--shadow); }
-.pill-cap.solid { background: var(--acc); color: #fff; }
-.pill-cap.out { background: transparent; border: 1.5px solid var(--line); color: var(--txt); }
-.pill-cap.dim { background: transparent; border: 1.5px solid var(--line); color: var(--muted); }
 
-/* ---------- CARRUSEL ---------- */
+/* ---------- CARRUSEL (scroll horizontal en escritorio) ---------- */
 .carousel { border-top: 1px solid var(--line); padding: clamp(56px,9vh,100px) 0; }
-.carousel .eyebrow { margin-bottom: 32px; }
+.car-stage { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+.car-intro { margin-bottom: 32px; }
+.car-intro .s-head { font-size: clamp(30px, 4vw, 48px); }
+.car-count { display: none; margin-top: 28px; }
+.car-count b { color: var(--acc); font-weight: 700; font-size: 28px; letter-spacing: -0.02em; }
 .carousel-shell { position: relative; }
 .carousel-track {
   display: flex; gap: 20px;
@@ -279,23 +290,16 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
 }
 .carousel-track::-webkit-scrollbar { display: none; }
 .carousel-slide {
-  flex: 0 0 min(78vw, 560px); scroll-snap-align: start;
-  border-radius: 16px; overflow: hidden; aspect-ratio: 1/1;
+  flex: 0 0 min(72vw, 420px); scroll-snap-align: start;
+  border-radius: 20px; overflow: hidden; aspect-ratio: 4/5;
   box-shadow: 0 8px 30px rgba(0,0,0,.12);
   transition: transform .28s ease, box-shadow .28s ease;
 }
 .carousel-slide:hover { transform: translateY(-4px); box-shadow: 0 16px 40px var(--shadow); }
 .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.carousel-nav {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-top: 24px;
-}
+.carousel-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; }
 .carousel-dots { display: flex; gap: 8px; }
-.carousel-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--line); border: none; cursor: pointer;
-  transition: background .2s, transform .2s; padding: 0;
-}
+.carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); border: none; cursor: pointer; transition: background .2s, transform .2s; padding: 0; }
 .carousel-dot.active { background: var(--acc); transform: scale(1.3); }
 .carousel-arrows { display: flex; gap: 10px; }
 .carousel-btn {
@@ -304,6 +308,17 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
   display: grid; place-items: center; transition: all .2s;
 }
 .carousel-btn:hover { border-color: var(--acc); color: var(--acc); background: color-mix(in srgb, var(--acc) 8%, transparent); }
+/* modo fijo: al bajar, las piezas avanzan hacia la derecha */
+.carousel.is-pin { padding: 0; }
+.is-pin .car-stage { max-width: none; margin: 0; display: grid; grid-template-columns: minmax(300px, 400px) 1fr; gap: 56px;
+  height: calc(100vh - 64px); align-items: center; padding: 0 0 0 max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad))); }
+.is-pin .car-intro { margin: 0; }
+.is-pin .car-count { display: block; }
+.is-pin .car-viewport { overflow: hidden; height: 100%; display: flex; align-items: center; }
+.is-pin .carousel-shell { width: 100%; }
+.is-pin .carousel-track { overflow: visible; width: max-content; scroll-snap-type: none; touch-action: auto; padding-bottom: 0; }
+.is-pin .carousel-slide { flex: 0 0 auto; height: min(calc(100vh - 64px - 96px), 640px); }
+.is-pin .carousel-nav { display: none; }
 
 /* ---------- SECTION SHELL ---------- */
 section { padding: clamp(64px, 10vh, 118px) 0; }
@@ -365,42 +380,35 @@ section { padding: clamp(64px, 10vh, 118px) 0; }
 .tag {
   display: inline-block; background: var(--acc); color: #fff;
   font-weight: 500; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
-  padding: 6px 14px; border-radius: 6px; margin-bottom: 20px;
+  padding: 6px 14px; border-radius: 6px; margin-bottom: 16px; align-self: flex-start;
 }
-.prod-grid { margin-top: 44px; display: flex; flex-direction: column; gap: 28px; }
-.prod-card {
-  display: grid; grid-template-columns: 1fr 1.15fr;
-  border: 1px solid var(--line); border-radius: 20px; overflow: hidden;
-  max-width: 840px; background: var(--card);
-}
-.prod-cover { overflow: hidden; background: #0d0d0d; display: flex; align-items: center; }
-.prod-cover img { width: 100%; height: 100%; object-fit: contain; display: block; }
-.prod-body {
-  padding: 36px 40px 36px 36px;
-  display: flex; flex-direction: column; justify-content: flex-start;
-}
-.prod-body h3 {
-  font-size: clamp(18px, 2.2vw, 24px); font-weight: 700;
-  letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 12px;
-}
-.prod-body h3 em { font-style: italic; font-weight: 200; color: var(--acc); }
-.prod-hook { font-size: 14.5px; font-weight: 600; color: var(--txt); margin: 0 0 8px; line-height: 1.45; }
-.prod-sub { color: var(--muted); font-size: 13.5px; line-height: 1.6; margin: 0 0 18px; }
-.prod-section-title {
-  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
-  font-weight: 600; color: var(--acc); margin: 0 0 6px;
-}
-.prod-list { list-style: none; padding: 0; margin: 0 0 16px; }
-.prod-list li { font-size: 13px; color: var(--muted); padding: 2px 0; line-height: 1.5; }
-.prod-list--check li::before { content: "✓  "; color: var(--acc); font-weight: 700; }
-.prod-list--arrow li::before { content: "→  "; color: var(--acc); }
-.prod-footnote { font-size: 11.5px; color: var(--dim); margin: 0 0 20px; font-style: italic; }
-.prod-footer { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-.prod-price { font-size: 36px; font-weight: 800; letter-spacing: -0.03em; }
-@media (max-width: 680px) {
-  .prod-card { grid-template-columns: 1fr; }
-  .prod-cover { aspect-ratio: 1/1; }
-  .prod-body { padding: 24px 22px 28px; }
+.prod-row { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+.pcard { background: var(--card); border: 1px solid var(--line); border-radius: 24px; overflow: hidden;
+  display: flex; flex-direction: column; transition: transform .28s ease, box-shadow .28s ease; }
+.pcard:hover { transform: translateY(-3px); box-shadow: 0 18px 44px var(--shadow); }
+.pcard-cover { background: #0d0d0d; aspect-ratio: 5/6; overflow: hidden; }
+.pcard-cover img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform .5s ease; }
+.pcard:hover .pcard-cover img { transform: scale(1.025); }
+.pcard-body { padding: 28px 30px 32px; display: flex; flex-direction: column; gap: 6px; }
+.pcard h3 { font-size: clamp(22px, 2.4vw, 30px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+.pcard h3 em { font-style: italic; font-weight: 200; color: var(--acc); }
+.pcard-hook { color: var(--muted); font-size: 16px; line-height: 1.55; margin-top: 6px; }
+.pcard-buy { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+.pcard-price { font-size: 36px; font-weight: 800; letter-spacing: -0.03em; }
+.pcard details { margin-top: 22px; border-top: 1px solid var(--line); padding-top: 16px; }
+.pcard summary { cursor: pointer; list-style: none; font-weight: 500; font-size: 15px; color: var(--acc); display: flex; justify-content: space-between; align-items: center; }
+.pcard summary::-webkit-details-marker { display: none; }
+.pcard summary::after { content: "+"; font-size: 22px; line-height: 1; transition: transform .25s ease; }
+.pcard details[open] summary::after { transform: rotate(45deg); }
+.pcard .pt { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--acc); margin: 18px 0 8px; }
+.pcard ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.pcard li { font-size: 15px; color: var(--muted); line-height: 1.5; display: flex; gap: 10px; }
+.pcard li::before { content: "✓"; color: var(--acc); font-weight: 700; }
+.pcard .pfoot { font-size: 13.5px; color: var(--muted); margin-top: 16px; font-style: italic; }
+@media (max-width: 820px) {
+  .prod-row { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px; margin-inline: calc(var(--pad) * -1); padding: 0 var(--pad) 8px; scrollbar-width: none; }
+  .prod-row::-webkit-scrollbar { display: none; }
+  .pcard { flex: 0 0 82vw; scroll-snap-align: center; }
 }
 
 
@@ -423,12 +431,20 @@ section { padding: clamp(64px, 10vh, 118px) 0; }
 .pill b { color: var(--acc); font-weight: 600; }
 @media (max-width:820px){ .about-grid{ grid-template-columns:1fr; gap:36px; } .portrait{ max-width:340px; } }
 
-/* ---------- CTA FINAL ---------- */
-.final { text-align: center; border-top: 1px solid var(--line); position: relative; overflow: hidden; }
-.final h2 { font-size: clamp(34px, 6vw, 76px); max-width: 900px; margin: 0 auto; }
-.final h2 em { font-style: italic; font-weight: 200; color: var(--acc); }
-.final p { color: var(--muted); margin: 22px auto 36px; max-width: 520px; font-size: 18px; }
-
+/* ---------- CTA FINAL (texto sobre foto) ---------- */
+.final { padding: 14px; border-top: 1px solid var(--line); }
+.final-card { position: relative; overflow: hidden; border-radius: 28px; color: #f5f1ea; min-height: min(82vh, 740px); display: flex; align-items: center; background: #1a0a0f; }
+.final-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+.final-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, rgba(26,6,12,.94) 0%, rgba(26,6,12,.86) 34%, rgba(26,6,12,.35) 58%, transparent 80%); }
+.final-copy { position: relative; z-index: 2; width: 100%; max-width: var(--max); margin: 0 auto; padding: clamp(48px, 9vh, 96px) var(--pad); }
+.final-copy h2 { font-size: clamp(34px, 6vw, 76px); max-width: 620px; }
+.final-copy h2 em { font-style: italic; font-weight: 200; color: #d4607c; }
+.final-copy p { color: #d8d3cb; margin: 22px 0 34px; max-width: 440px; font-size: 18px; }
+@media (max-width: 820px) {
+  .final-card { align-items: flex-end; min-height: 88vh; }
+  .final-card::after { background: linear-gradient(180deg, rgba(26,6,12,.08) 0%, rgba(26,6,12,.6) 36%, rgba(26,6,12,.95) 56%, rgba(26,6,12,.98) 100%); }
+  .final-card img { object-position: center 20%; }
+}
 /* ---------- FOOTER ---------- */
 footer { border-top: 1px solid var(--line); padding: 56px 0; }
 .foot-grid { display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; align-items: flex-start; }
@@ -753,23 +769,17 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   </div>
 </header>
 
-<!-- PILL CLOUD -->
-<section class="cloud" id="hago">
-  <div class="wrap">
-    <div class="eyebrow"><span class="mono">Lo que hago</span></div>
-    <div class="pills">
-      <span class="pill-cap solid">Estrategia de marca</span>
-      <span class="pill-cap out">Dirección creativa</span>
-      <span class="pill-cap out">Posicionamiento</span>
-      <span class="pill-cap solid">Identidad visual</span>
-      <span class="pill-cap out">Naming</span>
-      <span class="pill-cap dim">Arquitectura de marca</span>
-      <span class="pill-cap out">Dirección de arte</span>
-      <span class="pill-cap solid">Propósito</span>
-      <span class="pill-cap dim">Comunicación</span>
-      <span class="pill-cap out">Coherencia</span>
-      <span class="pill-cap dim">Visión a largo plazo</span>
-    </div>
+<!-- BANDA EN BUCLE: Lo que hago -->
+<section class="marq" id="hago" aria-labelledby="hago-t">
+  <h2 id="hago-t" class="sr-only">Lo que hago</h2>
+  <button class="marq-pause" type="button" aria-pressed="false">Pausar</button>
+  <div class="marq-row">
+    <div class="marq-group"><span class="marq-item">Estrategia de marca<i>✦</i></span><span class="marq-item">Dirección creativa<i>✦</i></span><span class="marq-item">Posicionamiento<i>✦</i></span><span class="marq-item">Identidad visual<i>✦</i></span><span class="marq-item">Naming<i>✦</i></span></div>
+    <div class="marq-group" aria-hidden="true"><span class="marq-item">Estrategia de marca<i>✦</i></span><span class="marq-item">Dirección creativa<i>✦</i></span><span class="marq-item">Posicionamiento<i>✦</i></span><span class="marq-item">Identidad visual<i>✦</i></span><span class="marq-item">Naming<i>✦</i></span></div>
+  </div>
+  <div class="marq-row" aria-hidden="true">
+    <div class="marq-group"><span class="marq-item out">Arquitectura de marca<i>✦</i></span><span class="marq-item out">Dirección de arte<i>✦</i></span><span class="marq-item out">Propósito<i>✦</i></span><span class="marq-item out">Comunicación<i>✦</i></span><span class="marq-item out">Coherencia<i>✦</i></span><span class="marq-item out">Visión a largo plazo<i>✦</i></span></div>
+    <div class="marq-group"><span class="marq-item out">Arquitectura de marca<i>✦</i></span><span class="marq-item out">Dirección de arte<i>✦</i></span><span class="marq-item out">Propósito<i>✦</i></span><span class="marq-item out">Comunicación<i>✦</i></span><span class="marq-item out">Coherencia<i>✦</i></span><span class="marq-item out">Visión a largo plazo<i>✦</i></span></div>
   </div>
 </section>
 
@@ -781,11 +791,17 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   </div>
 </section>
 
-<!-- CARRUSEL -->
-<section class="carousel">
-  <div class="wrap">
-    <div class="eyebrow"><span class="mono">Contenido</span></div>
-    <div class="carousel-shell">
+<!-- CARRUSEL (scroll horizontal) -->
+<section class="carousel" id="contenido">
+  <div class="car-stage">
+    <div class="car-intro">
+      <div class="eyebrow"><span class="mono">Contenido</span></div>
+      <h2 class="s-head disp">Contenido con rumbo, <em>pieza a pieza.</em></h2>
+      <p class="s-sub">Baja y mira cómo se ve comunicar con sentido.</p>
+      <p class="car-count mono" aria-hidden="true"><b>1</b> / 4</p>
+    </div>
+    <div class="car-viewport">
+      <div class="carousel-shell">
       <div class="carousel-track" id="carouselTrack">
         <div class="carousel-slide"><img src="carousel/slide-1.webp" width="1122" height="1402" alt="Comunicar mejor: Marketing con sentido" loading="lazy" /></div>
         <div class="carousel-slide"><img src="carousel/slide-2.webp" width="1122" height="1402" alt="Decisión: Un calendario reduce la improvisación" loading="lazy" /></div>
@@ -804,6 +820,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
           <button class="carousel-btn" id="cNext" aria-label="Siguiente">→</button>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -1050,70 +1067,74 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 <section class="soon" id="productos">
   <div class="wrap">
     <div class="eyebrow"><span class="mono">Productos digitales</span></div>
-    <div class="prod-grid">
-      <div class="prod-card">
-        <div class="prod-cover">
-          <img src="./assets/cover-branding-starter-kit1x1.webp" width="1000" height="1200" loading="lazy" alt="Branding Starter Kit: Marca con Sentido">
-        </div>
-        <div class="prod-body">
-          <span class="tag">Nuevo</span>
-          <h3 class="disp">Branding Starter Kit:<br><em>Marca con Sentido</em></h3>
-          <p class="prod-hook">¿Tu marca se ve bonita pero no comunica con claridad? Este kit es para ti.</p>
-          <p class="prod-sub">Deja de improvisar tu marca. Construye su base estratégica con criterio sin perder el rumbo.</p>
-          <p class="prod-section-title">Lo que vas a construir</p>
-          <ul class="prod-list prod-list--check">
-            <li>Tu frase de posicionamiento clara</li>
-            <li>Tu Propuesta Única de Valor</li>
-            <li>El perfil de tu cliente ideal</li>
-            <li>Tu tono de voz y mensajes clave</li>
-            <li>Tu dirección visual con criterio</li>
-            <li>Tu sistema de contenido</li>
-            <li>30 prompts de IA para ejecutar todo</li>
-          </ul>
-          <p class="prod-section-title">¿Qué incluye?</p>
-          <ul class="prod-list prod-list--arrow">
-            <li>14 páginas interactivas: se llenan en el navegador, sin apps</li>
-            <li>7 módulos con contexto, ejercicios y plantillas</li>
-            <li>Checklist de validación final</li>
-          </ul>
-          <p class="prod-footnote">Para emprendedores, freelancers y marcas personales que quieren dejar de improvisar.</p>
-          <div class="prod-footer">
-            <span class="prod-price">€27</span>
+    <h2 class="s-head disp">Empieza por tu base, <em>a tu ritmo.</em></h2>
+    <p class="s-sub">Dos kits para ordenar tu marca sin improvisar y sin prisa.</p>
+    <div class="prod-row">
+
+      <article class="pcard">
+        <div class="pcard-cover"><img src="./assets/cover-branding-starter-kit1x1.webp" width="1000" height="1200" loading="lazy" alt="Branding Starter Kit: Marca con Sentido"></div>
+        <div class="pcard-body">
+          <span class="tag">Para empezar</span>
+          <h3 class="disp">Branding Starter Kit: <em>Marca con Sentido</em></h3>
+          <p class="pcard-hook">¿Tu marca se ve bonita pero no comunica con claridad? Este kit es para ti.</p>
+          <div class="pcard-buy">
+            <span class="pcard-price">€27</span>
             <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Quiero%20el%20Branding%20Starter%20Kit" data-subject="Quiero mi kit: Branding Starter Kit">Quiero mi kit →</a>
           </div>
+          <details>
+            <summary>Ver todo lo que incluye</summary>
+            <p class="pcard-hook" style="margin-top:14px">Deja de improvisar tu marca. Construye su base estratégica con criterio sin perder el rumbo.</p>
+            <p class="pt">Al terminar tendrás</p>
+            <ul>
+              <li>Tu frase de posicionamiento clara</li>
+              <li>Tu Propuesta Única de Valor</li>
+              <li>El perfil de tu cliente ideal</li>
+              <li>Tu tono de voz y mensajes clave</li>
+              <li>Tu dirección visual con criterio</li>
+              <li>Tu sistema de contenido</li>
+              <li>30 prompts de IA para ejecutar todo</li>
+            </ul>
+            <p class="pt">Dentro del kit</p>
+            <ul>
+              <li>14 páginas interactivas: se llenan en el navegador, sin apps</li>
+              <li>7 módulos con contexto, ejercicios y plantillas</li>
+              <li>Checklist de validación final</li>
+            </ul>
+            <p class="pfoot">Para emprendedores, freelancers y marcas personales que quieren dejar de improvisar.</p>
+          </details>
         </div>
-      </div>
+      </article>
 
-      <div class="prod-card">
-        <div class="prod-cover">
-          <img src="./assets/cover-authority-builder-kit.webp" width="1000" height="1200" loading="lazy" alt="Authority Builder Kit">
-        </div>
-        <div class="prod-body">
-          <span class="tag">NIVEL 02</span>
+      <article class="pcard">
+        <div class="pcard-cover"><img src="./assets/cover-authority-builder-kit.webp" width="1000" height="1200" loading="lazy" alt="Authority Builder Kit"></div>
+        <div class="pcard-body">
+          <span class="tag">Siguiente paso</span>
           <h3 class="disp">Authority Builder Kit</h3>
-          <p class="prod-hook">El problema no es tu visibilidad, es tu claridad. Un mensaje disperso confunde al cliente ideal y solo atrae al comprador equivocado.</p>
-          <p class="prod-sub">Trabajas, publicas, estás presente. Pero si en cada canal dices algo distinto, el cliente correcto no te reconoce… y el equivocado sí.</p>
-          <p class="prod-sub">Authority Builder Kit ordena todo eso en un solo mensaje, claro y tuyo, que construye autoridad cada vez que apareces.</p>
-          <p class="prod-section-title">Lo que vas a construir:</p>
-          <ul class="prod-list prod-list--arrow">
-            <li>Un mensaje que se entiende en 5 segundos</li>
-            <li>Una sola voz, coherente en todos tus canales</li>
-            <li>El perfil del cliente que de verdad te conviene</li>
-            <li>Tu declaración de unicidad y tu one-liner</li>
-            <li>Tus 3 pilares de comunicación y tu punto de vista</li>
-            <li>Un plan de 30 días para sostenerlo</li>
-          </ul>
-          <p class="prod-footnote">13 páginas interactivas · 8 módulos con ejercicios y plantillas · checklist final</p>
-          <div class="prod-footer">
-            <span class="prod-price">€39</span>
+          <p class="pcard-hook">El problema no es tu visibilidad, es tu claridad. Un mensaje disperso confunde al cliente ideal y solo atrae al comprador equivocado.</p>
+          <div class="pcard-buy">
+            <span class="pcard-price">€39</span>
             <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Quiero%20el%20Authority%20Builder%20Kit" data-subject="Quiero mi kit: Authority Builder Kit">Quiero mi kit →</a>
           </div>
+          <details>
+            <summary>Ver todo lo que incluye</summary>
+            <p class="pcard-hook" style="margin-top:14px">Trabajas, publicas, estás presente. Pero si en cada canal dices algo distinto, el cliente correcto no te reconoce… y el equivocado sí. Authority Builder Kit ordena todo eso en un solo mensaje, claro y tuyo, que construye autoridad cada vez que apareces.</p>
+            <p class="pt">Al terminar tendrás</p>
+            <ul>
+              <li>Un mensaje que se entiende en 5 segundos</li>
+              <li>Una sola voz, coherente en todos tus canales</li>
+              <li>El perfil del cliente que de verdad te conviene</li>
+              <li>Tu declaración de unicidad y tu one-liner</li>
+              <li>Tus 3 pilares de comunicación y tu punto de vista</li>
+              <li>Un plan de 30 días para sostenerlo</li>
+            </ul>
+            <p class="pfoot">13 páginas interactivas · 8 módulos con ejercicios y plantillas · checklist final</p>
+          </details>
         </div>
-      </div>
+      </article>
+
     </div>
   </div>
 </section>
-
 
 <!-- SOBRE MÍ -->
 <section class="about" id="sobre">
@@ -1136,12 +1157,15 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   </div>
 </section>
 
-<!-- CTA FINAL -->
+<!-- CTA FINAL: texto sobre foto -->
 <section class="final">
-  <div class="wrap">
-    <h2 class="disp">¿Construimos algo <em>con sentido?</em></h2>
-    <p>Cuéntame en qué estás. Te respondo con criterio, no con plantilla.</p>
-    <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Construyamos%20algo%20con%20sentido" data-subject="Contacto general: CTA final">Escríbeme →</a>
+  <div class="final-card">
+    <img src="gabriela-cta.webp" width="1122" height="1402" loading="lazy" alt="Gabriela Contreras sosteniendo un periódico que titula Marketing con Sentido" />
+    <div class="final-copy">
+      <h2 class="disp">¿Construimos algo <em>con sentido?</em></h2>
+      <p>Cuéntame en qué estás. Te respondo con criterio, no con plantilla.</p>
+      <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Construyamos%20algo%20con%20sentido" data-subject="Contacto general: CTA final">Escríbeme →</a>
+    </div>
   </div>
 </section>
 
@@ -1756,6 +1780,10 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
 })();
 </script>
+<script>
+(function(){ var m=document.querySelector('.marq'), b=m&&m.querySelector('.marq-pause'); if(!b) return;
+  b.addEventListener('click',function(){ var p=m.classList.toggle('paused'); b.setAttribute('aria-pressed',p); b.textContent=p?'Reanudar':'Pausar'; }); })();
+</script>
 <!-- MOVIMIENTO: GSAP (local, licencia estándar gratuita). Sin JS o con reduced-motion, todo se ve en reposo. -->
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
@@ -1771,7 +1799,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       .from(".hero .mono", { y: 14, autoAlpha: 0, duration: .7 }, .1)
       .from(".hero h1", { y: 36, autoAlpha: 0, duration: 1 }, .2)
       .from(".hero .tagline", { y: 20, autoAlpha: 0, duration: .8 }, .55)
-      .from(".hero .cta-row > *", { y: 16, autoAlpha: 0, duration: .6, stagger: .1 }, .8);
+      .from(".hero .cta-row > *", { y: 16, autoAlpha: 0, duration: .6, stagger: .1, clearProps: "transform,opacity,visibility" }, .8);
 
     // Momento 1: el manifiesto se ilumina palabra a palabra al hacer scroll
     var big = document.querySelector(".philo .big");
@@ -1795,11 +1823,38 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       });
     }
 
+
+    // Momento 3: carrusel de contenido, al bajar las piezas avanzan hacia la derecha
+    (function(){
+      var sec = document.querySelector(".carousel"), track = document.getElementById("carouselTrack");
+      if (!sec || !track) return;
+      var vp = sec.querySelector(".car-viewport"), count = sec.querySelector(".car-count b");
+      var n = track.querySelectorAll(".carousel-slide").length;
+      var mq = window.matchMedia("(min-width: 1000px) and (min-height: 620px)");
+      if (!mq.matches) return;
+      sec.classList.add("is-pin");
+      track.scrollLeft = 0;
+      var dist = function(){ return Math.max(0, track.scrollWidth - vp.clientWidth + 48); };
+      gsap.to(track, { x: function(){ return -dist(); }, ease: "none",
+        scrollTrigger: { trigger: sec, start: "top top+=64", end: function(){ return "+=" + dist(); },
+          pin: true, scrub: .5, anticipatePin: 1, invalidateOnRefresh: true,
+          onUpdate: function(st){ if (count) count.textContent = Math.min(n, 1 + Math.floor(st.progress * n * .999)); } } });
+    })();
+
     // Momento 2: el monograma GC del bloque vino se desplaza con calma
     var gc = document.querySelector(".bleed .gcmark");
     if (gc) {
       gsap.fromTo(gc, { yPercent: -14 }, { yPercent: 14, ease: "none",
         scrollTrigger: { trigger: ".bleed", start: "top bottom", end: "bottom top", scrub: true } });
+    }
+    // Momento 4: en el cierre entra primero la foto y luego titular, texto y botón
+    var fc = document.querySelector(".final-card");
+    if (fc) {
+      var ft = gsap.timeline({ scrollTrigger: { trigger: fc, start: "top 72%", once: true }, defaults: { ease: "power3.out" } });
+      ft.from(".final-card img", { autoAlpha: 0, scale: 1.08, duration: 1.3, ease: "power2.out" })
+        .from(".final-copy h2", { y: 30, autoAlpha: 0, duration: .8 }, "-=.35")
+        .from(".final-copy p", { y: 18, autoAlpha: 0, duration: .6 }, "-=.4")
+        .from(".final-copy .btn", { y: 14, autoAlpha: 0, duration: .5, clearProps: "transform,opacity,visibility" }, "-=.3");
     }
   });
 })();
