@@ -9,7 +9,7 @@ Qué se publica, en qué orden, y qué ya salió.
 | 2 | Sección Herramientas (MUSEMAP) | ✅ publicada | /herramientas — biblioteca de recursos IA |
 | 3 | Dominio propio | ✅ comprado y conectado | gabrielacontrerasmarketing.com |
 | 4 | Servicio: Brújula de Marca | ✅ publicada | tarjeta 03 en Servicios + página dedicada |
-| 5 | Servicio: Receta de Marca | ✅ publicada | tarjeta 04 en Servicios + página dedicada (nicho restaurantes, USD) |
+| 5 | Servicio: Receta de Marca | ✅ publicada | tarjeta 04 en Servicios + página dedicada (nicho restaurantes, EUR) |
 
 ## Publicado
 | Fecha | Pieza | URL |
