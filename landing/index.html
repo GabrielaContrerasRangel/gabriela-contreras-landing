@@ -285,7 +285,7 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
   display: flex; gap: 20px;
   overflow-x: auto; scroll-snap-type: x mandatory;
   scrollbar-width: none; -ms-overflow-style: none;
-  padding-bottom: 4px;
+  padding: 6px 0 26px;
   touch-action: pan-x; overscroll-behavior-x: contain;
 }
 .carousel-track::-webkit-scrollbar { display: none; }
@@ -296,8 +296,10 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
   transition: transform .28s ease, box-shadow .28s ease;
 }
 .carousel-slide:hover { transform: translateY(-4px); box-shadow: 0 16px 40px var(--shadow); }
+.carousel--sq .carousel-slide { aspect-ratio: 1/1; flex-basis: min(78vw, 480px); }
+.carousel + .carousel, .svc + .carousel { border-top: 1px solid var(--line); }
 .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.carousel-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; }
+.carousel-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
 .carousel-dots { display: flex; gap: 8px; }
 .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); border: none; cursor: pointer; transition: background .2s, transform .2s; padding: 0; }
 .carousel-dot.active { background: var(--acc); transform: scale(1.3); }
@@ -316,7 +318,7 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
 .is-pin .car-count { display: block; }
 .is-pin .car-viewport { overflow: hidden; height: 100%; display: flex; align-items: center; }
 .is-pin .carousel-shell { width: 100%; }
-.is-pin .carousel-track { overflow: visible; width: max-content; scroll-snap-type: none; touch-action: auto; padding-bottom: 0; }
+.is-pin .carousel-track { overflow: visible; width: max-content; scroll-snap-type: none; touch-action: auto; padding: 0; }
 .is-pin .carousel-slide { flex: 0 0 auto; height: min(calc(100vh - 64px - 96px), 640px); }
 .is-pin .carousel-nav { display: none; }
 
@@ -790,7 +792,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 </section>
 
 <!-- CARRUSEL (scroll horizontal) -->
-<section class="carousel" id="contenido">
+<section class="carousel carousel--pin" id="contenido">
   <div class="car-stage">
     <div class="car-intro">
       <div class="eyebrow"><span class="mono">Contenido</span></div>
@@ -800,7 +802,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
     </div>
     <div class="car-viewport">
       <div class="carousel-shell">
-      <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-track">
         <div class="carousel-slide"><img src="carousel/mensaje-1.webp" width="1122" height="1402" alt="¿Tardas más de 10 segundos en explicar qué haces? Tu mensaje está disperso." loading="lazy" /></div>
         <div class="carousel-slide"><img src="carousel/mensaje-2.webp" width="1122" height="1402" alt="Dices mucho, pero no queda claro qué haces. En tu feed una cosa, en stories otra." loading="lazy" /></div>
         <div class="carousel-slide"><img src="carousel/mensaje-3.webp" width="1122" height="1402" alt="Si no te entienden, no te eligen." loading="lazy" /></div>
@@ -808,7 +810,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
         <div class="carousel-slide"><img src="carousel/mensaje-5.webp" width="1122" height="1402" alt="Hazte fácil de entender. Hazte fácil de recomendar." loading="lazy" /></div>
       </div>
       <div class="carousel-nav">
-        <div class="carousel-dots" id="carouselDots">
+        <div class="carousel-dots">
           <button class="carousel-dot active" data-i="0" aria-label="Slide 1"></button>
           <button class="carousel-dot" data-i="1" aria-label="Slide 2"></button>
           <button class="carousel-dot" data-i="2" aria-label="Slide 3"></button>
@@ -816,8 +818,8 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
           <button class="carousel-dot" data-i="4" aria-label="Slide 5"></button>
         </div>
         <div class="carousel-arrows">
-          <button class="carousel-btn" id="cPrev" aria-label="Anterior">←</button>
-          <button class="carousel-btn" id="cNext" aria-label="Siguiente">→</button>
+          <button class="carousel-btn c-prev" aria-label="Anterior">←</button>
+          <button class="carousel-btn c-next" aria-label="Siguiente">→</button>
         </div>
       </div>
     </div>
@@ -913,6 +915,41 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       </div>
     </div>
     <p class="s-sub">Cada proyecto se cotiza a medida, porque ninguna marca seria cabe en una plantilla. <a class="acc js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com" data-subject="Servicios, Hablemos del tuyo" style="font-weight:500;text-decoration:none;">Hablemos del tuyo →</a></p>
+  </div>
+</section>
+
+<!-- CARRUSEL 2: orden de marca -->
+<section class="carousel carousel--sq" id="orden">
+  <div class="car-stage">
+    <div class="car-intro">
+      <div class="eyebrow"><span class="mono">Contenido</span></div>
+      <h2 class="s-head disp">Tu marca ya tiene todo. <em>Falta el orden.</em></h2>
+      <p class="s-sub">Cinco ideas para darle a cada parte de tu marca su lugar.</p>
+    </div>
+    <div class="car-viewport">
+      <div class="carousel-shell">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="carousel/orden-1.webp" width="1080" height="1080" alt="Tienes todo, pero nadie sabe por qué quedarse. Naturalidad, empatía y una historia real no alcanzan si llegan todas al mismo volumen." loading="lazy" /></div>
+        <div class="carousel-slide"><img src="carousel/orden-2.webp" width="1080" height="1080" alt="El problema no es tu contenido, es el orden. Cuando todo pesa igual en tu perfil, quien llega no entiende qué esperar de ti." loading="lazy" /></div>
+        <div class="carousel-slide"><img src="carousel/orden-3.webp" width="1080" height="1080" alt="No se trata de quitar nada de lo que eres. Se trata de darle a cada parte su lugar." loading="lazy" /></div>
+        <div class="carousel-slide"><img src="carousel/orden-4.webp" width="1080" height="1080" alt="La estrategia real no termina en una presentación. Datos, diagnóstico, decisión, contenido, medición y ajuste." loading="lazy" /></div>
+        <div class="carousel-slide"><img src="carousel/orden-5.webp" width="1080" height="1080" alt="Tu marca también puede tener un lugar propio. El primer paso es ver con claridad qué sobra, qué falta y qué es tu verdadera voz." loading="lazy" /></div>
+      </div>
+      <div class="carousel-nav">
+        <div class="carousel-dots">
+          <button class="carousel-dot active" data-i="0" aria-label="Slide 1"></button>
+          <button class="carousel-dot" data-i="1" aria-label="Slide 2"></button>
+          <button class="carousel-dot" data-i="2" aria-label="Slide 3"></button>
+          <button class="carousel-dot" data-i="3" aria-label="Slide 4"></button>
+          <button class="carousel-dot" data-i="4" aria-label="Slide 5"></button>
+        </div>
+        <div class="carousel-arrows">
+          <button class="carousel-btn c-prev" aria-label="Anterior">←</button>
+          <button class="carousel-btn c-next" aria-label="Siguiente">→</button>
+        </div>
+      </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1198,37 +1235,41 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
     localStorage.setItem('gc-theme', next);
   });
 
-  // Carousel
-  const track = document.getElementById('carouselTrack');
-  const dots  = document.querySelectorAll('.carousel-dot');
-  let current = 0;
+  // Carruseles: cada seccion .carousel funciona por separado
+  document.querySelectorAll('.carousel').forEach(function (sec) {
+    const track = sec.querySelector('.carousel-track');
+    const dots  = sec.querySelectorAll('.carousel-dot');
+    const prev  = sec.querySelector('.c-prev');
+    const next  = sec.querySelector('.c-next');
+    if (!track) return;
+    let current = 0;
 
-  function goTo(i) {
-    const slides = track.querySelectorAll('.carousel-slide');
-    const total  = slides.length;
-    current = (i + total) % total;
-    track.scrollTo({ left: slides[current].offsetLeft, behavior: 'smooth' });
-    dots.forEach((d, idx) => d.classList.toggle('active', idx === current));
-  }
-
-  document.getElementById('cPrev').addEventListener('click', () => goTo(current - 1));
-  document.getElementById('cNext').addEventListener('click', () => goTo(current + 1));
-  dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.i)));
-
-  // Sync dots on scroll
-  let scrollTimer;
-  track.addEventListener('scroll', () => {
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(() => {
+    function goTo(i) {
       const slides = track.querySelectorAll('.carousel-slide');
-      let closest = 0, minDist = Infinity;
-      slides.forEach((s, i) => {
-        const dist = Math.abs(s.offsetLeft - track.scrollLeft);
-        if (dist < minDist) { minDist = dist; closest = i; }
-      });
-      current = closest;
-      dots.forEach((d, i) => d.classList.toggle('active', i === current));
-    }, 80);
+      const total  = slides.length;
+      current = (i + total) % total;
+      track.scrollTo({ left: slides[current].offsetLeft, behavior: 'smooth' });
+      dots.forEach((d, idx) => d.classList.toggle('active', idx === current));
+    }
+
+    if (prev) prev.addEventListener('click', () => goTo(current - 1));
+    if (next) next.addEventListener('click', () => goTo(current + 1));
+    dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.i)));
+
+    let scrollTimer;
+    track.addEventListener('scroll', () => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        const slides = track.querySelectorAll('.carousel-slide');
+        let closest = 0, minDist = Infinity;
+        slides.forEach((s, i) => {
+          const dist = Math.abs(s.offsetLeft - track.scrollLeft);
+          if (dist < minDist) { minDist = dist; closest = i; }
+        });
+        current = closest;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }, 80);
+    });
   });
 </script>
 
@@ -1826,7 +1867,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 
     // Momento 3: carrusel de contenido, al bajar las piezas avanzan hacia la derecha
     (function(){
-      var sec = document.querySelector(".carousel"), track = document.getElementById("carouselTrack");
+      var sec = document.querySelector(".carousel--pin"), track = sec && sec.querySelector(".carousel-track");
       if (!sec || !track) return;
       var vp = sec.querySelector(".car-viewport"), count = sec.querySelector(".car-count b");
       var n = track.querySelectorAll(".carousel-slide").length;
