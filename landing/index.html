@@ -3,26 +3,26 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Gabriela Contreras — Estrategia de marca y dirección creativa</title>
+<title>Gabriela Contreras | Estrategia de marca y dirección creativa</title>
 <meta name="description" content="Estrategia de marca y dirección creativa para negocios en Venezuela, Estados Unidos y España. Brand strategy, identidad visual y contenido con propósito." />
 <link rel="canonical" href="https://www.gabrielacontrerasmarketing.com/" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.gabrielacontrerasmarketing.com/" />
-<meta property="og:title" content="Gabriela Contreras — Marcas con alma, estrategia con rumbo" />
+<meta property="og:title" content="Gabriela Contreras: Marcas con alma, estrategia con rumbo" />
 <meta property="og:description" content="Estrategia de negocio y dirección creativa en la misma cabeza. Marketing con sentido." />
 <meta property="og:image" content="https://www.gabrielacontrerasmarketing.com/og.svg" />
 <meta name="twitter:card" content="summary_large_image" />
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%238c1e37'/><text x='50' y='68' font-size='54' font-family='sans-serif' font-weight='700' fill='%23f5f1ea' text-anchor='middle'>GC</text></svg>" />
 
-<!-- Datos estructurados — para Google Y para que ChatGPT/Perplexity/Gemini puedan citarte con datos correctos -->
+<!-- Datos estructurados: para Google Y para que ChatGPT/Perplexity/Gemini puedan citarte con datos correctos -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  "name": "Gabriela Contreras — Marketing con sentido",
+  "name": "Gabriela Contreras: Marketing con sentido",
   "url": "https://www.gabrielacontrerasmarketing.com/",
   "image": "https://www.gabrielacontrerasmarketing.com/hero-principal.jpg",
   "description": "Estrategia de marca y dirección creativa. El cruce exacto entre estrategia de negocio y ejecución creativa, para marcas que quieren crecer con propósito.",
@@ -50,16 +50,18 @@
 }
 </script>
 
-<style>
-@import url('https://cdn.jsdelivr.net/npm/@fontsource-variable/mona-sans/index.css');
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/mona-sans/index.css" />
+<link rel="preload" as="image" href="hero-principal.jpg" fetchpriority="high" />
 
+<style>
 :root {
   --bg: #f5f1ea;
   --acc: #8c1e37;
   --acc-contact: #b53d5b;
   --txt: #1f1f1f;
   --muted: #666;
-  --dim: #999;
+  --dim: #6e6963;
   --card: #fffdf8;
   --warm-black: #1a1a1a;
   --line: rgba(31,31,31,.10);
@@ -72,13 +74,20 @@
   --acc: #d4607c;
   --txt: #f5f1ea;
   --muted: #a8a39c;
-  --dim: #6b6660;
+  --dim: #8f8a83;
   --card: #232323;
   --line: rgba(245,241,234,.10);
   --shadow: rgba(212,96,124,.20);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+::selection { background: var(--acc); color: #fff; }
+:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3, .big { text-wrap: balance; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
 html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
@@ -115,7 +124,7 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
 .brandmark .acc { color: var(--acc); }
 .brandmark .mk { color: var(--acc); font-weight: 700; letter-spacing: -0.06em; }
 
-/* GC monogram — elemento gráfico decorativo (reemplaza al squiggle) */
+/* GC monogram: elemento gráfico decorativo (reemplaza al squiggle) */
 .gcmark {
   position: absolute; font-weight: 700; letter-spacing: -0.07em;
   line-height: .8; pointer-events: none; user-select: none; z-index: 1;
@@ -123,6 +132,9 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
 .navlinks { display: flex; align-items: center; gap: 16px; }
 .navlinks a { color: var(--muted); text-decoration: none; transition: color .2s; font-size: 14px; white-space: nowrap; }
 .navlinks a:hover { color: var(--txt); }
+.navlinks a.btn-sm, .navlinks a.btn-sm:hover { color: #fff; }
+.navlinks a.btn-portfolio { color: var(--acc); }
+.navlinks a.btn-portfolio:hover { color: #fff; }
 .toggle {
   background: none; border: 1px solid var(--line); color: var(--muted);
   width: 36px; height: 36px; border-radius: 999px; cursor: pointer;
@@ -177,7 +189,7 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
   color: var(--txt);
   line-height: 1;
 }
-@media (max-width: 1240px) {
+@media (max-width: 1100px) {
   .navlinks a:not(.btn-sm) { display: none; }
   #gc-menu-btn { display: inline-flex; align-items: center; }
 }
@@ -205,7 +217,7 @@ nav .wrap { display: flex; align-items: center; justify-content: space-between; 
 }
 .btn-portfolio:hover { background: var(--acc); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 20px var(--shadow); }
 
-/* ---------- HERO — foto editorial full-bleed ---------- */
+/* ---------- HERO: foto editorial full-bleed ---------- */
 .hero { background: var(--bg); padding: 14px; }
 .hero-frame {
   position: relative; overflow: hidden; border-radius: 28px; color: #f5f1ea;
@@ -448,7 +460,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   text-transform: uppercase;
 }
 .sc-footer-credit {
-  text-align: center; font-size: 10px; color: #555; letter-spacing: .06em;
+  text-align: center; font-size: 10px; color: #8a8480; letter-spacing: .06em;
   margin-top: 20px; font-weight: 400;
 }
 #scorecard-widget .sc-header h2 {
@@ -486,7 +498,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 .s1-promise { display: flex; flex-direction: column; gap: 7px; margin-bottom: 28px; }
 .s1-promise-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #D9D3C9; font-weight: 300; }
 .s1-promise-item .ico { color: #b52246; margin-top: 1px; flex-shrink: 0; }
-.s1-fine { font-size: 11px; color: #555; font-weight: 300; }
+.s1-fine { font-size: 11px; color: #8a8480; font-weight: 300; }
 
 .btn-primary {
   background: #8B1A35; color: #fff; border: none; border-radius: 6px;
@@ -528,14 +540,14 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 }
 .btn-ghost:hover { border-color: #D9D3C9; color: #D9D3C9; }
 .btn-ghost:disabled { opacity: 0; cursor: default; pointer-events: none; }
-.q-skip-hint { font-size: 11px; color: #555; }
+.q-skip-hint { font-size: 11px; color: #8a8480; }
 
 .r-score-block {
   display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap;
   margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .r-score-num { font-size: 64px; font-weight: 800; letter-spacing: -.04em; line-height: 1; color: #b52246; }
-.r-score-denom { font-size: 26px; color: #555; font-weight: 300; align-self: flex-end; margin-bottom: 6px; }
+.r-score-denom { font-size: 26px; color: #8a8480; font-weight: 300; align-self: flex-end; margin-bottom: 6px; }
 .r-score-info { flex: 1; min-width: 200px; }
 .r-profile-badge {
   display: inline-block; background: rgba(139,26,53,0.18); border: 1px solid rgba(139,26,53,0.35);
@@ -572,7 +584,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 .r-hl-tag.plus { color: #4a9a6b; }
 .r-hl-tag.minus { color: #c97c3a; }
 .r-hl-item { font-size: 12px; color: #D9D3C9; font-weight: 300; line-height: 1.5; margin-bottom: 4px; }
-.r-hl-item::before { content: "— "; color: #555; }
+.r-hl-item::before { content: "· "; color: #8a8480; }
 
 .r-summary {
   background: rgba(139,26,53,0.18); border: 1px solid rgba(139,26,53,0.2); border-radius: 6px;
@@ -613,7 +625,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 .btn-share.copied { border-color: #4a9a6b; color: #4a9a6b; }
 
 .r-restart {
-  text-align: center; font-size: 11px; color: #555; background: none; border: none;
+  text-align: center; font-size: 11px; color: #8a8480; background: none; border: none;
   font-family: inherit; cursor: pointer; text-decoration: underline; width: 100%;
   display: block; margin-top: 8px;
 }
@@ -630,7 +642,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   transition: border-color .2s; appearance: none;
 }
 .uf-input:focus, .uf-select:focus { border-color: #b52246; }
-.uf-input::placeholder { color: #555; }
+.uf-input::placeholder { color: #8a8480; }
 .uf-input.error, .uf-select.error { border-color: #b52246; }
 .uf-select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238a8480' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
@@ -639,7 +651,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 .uf-select option { background: #252525; color: #F5F1EA; }
 .uf-error-msg { font-size: 11px; color: #b52246; margin-top: 12px; display: none; font-weight: 400; }
 .uf-error-msg.show { display: block; }
-.uf-fine { font-size: 11px; color: #555; font-weight: 300; margin-top: 12px; }
+.uf-fine { font-size: 11px; color: #8a8480; font-weight: 300; margin-top: 12px; }
 
 @media (max-width: 480px) {
   #scorecard-widget { padding: 40px 12px; }
@@ -654,7 +666,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 #gc-float.hidden{opacity:0;transform:translateY(12px) scale(.97);pointer-events:none;}
 @keyframes gcSlideUp{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 .gc-float-bar{height:3px;background:linear-gradient(90deg,#8B1A35 0%,#b52246 60%,transparent 100%);}
-.gc-float-close{position:absolute;top:10px;right:10px;background:none;border:none;color:#555;font-size:16px;line-height:1;cursor:pointer;padding:4px 6px;border-radius:4px;transition:color .15s,background .15s;font-family:inherit;}
+.gc-float-close{position:absolute;top:10px;right:10px;background:none;border:none;color:#8a8480;font-size:16px;line-height:1;cursor:pointer;padding:4px 6px;border-radius:4px;transition:color .15s,background .15s;font-family:inherit;}
 .gc-float-close:hover{color:#F5F1EA;background:rgba(255,255,255,0.06);}
 .gc-float-body{padding:18px 20px 20px;}
 .gc-float-eyebrow{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#b52246;font-weight:600;margin-bottom:10px;}
@@ -709,15 +721,13 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
     </div>
     <div class="navlinks">
       <button id="gc-menu-btn" aria-label="Abrir menú">☰</button>
-      <a href="#hago">Lo que hago</a>
       <a href="#servicios">Servicios</a>
       <a href="/herramientas">Herramientas</a>
       <a href="#diagnostico">Diagnóstico</a>
       <a href="#sobre">Sobre mí</a>
       <a href="/blog">Blog</a>
-      <a href="/conoce-tu-marca.html">Conoce tu marca</a>
       <a class="btn-portfolio" href="https://gabrielacontrerasrangel.github.io/Portafolio/" target="_blank" rel="noopener">Portafolio ↗</a>
-      <a class="btn-sm js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com" data-subject="Contacto general — Nav">Hablemos</a>
+      <a class="btn-sm js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com" data-subject="Contacto general: Nav">Hablemos</a>
       <button class="toggle" id="themeToggle" aria-label="Cambiar tema">◐</button>
     </div>
   </div>
@@ -727,15 +737,15 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 <header class="hero">
   <div class="hero-frame">
     <div class="hero-bg">
-      <img src="hero-principal.jpg" alt="Gabriela Contreras sosteniendo un periódico que titula Marketing con Sentido" />
+      <img src="hero-principal.jpg" fetchpriority="high" decoding="async" alt="Gabriela Contreras sosteniendo un periódico que titula Marketing con Sentido" />
     </div>
     <div class="wrap">
       <div class="hero-inner">
         <div class="mono">Estrategia de marca · Dirección creativa</div>
         <h1 class="disp">Marcas con alma,<br /><em>estrategia</em> con rumbo<svg class="spark" viewBox="0 0 24 24" fill="#b53d5b" aria-hidden="true"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg></h1>
-        <p class="tagline">El cruce exacto entre estrategia de negocio y dirección creativa. Marketing con sentido — el propósito y la ejecución caminan de la mano.</p>
+        <p class="tagline">El cruce exacto entre estrategia de negocio y dirección creativa. Marketing con sentido. El propósito y la ejecución caminan de la mano.</p>
         <div class="cta-row">
-          <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Construyamos%20algo%20con%20sentido" data-subject="Contacto general — Hero">¿Construimos algo con sentido? →</a>
+          <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Construyamos%20algo%20con%20sentido" data-subject="Contacto general: Hero">¿Construimos algo con sentido? →</a>
           <a class="btn ghost" href="#servicios">Ver servicios</a>
         </div>
       </div>
@@ -767,7 +777,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 <section class="philo">
   <div class="wrap">
     <div class="eyebrow"><span class="mono">Marketing con sentido</span></div>
-    <p class="big">La estrategia y la creatividad viven en la <b>misma cabeza</b>, no en dos departamentos pasándose briefs. El branding no es un manual que termina en un cajón — es una <em>herramienta real de coherencia y crecimiento</em>.</p>
+    <p class="big">La estrategia y la creatividad viven en la <b>misma cabeza</b>, no en dos departamentos pasándose briefs. El branding no es un manual que termina en un cajón. Es una <em>herramienta real de coherencia y crecimiento</em>.</p>
   </div>
 </section>
 
@@ -777,10 +787,10 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
     <div class="eyebrow"><span class="mono">Contenido</span></div>
     <div class="carousel-shell">
       <div class="carousel-track" id="carouselTrack">
-        <div class="carousel-slide"><img src="carousel/slide-1.png" alt="Comunicar mejor — Marketing con sentido" loading="lazy" /></div>
-        <div class="carousel-slide"><img src="carousel/slide-2.png" alt="Decisión — Un calendario reduce la improvisación" loading="lazy" /></div>
-        <div class="carousel-slide"><img src="carousel/slide-3.png" alt="Rumbo — Publicar con dirección" loading="lazy" /></div>
-        <div class="carousel-slide"><img src="carousel/slide-4.png" alt="Calendario de contenido — Herramienta de dirección" loading="lazy" /></div>
+        <div class="carousel-slide"><img src="carousel/slide-1.webp" width="1122" height="1402" alt="Comunicar mejor: Marketing con sentido" loading="lazy" /></div>
+        <div class="carousel-slide"><img src="carousel/slide-2.webp" width="1122" height="1402" alt="Decisión: Un calendario reduce la improvisación" loading="lazy" /></div>
+        <div class="carousel-slide"><img src="carousel/slide-3.webp" width="1122" height="1402" alt="Rumbo: Publicar con dirección" loading="lazy" /></div>
+        <div class="carousel-slide"><img src="carousel/slide-4.webp" width="1122" height="1402" alt="Calendario de contenido: Herramienta de dirección" loading="lazy" /></div>
       </div>
       <div class="carousel-nav">
         <div class="carousel-dots" id="carouselDots">
@@ -806,7 +816,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
     <div class="svc-grid">
       <div class="card cream" style="padding:0; overflow:hidden;">
         <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0406;">
-          <img src="brand-strategy.png" alt="Brand Strategy — Gabriela Contreras" style="width:100%; height:100%; object-fit:contain; display:block;" />
+          <img src="brand-strategy.webp" width="1254" height="1254" loading="lazy" alt="Brand Strategy: Gabriela Contreras" style="width:100%; height:100%; object-fit:contain; display:block;" />
         </div>
         <div style="padding:32px 36px 38px;">
           <span class="num">01</span>
@@ -818,11 +828,15 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
             <li>Audiencia, mensaje y diferenciación</li>
             <li>Coherencia entre negocio y marca</li>
           </ul>
+          <a href="mailto:gabrielacontrerasredes@gmail.com?subject=Brand%20Strategy" class="svc-card-cta js-contact-btn" data-subject="Servicio: Brand Strategy">
+            <strong>Ponle rumbo a tu marca. →</strong>
+            <span>Cuéntame en qué estás y te digo por dónde empezar.</span>
+          </a>
         </div>
       </div>
       <div class="card dark" style="padding:0; overflow:hidden;">
         <div style="aspect-ratio:1/1; overflow:hidden; background:#f5f1ea;">
-          <img src="dir-creativa.png" alt="Dirección Creativa — Gabriela Contreras" style="width:100%; height:100%; object-fit:contain; display:block;" />
+          <img src="dir-creativa.webp" width="1254" height="1254" loading="lazy" alt="Dirección Creativa: Gabriela Contreras" style="width:100%; height:100%; object-fit:contain; display:block;" />
         </div>
         <div style="padding:32px 36px 38px;">
           <span class="num">02</span>
@@ -834,16 +848,20 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
             <li>Guía viva de aplicación, no manual de cajón</li>
             <li>Coherencia en ejecución y crecimiento</li>
           </ul>
+          <a href="mailto:gabrielacontrerasredes@gmail.com?subject=Direcci%C3%B3n%20Creativa" class="svc-card-cta js-contact-btn" data-subject="Servicio: Dirección Creativa">
+            <strong>Dale sistema a tu marca. →</strong>
+            <span>Identidad que se sostiene en cada punto de contacto.</span>
+          </a>
         </div>
       </div>
       <div class="card cream" style="padding:0; overflow:hidden;">
         <div style="aspect-ratio:1/1; overflow:hidden; background:#f5f1ea;">
-          <img src="brujula-de-marca-card.webp" alt="Brújula de Marca — Gabriela Contreras" style="width:100%; height:100%; object-fit:cover; display:block;" />
+          <img src="brujula-de-marca-card.webp" alt="Brújula de Marca: Gabriela Contreras" style="width:100%; height:100%; object-fit:cover; display:block;" />
         </div>
         <div style="padding:32px 36px 38px;">
         <span class="num">03</span>
         <h3>Brújula de Marca</h3>
-        <p>La estrategia hecha rutina. Diagnóstico, dirección y contenido con datos — para dejar de publicar a ciegas.</p>
+        <p>La estrategia hecha rutina. Diagnóstico, dirección y contenido con datos, para dejar de publicar a ciegas.</p>
         <ul>
           <li>Auditoría y diagnóstico de marca</li>
           <li>Plan de contenido con dirección estratégica</li>
@@ -852,13 +870,13 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
         </ul>
         <a href="brujula-de-marca.html" class="svc-card-cta">
           <strong>Dejar de improvisar tu contenido empieza aquí. →</strong>
-          <span>Cupos limitados por mes — trabajo la estrategia contigo, no en serie.</span>
+          <span>Cupos limitados por mes. Trabajo la estrategia contigo, no en serie.</span>
         </a>
         </div>
       </div>
       <div class="card dark" style="padding:0; overflow:hidden;">
         <div style="aspect-ratio:1/1; overflow:hidden; background:#1a1a1a;">
-          <img src="receta-de-marca-card.webp" alt="Receta de Marca — Gabriela Contreras" style="width:100%; height:100%; object-fit:cover; display:block;" />
+          <img src="receta-de-marca-card.webp" alt="Receta de Marca: Gabriela Contreras" style="width:100%; height:100%; object-fit:cover; display:block;" />
         </div>
         <div style="padding:32px 36px 38px;">
         <span class="num">04</span>
@@ -877,7 +895,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
         </div>
       </div>
     </div>
-    <p class="s-sub">Cada proyecto se cotiza a medida — porque ninguna marca seria cabe en una plantilla. <a class="acc js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com" data-subject="Servicios — Hablemos del tuyo" style="font-weight:500;text-decoration:none;">Hablemos del tuyo →</a></p>
+    <p class="s-sub">Cada proyecto se cotiza a medida, porque ninguna marca seria cabe en una plantilla. <a class="acc js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com" data-subject="Servicios, Hablemos del tuyo" style="font-weight:500;text-decoration:none;">Hablemos del tuyo →</a></p>
   </div>
 </section>
 
@@ -886,21 +904,21 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   <span class="gcmark" aria-hidden="true">GC</span>
   <div class="wrap">
     <div class="eyebrow" style="--acc:#fff;"><span class="mono">El enfoque</span></div>
-    <h2 class="disp">Ayudo a marcas a <em>comunicar con sentido</em> — desde la estrategia.</h2>
+    <h2 class="disp">Ayudo a marcas a <em>comunicar con sentido</em>, desde la estrategia.</h2>
     <p>Si tienes un negocio sólido pero tu marca no lo comunica como merece, trabajamos juntos: <span class="hl">estrategia, identidad y dirección creativa a medida.</span></p>
     <p>Si estás construyendo desde cero y quieres hacerlo bien desde el principio, el <span class="hl">Branding Starter Kit</span> tiene el criterio que necesitas en herramientas que puedes usar hoy. Sin humo. Con rumbo.</p>
   </div>
 </section>
 
 
-<!-- DIAGNÓSTICO DE MARCA — Communication & Authority Scorecard™ -->
+<!-- DIAGNÓSTICO DE MARCA: Communication & Authority Scorecard™ -->
 <section id="diagnostico" style="padding:0; background:#0d0d0d;">
   <section id="scorecard-widget">
 
     <div class="sc-header">
       <h2>Scorecard de Comunicación<br>y <em>Autoridad™</em></h2>
       <p>Descubre cómo se percibe tu marca, cuánto transmite confianza y qué tan preparada está para generar oportunidades de negocio.</p>
-      <p class="sc-author">Creado por Gabriela Contreras — Brand Strategy &amp; Creative Direction</p>
+      <p class="sc-author">Creado por Gabriela Contreras · Brand Strategy &amp; Creative Direction</p>
     </div>
 
     <div class="widget">
@@ -948,8 +966,8 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
           <div><span class="r-score-num" id="sc-t-score">0</span><span class="r-score-denom">/100</span></div>
           <div class="r-score-info">
             <div class="r-profile-badge">Perfil detectado</div>
-            <div class="r-profile-label" id="sc-t-profile-label">—</div>
-            <div class="r-profile-sub" id="sc-t-profile-sub">—</div>
+            <div class="r-profile-label" id="sc-t-profile-label">·</div>
+            <div class="r-profile-sub" id="sc-t-profile-sub">·</div>
           </div>
         </div>
         <p class="r-cta-label">Brecha de Autoridad™</p>
@@ -1024,7 +1042,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 
     </div>
 
-    <p class="sc-footer-credit">© Gabriela Contreras — Communication &amp; Authority Scorecard™</p>
+    <p class="sc-footer-credit">© Gabriela Contreras · Communication &amp; Authority Scorecard™</p>
   </section>
 </section>
 
@@ -1035,7 +1053,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
     <div class="prod-grid">
       <div class="prod-card">
         <div class="prod-cover">
-          <img src="./assets/cover-branding-starter-kit1x1.png" alt="Branding Starter Kit: Marca con Sentido">
+          <img src="./assets/cover-branding-starter-kit1x1.webp" width="1000" height="1200" loading="lazy" alt="Branding Starter Kit: Marca con Sentido">
         </div>
         <div class="prod-body">
           <span class="tag">Nuevo</span>
@@ -1054,21 +1072,21 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
           </ul>
           <p class="prod-section-title">¿Qué incluye?</p>
           <ul class="prod-list prod-list--arrow">
-            <li>14 páginas interactivas — se llenan en el navegador, sin apps</li>
+            <li>14 páginas interactivas: se llenan en el navegador, sin apps</li>
             <li>7 módulos con contexto, ejercicios y plantillas</li>
             <li>Checklist de validación final</li>
           </ul>
           <p class="prod-footnote">Para emprendedores, freelancers y marcas personales que quieren dejar de improvisar.</p>
           <div class="prod-footer">
             <span class="prod-price">€27</span>
-            <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Quiero%20el%20Branding%20Starter%20Kit" data-subject="Quiero mi kit — Branding Starter Kit">Quiero mi kit →</a>
+            <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Quiero%20el%20Branding%20Starter%20Kit" data-subject="Quiero mi kit: Branding Starter Kit">Quiero mi kit →</a>
           </div>
         </div>
       </div>
 
       <div class="prod-card">
         <div class="prod-cover">
-          <img src="./assets/cover-authority-builder-kit.png" alt="Authority Builder Kit">
+          <img src="./assets/cover-authority-builder-kit.webp" width="1000" height="1200" loading="lazy" alt="Authority Builder Kit">
         </div>
         <div class="prod-body">
           <span class="tag">NIVEL 02</span>
@@ -1088,7 +1106,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
           <p class="prod-footnote">13 páginas interactivas · 8 módulos con ejercicios y plantillas · checklist final</p>
           <div class="prod-footer">
             <span class="prod-price">€39</span>
-            <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Quiero%20el%20Authority%20Builder%20Kit" data-subject="Quiero mi kit — Authority Builder Kit">Quiero mi kit →</a>
+            <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Quiero%20el%20Authority%20Builder%20Kit" data-subject="Quiero mi kit: Authority Builder Kit">Quiero mi kit →</a>
           </div>
         </div>
       </div>
@@ -1102,7 +1120,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   <div class="wrap">
     <div class="about-grid">
       <div class="portrait">
-        <img src="./gabriela-retrato.jpg" alt="Gabriela Contreras — Brand Strategist &amp; Creative Director" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;">
+        <img src="./gabriela-retrato.webp" width="1122" height="1402" loading="lazy" alt="Gabriela Contreras: Brand Strategist &amp; Creative Director" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;">
       </div>
       <div>
         <div class="eyebrow"><span class="mono">Sobre mí</span></div>
@@ -1123,7 +1141,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   <div class="wrap">
     <h2 class="disp">¿Construimos algo <em>con sentido?</em></h2>
     <p>Cuéntame en qué estás. Te respondo con criterio, no con plantilla.</p>
-    <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Construyamos%20algo%20con%20sentido" data-subject="Contacto general — CTA final">Escríbeme →</a>
+    <a class="btn js-contact-btn" href="mailto:gabrielacontrerasredes@gmail.com?subject=Construyamos%20algo%20con%20sentido" data-subject="Contacto general: CTA final">Escríbeme →</a>
   </div>
 </section>
 
@@ -1138,9 +1156,10 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       <span class="mono">Contacto</span>
       <a href="mailto:gabrielacontrerasredes@gmail.com">gabrielacontrerasredes@gmail.com</a>
       <a href="https://gabrielacontrerasrangel.github.io/Portafolio" target="_blank" rel="noopener">Portafolio</a>
+      <a href="/conoce-tu-marca.html">Conoce tu marca</a>
     </div>
   </div>
-  <div class="wrap"><p class="foot-note">© 2026 Gabriela Contreras — Marcas con alma, mentes creativas y una estrategia con rumbo.</p></div>
+  <div class="wrap"><p class="foot-note">© 2026 Gabriela Contreras. Marcas con alma, mentes creativas y una estrategia con rumbo.</p></div>
 </footer>
 
 <script>
@@ -1235,7 +1254,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
         "Varía bastante según el momento o el canal",
         "No había pensado en tener un vocabulario de marca propio"
       ]},
-    { area: "Autoridad de Marca", text: "¿Tienes contenido público que muestra cómo piensas y resuelves problemas — más allá de anunciar tus servicios o productos?",
+    { area: "Autoridad de Marca", text: "¿Tienes contenido público que muestra cómo piensas y resuelves problemas, más allá de anunciar tus servicios o productos?",
       options: [
         "Sí, comparto mi criterio y proceso regularmente y la gente lo valora",
         "A veces, pero no es algo sistemático ni intencional",
@@ -1246,7 +1265,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       options: [
         "Testimonios sólidos, casos documentados y contenido que respalda mi expertise",
         "Algunas referencias o testimonios, pero podría tener mucho más",
-        "Muy poco — quizás un perfil básico o contenido sin estructura",
+        "Muy poco: quizás un perfil básico o contenido sin estructura",
         "Prácticamente nada que respalde mi trayectoria de forma visible"
       ]},
     { area: "Autoridad de Marca", text: "¿La gente en tu entorno o comunidad te menciona o recomienda sin que tú lo hayas pedido?",
@@ -1263,7 +1282,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
         "Algo desorganizado o desactualizado visualmente",
         "No tengo una identidad visual definida todavía"
       ]},
-    { area: "Credibilidad Visual", text: "¿Tu estilo visual — colores, tipografía, tipo de imagen — se mantiene igual en todos tus canales y materiales?",
+    { area: "Credibilidad Visual", text: "¿Tu estilo visual (colores, tipografía, tipo de imagen) se mantiene igual en todos tus canales y materiales?",
       options: [
         "Sí, hay un sistema visual claro que aplico en todo",
         "Intento mantener coherencia pero sin un sistema formal",
@@ -1281,17 +1300,17 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       options: [
         "Sí, hay suficiente prueba social y evidencia de resultados visible",
         "Hay algo, pero dependo bastante del boca a boca",
-        "Muy poco — la mayoría de mis clientes vienen por referencias directas",
+        "Muy poco: la mayoría de mis clientes vienen por referencias directas",
         "No he trabajado las señales de confianza de forma intencionada"
       ]},
-    { area: "Señales de Confianza", text: "¿Tienes una forma clara de mostrar quién eres tú — la persona o equipo detrás de la marca?",
+    { area: "Señales de Confianza", text: "¿Tienes una forma clara de mostrar quién eres tú, la persona o equipo detrás de la marca?",
       options: [
         "Sí, mi historia, valores y forma de trabajar son visibles y auténticos",
         "Hay algo, pero podría ser más personal y genuino",
         "Me enfoco más en los servicios que en quién los hace",
         "Mi marca es bastante impersonal o anónima todavía"
       ]},
-    { area: "Presencia Digital", text: "¿Alguien que busca lo que ofreces — por ejemplo en Google, Google Maps, redes sociales o tu web — puede encontrarte sin saber tu nombre?",
+    { area: "Presencia Digital", text: "¿Alguien que busca lo que ofreces (por ejemplo en Google, Google Maps, redes sociales o tu web) puede encontrarte sin saber tu nombre?",
       options: [
         "Sí, aparezco con frecuencia en búsquedas relevantes a lo que ofrezco",
         "A veces aparezco, pero no de forma consistente",
@@ -1312,7 +1331,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
         "La gente me pregunta cómo trabajar conmigo, pero no está bien explicado",
         "No tengo definido un proceso de conversión claro todavía"
       ]},
-    { area: "Preparación para Convertir", text: "¿Tu marca comunica activamente el valor que entrega — o principalmente describe lo que hace?",
+    { area: "Preparación para Convertir", text: "¿Tu marca comunica activamente el valor que entrega, o principalmente describe lo que hace?",
       options: [
         "Comunico resultados, transformaciones y beneficios concretos",
         "Mezclo descripción con algo de valor, pero podría ser más claro",
@@ -1341,7 +1360,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 
   var GAP_TEASERS = {
     invisible:    'Tu marca tiene una Brecha de Autoridad™ significativa: hay una distancia real entre cómo te ves a ti misma y cómo te percibe quien aún no te conoce. Las áreas bloqueadas abajo muestran exactamente dónde está y qué resolver primero.',
-    construccion: 'Hay una Brecha de Autoridad™ entre lo que tu marca ya hace bien y lo que todavía no está comunicando. Desbloquea tu diagnóstico para ver en qué áreas se concentra — y qué hacer al respecto.',
+    construccion: 'Hay una Brecha de Autoridad™ entre lo que tu marca ya hace bien y lo que todavía no está comunicando. Desbloquea tu diagnóstico para ver en qué áreas se concentra, y qué hacer al respecto.',
     activa:       'Incluso las marcas más sólidas tienen una Brecha de Autoridad™ en algún punto específico. Desbloquea tu diagnóstico para ver exactamente dónde está la tuya.'
   };
 
@@ -1521,7 +1540,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
     // Datos de resultado para integraciones
     var NIVEL_MAP = { invisible: 'Emergente', construccion: 'En construcción', activa: 'Referente' };
     var nivel = NIVEL_MAP[results.profile];
-    var areaMasDebil = results.weaknesses[0] ? results.weaknesses[0].label : '—';
+    var areaMasDebil = results.weaknesses[0] ? results.weaknesses[0].label : 'n/d';
     var detallesAreas = results.areaResults.map(function(a) {
       return a.label + ': ' + Math.round(a.score10 * 10) + '/100';
     }).join(' | ');
@@ -1536,7 +1555,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       leadData:    leadData
     }));
 
-    // Suscribir a Kit con score y nivel — fire-and-forget
+    // Suscribir a Kit con score y nivel: fire-and-forget
     fetch('https://api.convertkit.com/v3/forms/9567216/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -1555,7 +1574,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       })
     }).catch(function () {});
 
-    // Notificar a Gabriela vía EmailJS — navegar después de enviar (o si falla)
+    // Notificar a Gabriela vía EmailJS: navegar después de enviar (o si falla)
     emailjs.send('service_87wbtbl', 'template_wtawhoc', {
       nombre:         nombre,
       email:          email,
@@ -1581,10 +1600,10 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 })();
 </script>
 
-<!-- WIDGET FLOTANTE — Diagnóstico -->
+<!-- WIDGET FLOTANTE: Diagnóstico -->
 <div id="gc-float">
   <div class="gc-float-bar"></div>
-  <button class="gc-float-close" id="gc-close-btn" title="Cerrar">✕</button>
+  <button class="gc-float-close" id="gc-close-btn" title="Cerrar" aria-label="Cerrar">✕</button>
   <div class="gc-float-body">
     <p class="gc-float-eyebrow">Diagnóstico gratuito</p>
     <p class="gc-float-hook">¿Tu marca comunica con intención o solo está publicando?</p>
@@ -1601,7 +1620,21 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   var p=document.getElementById('gc-float-pill');
   var c=document.getElementById('gc-close-btn');
   if(!w||!p||!c) return;
+  var dismissed=false; try{dismissed=sessionStorage.getItem('gc-float-closed')==='1';}catch(e){}
+  var shown=false;
+  w.style.display='none';
+  function reveal(){
+    if(shown) return; shown=true;
+    window.removeEventListener('scroll',onScroll);
+    if(dismissed){ p.classList.add('show'); return; }
+    w.style.display=''; w.classList.add('hidden');
+    requestAnimationFrame(function(){requestAnimationFrame(function(){w.classList.remove('hidden');});});
+  }
+  function onScroll(){ var d=document.documentElement; if(window.scrollY > d.scrollHeight*0.35) reveal(); }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  setTimeout(reveal,25000);
   c.addEventListener('click',function(){
+    try{sessionStorage.setItem('gc-float-closed','1');}catch(e){}
     w.classList.add('hidden');
     setTimeout(function(){w.style.display='none';p.classList.add('show');},200);
   });
@@ -1623,7 +1656,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
       <div class="gcm-subject" id="gcm-subject-label"></div>
     </div>
     <form id="gcm-form" action="https://formspree.io/f/maenadez" method="POST">
-      <input type="hidden" name="_subject" id="gcm-subject-field" value="Contacto general — gabrielacontreras.vercel.app">
+      <input type="hidden" name="_subject" id="gcm-subject-field" value="Contacto general: gabrielacontreras.vercel.app">
       <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
       <input type="text" name="nombre" placeholder="Tu nombre" required>
       <input type="email" name="email" placeholder="Tu email" required>
@@ -1660,7 +1693,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   document.querySelectorAll('.js-contact-btn').forEach(function(btn){
     btn.addEventListener('click', function(e){
       e.preventDefault();
-      openModal(btn.getAttribute('data-subject') || 'Contacto general — gabrielacontreras.vercel.app');
+      openModal(btn.getAttribute('data-subject') || 'Contacto general: gabrielacontreras.vercel.app');
     });
   });
 
@@ -1709,7 +1742,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   <a href="/blog">Blog</a>
   <a href="/conoce-tu-marca.html">Conoce tu marca</a>
   <a href="https://gabrielacontrerasrangel.github.io/Portafolio/" target="_blank" rel="noopener">Portafolio ↗</a>
-  <a href="mailto:gabrielacontrerasredes@gmail.com" class="js-contact-btn" data-subject="Contacto general — Menú móvil">Hablemos</a>
+  <a href="mailto:gabrielacontrerasredes@gmail.com" class="js-contact-btn" data-subject="Contacto general: Menú móvil">Hablemos</a>
 </div>
 <script>
 (function(){
@@ -1721,6 +1754,54 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   btn.addEventListener('click', openMenu);
   close.addEventListener('click', closeMenu);
   menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+})();
+</script>
+<!-- MOVIMIENTO: GSAP (local, licencia estándar gratuita). Sin JS o con reduced-motion, todo se ve en reposo. -->
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  if(!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  var mm = gsap.matchMedia();
+  mm.add("(prefers-reduced-motion: no-preference)", function(){
+    // Entrada del hero: una sola vez al cargar
+    var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    tl.from(".hero-bg img", { scale: 1.08, duration: 1.6, ease: "power2.out" }, 0)
+      .from(".hero .mono", { y: 14, autoAlpha: 0, duration: .7 }, .1)
+      .from(".hero h1", { y: 36, autoAlpha: 0, duration: 1 }, .2)
+      .from(".hero .tagline", { y: 20, autoAlpha: 0, duration: .8 }, .55)
+      .from(".hero .cta-row > *", { y: 16, autoAlpha: 0, duration: .6, stagger: .1 }, .8);
+
+    // Momento 1: el manifiesto se ilumina palabra a palabra al hacer scroll
+    var big = document.querySelector(".philo .big");
+    if (big) {
+      (function wrap(node){
+        Array.prototype.slice.call(node.childNodes).forEach(function(n){
+          if (n.nodeType === 3) {
+            var frag = document.createDocumentFragment();
+            n.textContent.split(/(\s+)/).forEach(function(part){
+              if (!part) return;
+              if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+              var sp = document.createElement("span"); sp.className = "w"; sp.textContent = part; frag.appendChild(sp);
+            });
+            node.replaceChild(frag, n);
+          } else if (n.nodeType === 1) { wrap(n); }
+        });
+      })(big);
+      gsap.fromTo(big.querySelectorAll(".w"), { opacity: .18 }, {
+        opacity: 1, ease: "none", stagger: .12,
+        scrollTrigger: { trigger: big, start: "top 82%", end: "bottom 55%", scrub: .6 }
+      });
+    }
+
+    // Momento 2: el monograma GC del bloque vino se desplaza con calma
+    var gc = document.querySelector(".bleed .gcmark");
+    if (gc) {
+      gsap.fromTo(gc, { yPercent: -14 }, { yPercent: 14, ease: "none",
+        scrollTrigger: { trigger: ".bleed", start: "top bottom", end: "bottom top", scrub: true } });
+    }
+  });
 })();
 </script>
 </body>
