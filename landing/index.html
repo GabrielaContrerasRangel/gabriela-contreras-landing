@@ -41,10 +41,19 @@
     "@type": "OfferCatalog",
     "name": "Servicios",
     "itemListElement": [
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Brand Strategy", "description": "Posicionamiento, propósito y diferenciación de marca." } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dirección Creativa", "description": "Identidad visual y sistema de marca aplicado." } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Brújula de Marca", "description": "Diagnóstico, dirección estratégica y contenido con datos, mes a mes." } },
-      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Receta de Marca", "description": "Web, menú maestro y presencia digital para restaurantes." } }
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Estrategia de marca (Brújula de Marca)", "description": "Diagnóstico, dirección y contenido con datos, mes a mes." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Marca nueva o rebranding", "description": "Construcción o renovación de marca con criterio." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Logo", "description": "Logo que sale de la estrategia de marca." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Identidad visual", "description": "Colores, letras y estilo de marca." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Guía de marca", "description": "Manual vivo de aplicación de la marca." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Página web", "description": "Web clara, rápida y con la historia de la marca." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SEO y GEO", "description": "Visibilidad en buscadores y en motores de IA." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Google Maps y Google Business", "description": "Optimización de la ficha de negocio." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Receta de Marca", "description": "Web, menú maestro y presencia digital para restaurantes." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Auditoría y diagnóstico de redes", "description": "Revisión de qué comunica la marca en redes." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Estrategia de contenido", "description": "Plan de contenido con dirección estratégica." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dirección creativa", "description": "Dirección de arte y lenguaje creativo de marca." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Consultoría y acompañamiento de marca", "description": "Acompañamiento continuo en decisiones y ejecución." } }
     ]
   }
 }
@@ -367,6 +376,20 @@ section { padding: clamp(64px, 10vh, 118px) 0; }
 .svc-card-cta strong { display: block; font-weight: 700; font-size: 16px; letter-spacing: -0.01em; color: var(--txt); transition: color .2s; }
 .svc-card-cta:hover strong { color: var(--acc); }
 .svc-card-cta span { display: block; font-size: 13.5px; color: var(--muted); margin-top: 5px; }
+.svc-head .tw { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+.svc-head .s { font-weight: 300; font-size: 14.5px; letter-spacing: 0; color: var(--muted); line-height: 1.4; max-width: 440px; }
+.svc-item.is-open .svc-head .s { display: none; }
+.svc-sl { list-style: none; margin-top: 20px; display: flex; flex-direction: column; gap: 16px; }
+.svc-sl li { display: block; }
+.svc-sl strong { display: block; font-weight: 700; font-size: 16.5px; letter-spacing: -0.01em; color: var(--txt); }
+.svc-sl strong a { color: var(--acc); text-decoration: none; }
+.svc-sl strong a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.svc-sl span { display: block; font-size: 14.5px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+.svc-feat { display: block; margin-top: 22px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 14px; text-decoration: none; color: inherit; transition: border-color .2s, transform .2s; max-width: 520px; }
+.svc-feat:hover { border-color: var(--acc); transform: translateY(-2px); }
+.svc-sl li strong span, .svc-feat strong span { display: inline; margin: 0; font-size: inherit; color: inherit; }
+.svc-feat strong { display: block; font-weight: 700; font-size: 15.5px; color: var(--acc); }
+.svc-feat span { display: block; font-size: 13.5px; color: var(--muted); margin-top: 4px; }
 .svc-media { grid-column: 2; grid-row: 1 / span 8; align-self: start; aspect-ratio: 1/1; border-radius: 24px; overflow: hidden; position: relative;
   opacity: 0; visibility: hidden; transform: scale(.975);
   transition: opacity .5s ease, transform .7s cubic-bezier(.2,.7,.2,1), visibility .5s; box-shadow: 0 22px 54px var(--shadow); }
@@ -829,76 +852,102 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   <div class="wrap">
     <div class="eyebrow"><span class="mono">Servicios</span></div>
     <h2 class="s-head disp">Estrategia y creatividad, sin obligarte a elegir entre las dos.</h2>
+    <p class="s-sub">Todo lo que hago, en cuatro grupos.</p>
     <div class="svc-acc">
       <div class="svc-item is-open">
         <button class="svc-head" type="button" aria-expanded="true" aria-controls="svc-b01">
-          <span class="n">01</span><span class="t">Brand Strategy</span><span class="i" aria-hidden="true">+</span>
+          <span class="n">01</span>
+          <span class="tw"><span class="t">Marca</span><span class="s">Estrategia · Rebranding · Logo · Identidad visual · Guía de marca</span></span>
+          <span class="i" aria-hidden="true">+</span>
         </button>
         <div class="svc-media" style="background:#0a0406;">
-          <img src="brand-strategy.webp" width="1254" height="1254" loading="lazy" alt="Brand Strategy: Gabriela Contreras" style="width:100%; height:100%; object-fit:contain; display:block;" />
+          <img src="brand-strategy.webp" width="1254" height="1254" loading="lazy" alt="Marca: estrategia de marca, identidad y guía. Gabriela Contreras" style="width:100%; height:100%; object-fit:contain; display:block;" />
         </div>
         <div class="svc-body" id="svc-b01">
           <div class="svc-body-in">
-            <p>El rumbo antes que la estética. Defino qué eres, contra qué compites y qué promesa única sostienes.</p>
-            <ul><li>Posicionamiento y propósito de marca</li> <li>Arquitectura y territorio de comunicación</li> <li>Audiencia, mensaje y diferenciación</li> <li>Coherencia entre negocio y marca</li></ul>
-            <a href="mailto:gabrielacontrerasredes@gmail.com?subject=Brand%20Strategy" class="svc-card-cta js-contact-btn" data-subject="Servicio: Brand Strategy">
-            <strong>Ponle rumbo a tu marca. →</strong>
-            <span>Cuéntame en qué estás y te digo por dónde empezar.</span>
-          </a>
+            <p>El rumbo antes que la estética. Que tu marca se vea, suene y se sienta como lo que eres.</p>
+            <ul class="svc-sl">
+              <li><strong><a href="brujula-de-marca.html">Estrategia de marca (Brújula de Marca) <span aria-hidden="true">→</span></a></strong><span>Diagnóstico, dirección y contenido con datos, mes a mes.</span></li>
+              <li><strong>Marca nueva o rebranding</strong><span>Construimos tu marca desde cero o la renovamos con criterio.</span></li>
+              <li><strong>Logo</strong><span>Un logo que sale de tu estrategia, no de una plantilla.</span></li>
+              <li><strong>Identidad visual</strong><span>Colores, letras y estilo que se reconocen en cada punto de contacto.</span></li>
+              <li><strong>Guía de marca</strong><span>Un manual vivo, no un documento de cajón.</span></li>
+            </ul>
+            <a href="mailto:gabrielacontrerasredes@gmail.com?subject=Marca" class="svc-card-cta js-contact-btn" data-subject="Servicio: Marca">
+              <strong>Ponle rumbo a tu marca. →</strong>
+              <span>Cuéntame en qué estás y te digo por dónde empezar.</span>
+            </a>
           </div>
         </div>
       </div>
       <div class="svc-item">
         <button class="svc-head" type="button" aria-expanded="false" aria-controls="svc-b02">
-          <span class="n">02</span><span class="t">Dirección Creativa</span><span class="i" aria-hidden="true">+</span>
+          <span class="n">02</span>
+          <span class="tw"><span class="t">Web</span><span class="s">Página web · SEO y GEO · Google Maps y Business</span></span>
+          <span class="i" aria-hidden="true">+</span>
         </button>
-        <div class="svc-media" style="background:#f5f1ea;">
-          <img src="dir-creativa.webp" width="1254" height="1254" loading="lazy" alt="Dirección Creativa: Gabriela Contreras" style="width:100%; height:100%; object-fit:contain; display:block;" />
+        <div class="svc-media" style="background:#1a1a1a;">
+          <img src="receta-de-marca-card.webp" loading="lazy" alt="Web: página web, SEO y GEO, Google Maps. Gabriela Contreras" style="width:100%; height:100%; object-fit:cover; display:block;" />
         </div>
         <div class="svc-body" id="svc-b02">
           <div class="svc-body-in">
-            <p>La estrategia hecha sistema. Identidad con alma que se sostiene en cada punto de contacto.</p>
-            <ul><li>Identidad visual y sistema de marca</li> <li>Dirección de arte y lenguaje creativo</li> <li>Guía viva de aplicación, no manual de cajón</li> <li>Coherencia en ejecución y crecimiento</li></ul>
-            <a href="mailto:gabrielacontrerasredes@gmail.com?subject=Direcci%C3%B3n%20Creativa" class="svc-card-cta js-contact-btn" data-subject="Servicio: Dirección Creativa">
-            <strong>Dale sistema a tu marca. →</strong>
-            <span>Identidad que se sostiene en cada punto de contacto.</span>
-          </a>
+            <p>Que te encuentren, que te entiendan, que te escriban.</p>
+            <ul class="svc-sl">
+              <li><strong>Página web</strong><span>Una web clara, rápida y con tu historia.</span></li>
+              <li><strong>SEO y GEO</strong><span>Para que Google y las IA (ChatGPT, Perplexity, Gemini) te recomienden.</span></li>
+              <li><strong>Google Maps y Google Business</strong><span>Tu ficha optimizada para que te encuentren cerca.</span></li>
+            </ul>
+            <a href="receta-de-marca.html" class="svc-feat"><strong>Receta de Marca <span aria-hidden="true">→</span></strong><span>Web, menú y presencia digital para restaurantes. Lista en 15 días.</span></a>
+            <a href="mailto:gabrielacontrerasredes@gmail.com?subject=Web" class="svc-card-cta js-contact-btn" data-subject="Servicio: Web">
+              <strong>Que te encuentren. →</strong>
+              <span>Cuéntame qué necesitas y te digo por dónde empezar.</span>
+            </a>
           </div>
         </div>
       </div>
       <div class="svc-item">
         <button class="svc-head" type="button" aria-expanded="false" aria-controls="svc-b03">
-          <span class="n">03</span><span class="t">Brújula de Marca</span><span class="i" aria-hidden="true">+</span>
+          <span class="n">03</span>
+          <span class="tw"><span class="t">Redes</span><span class="s">Auditoría y diagnóstico · Estrategia de contenido</span></span>
+          <span class="i" aria-hidden="true">+</span>
         </button>
         <div class="svc-media" style="background:#f5f1ea;">
-          <img src="brujula-de-marca-card.webp" alt="Brújula de Marca: Gabriela Contreras" style="width:100%; height:100%; object-fit:cover; display:block;" />
+          <img src="brujula-de-marca-card.webp" loading="lazy" alt="Redes: auditoría, diagnóstico y estrategia de contenido. Gabriela Contreras" style="width:100%; height:100%; object-fit:cover; display:block;" />
         </div>
         <div class="svc-body" id="svc-b03">
           <div class="svc-body-in">
-            <p>La estrategia hecha rutina. Diagnóstico, dirección y contenido con datos, para dejar de publicar a ciegas.</p>
-            <ul><li>Auditoría y diagnóstico de marca</li> <li>Plan de contenido con dirección estratégica</li> <li>Medición y ajuste sobre resultados reales</li> <li>Acompañamiento mensual continuo</li></ul>
-            <a href="brujula-de-marca.html" class="svc-card-cta">
-          <strong>Dejar de improvisar tu contenido empieza aquí. →</strong>
-          <span>Cupos limitados por mes. Trabajo la estrategia contigo, no en serie.</span>
-        </a>
+            <p>La estrategia hecha rutina. Para dejar de publicar a ciegas.</p>
+            <ul class="svc-sl">
+              <li><strong>Auditoría y diagnóstico de redes</strong><span>Revisamos qué comunicas hoy y qué está funcionando.</span></li>
+              <li><strong>Estrategia de contenido</strong><span>Un plan con dirección: qué decir, a quién y con qué ritmo.</span></li>
+            </ul>
+            <a href="mailto:gabrielacontrerasredes@gmail.com?subject=Redes" class="svc-card-cta js-contact-btn" data-subject="Servicio: Redes">
+              <strong>Dejar de improvisar tu contenido empieza aquí. →</strong>
+              <span>Trabajo la estrategia contigo, no en serie.</span>
+            </a>
           </div>
         </div>
       </div>
       <div class="svc-item">
         <button class="svc-head" type="button" aria-expanded="false" aria-controls="svc-b04">
-          <span class="n">04</span><span class="t">Receta de Marca</span><span class="i" aria-hidden="true">+</span>
+          <span class="n">04</span>
+          <span class="tw"><span class="t">Dirección</span><span class="s">Dirección creativa · Consultoría y acompañamiento</span></span>
+          <span class="i" aria-hidden="true">+</span>
         </button>
-        <div class="svc-media" style="background:#1a1a1a;">
-          <img src="receta-de-marca-card.webp" alt="Receta de Marca: Gabriela Contreras" style="width:100%; height:100%; object-fit:cover; display:block;" />
+        <div class="svc-media" style="background:#f5f1ea;">
+          <img src="dir-creativa.webp" width="1254" height="1254" loading="lazy" alt="Dirección: dirección creativa y acompañamiento de marca. Gabriela Contreras" style="width:100%; height:100%; object-fit:contain; display:block;" />
         </div>
         <div class="svc-body" id="svc-b04">
           <div class="svc-body-in">
-            <p>Que te encuentren. Que te entiendan. Que pidan. Web, menú y presencia digital para restaurantes que no quieren vivir del delivery ajeno.</p>
-            <ul><li>Web y menú maestro con tu historia</li> <li>Piezas para redes, Google y delivery</li> <li>Iconografía de ingredientes y alérgenos</li> <li>SEO y GEO para que te recomienden las IA</li></ul>
-            <a href="receta-de-marca.html" class="svc-card-cta">
-          <strong>Deja de ser un secreto bien guardado. →</strong>
-          <span>Web, menú y presencia digital lista en 15 días.</span>
-        </a>
+            <p>La estrategia hecha sistema. Identidad con alma que se sostiene en cada punto de contacto.</p>
+            <ul class="svc-sl">
+              <li><strong>Dirección creativa</strong><span>Dirección de arte y lenguaje creativo, coherente en ejecución y crecimiento.</span></li>
+              <li><strong>Consultoría y acompañamiento de marca</strong><span>Estoy contigo mientras decides y ejecutas.</span></li>
+            </ul>
+            <a href="mailto:gabrielacontrerasredes@gmail.com?subject=Direcci%C3%B3n" class="svc-card-cta js-contact-btn" data-subject="Servicio: Dirección">
+              <strong>Dale sistema a tu marca. →</strong>
+              <span>Identidad que se sostiene en cada punto de contacto.</span>
+            </a>
           </div>
         </div>
       </div>
