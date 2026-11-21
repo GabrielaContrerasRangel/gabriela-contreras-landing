@@ -426,6 +426,20 @@ section { padding: clamp(64px, 10vh, 118px) 0; }
 .bleed-3d.is-ready svg { display: none; }
 @media (max-width: 900px) { .bleed-3d { position: relative; right: auto; top: auto; transform: none; width: min(68vw, 280px); margin: 30px auto 0; } }
 
+/* ---------- COMO TRABAJAMOS ---------- */
+.how { border-top: 1px solid var(--line); }
+.how-steps { list-style: none; margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 44px; }
+.how-steps li { display: grid; grid-template-columns: auto 1fr; gap: 20px; border-top: 1px solid var(--line); padding: 26px 0 38px; }
+.how-steps .hn { font-style: italic; font-weight: 200; font-size: 68px; line-height: .8; color: var(--acc); letter-spacing: -0.04em; min-width: 40px; }
+.how-steps h3 { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 8px; }
+.how-steps p { font-size: 15.5px; color: var(--muted); line-height: 1.6; }
+.how-close { margin-top: 18px; font-size: clamp(20px, 2.4vw, 28px); font-weight: 200; font-style: italic; color: var(--acc); max-width: 720px; line-height: 1.3; }
+@media (max-width: 1000px) { .how-steps { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .how-steps { grid-template-columns: 1fr; } .how-steps .hn { font-size: 54px; } }
+.bleed p.big { font-size: clamp(22px, 2.6vw, 32px); font-weight: 200; color: #fff; line-height: 1.3; max-width: 640px; margin-top: 28px; letter-spacing: -0.01em; }
+.bleed p.big b { font-weight: 700; }
+.bleed p.big em { font-style: italic; font-weight: 200; }
+
 /* ---------- PRODUCTOS DIGITALES ---------- */
 .soon { border-top: 1px solid var(--line); }
 .tag {
@@ -805,7 +819,6 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
     <div class="navlinks">
       <button id="gc-menu-btn" aria-label="Abrir menú">☰</button>
       <a href="#servicios">Servicios</a>
-      <a href="/herramientas">Herramientas</a>
       <a href="#diagnostico">Diagnóstico</a>
       <a href="#sobre">Sobre mí</a>
       <a href="/blog">Blog</a>
@@ -851,13 +864,20 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   </div>
 </section>
 
-<!-- FILOSOFÍA -->
-<section class="philo">
+<!-- FULL-BLEED VINO -->
+<section class="bleed">
+  <span class="gcmark" aria-hidden="true">GC</span>
   <div class="wrap">
-    <div class="eyebrow"><span class="mono">Marketing con sentido</span></div>
+    <div class="eyebrow" style="--acc:#fff;"><span class="mono">El enfoque</span></div>
+    <h2 class="disp">Ayudo a marcas a <em>comunicar con sentido</em>, desde la estrategia.</h2>
     <p class="big">La estrategia y la creatividad viven en la <b>misma cabeza</b>, no en dos departamentos pasándose briefs. El branding no es un manual que termina en un cajón. Es una <em>herramienta real de coherencia y crecimiento</em>.</p>
+    <p>Si tienes un negocio sólido pero tu marca no lo comunica como merece, trabajamos juntos: <span class="hl">estrategia, identidad y dirección creativa a medida.</span></p>
+  </div>
+  <div class="bleed-3d" id="star3d" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="#f5f1ea"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg>
   </div>
 </section>
+
 
 <!-- SERVICIOS -->
 <section class="svc" id="servicios">
@@ -968,6 +988,23 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   </div>
 </section>
 
+<!-- COMO TRABAJAMOS -->
+<section class="how" id="como">
+  <div class="wrap">
+    <div class="eyebrow"><span class="mono">Cómo trabajo</span></div>
+    <h2 class="s-head disp">Así trabajamos <em>juntos.</em></h2>
+    <ol class="how-steps">
+      <li><span class="hn" aria-hidden="true">1</span><div><h3>Me cuentas tu historia</h3><p>Empezamos conociéndonos. Me cuentas qué haces, cómo empezó todo y qué sueñas para tu marca.</p></div></li>
+      <li><span class="hn" aria-hidden="true">2</span><div><h3>Entiendo y diagnostico</h3><p>Miro tu marca con ojos nuevos: qué tienes, qué funciona y qué le falta.</p></div></li>
+      <li><span class="hn" aria-hidden="true">3</span><div><h3>Definimos el rumbo</h3><p>Decidimos juntas quién eres, a quién le hablas y cómo quieres que te vean.</p></div></li>
+      <li><span class="hn" aria-hidden="true">4</span><div><h3>Creo</h3><p>Con ese rumbo claro, diseño tu logo, tu identidad, tu página web o tu estrategia, según lo que necesites.</p></div></li>
+      <li><span class="hn" aria-hidden="true">5</span><div><h3>Te lo entrego listo para usar</h3><p>Recibes todo ordenado, con una guía sencilla para que lo uses con confianza.</p></div></li>
+      <li><span class="hn" aria-hidden="true">6</span><div><h3>Medimos y ajustamos</h3><p>Vemos cómo responde tu público y afinamos el camino.</p></div></li>
+    </ol>
+    <p class="how-close">Nada de sorpresas ni de procesos fríos: avanzamos paso a paso y siempre contigo.</p>
+  </div>
+</section>
+
 <!-- SOBRE MÍ -->
 <section class="about" id="sobre">
   <div class="wrap">
@@ -1038,6 +1075,41 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
         </div>
       </div>
     </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARRUSEL 2: orden de marca -->
+<section class="carousel carousel--sq" id="orden">
+  <div class="car-stage">
+    <div class="car-intro">
+      <div class="eyebrow"><span class="mono">Contenido</span></div>
+      <h2 class="s-head disp">Tu marca ya tiene todo. <em>Falta el orden.</em></h2>
+      <p class="s-sub">Cinco ideas para darle a cada parte de tu marca su lugar.</p>
+    </div>
+    <div class="car-viewport">
+      <div class="carousel-shell">
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="carousel/orden-1.webp" width="1080" height="1080" alt="Tienes todo, pero nadie sabe por qué quedarse. Naturalidad, empatía y una historia real no alcanzan si llegan todas al mismo volumen." loading="lazy" /></div>
+        <div class="carousel-slide"><img src="carousel/orden-2.webp" width="1080" height="1080" alt="El problema no es tu contenido, es el orden. Cuando todo pesa igual en tu perfil, quien llega no entiende qué esperar de ti." loading="lazy" /></div>
+        <div class="carousel-slide"><img src="carousel/orden-3.webp" width="1080" height="1080" alt="No se trata de quitar nada de lo que eres. Se trata de darle a cada parte su lugar." loading="lazy" /></div>
+        <div class="carousel-slide"><img src="carousel/orden-4.webp" width="1080" height="1080" alt="La estrategia real no termina en una presentación. Datos, diagnóstico, decisión, contenido, medición y ajuste." loading="lazy" /></div>
+        <div class="carousel-slide"><img src="carousel/orden-5.webp" width="1080" height="1080" alt="Tu marca también puede tener un lugar propio. El primer paso es ver con claridad qué sobra, qué falta y qué es tu verdadera voz." loading="lazy" /></div>
+      </div>
+      <div class="carousel-nav">
+        <div class="carousel-dots">
+          <button class="carousel-dot active" data-i="0" aria-label="Slide 1"></button>
+          <button class="carousel-dot" data-i="1" aria-label="Slide 2"></button>
+          <button class="carousel-dot" data-i="2" aria-label="Slide 3"></button>
+          <button class="carousel-dot" data-i="3" aria-label="Slide 4"></button>
+          <button class="carousel-dot" data-i="4" aria-label="Slide 5"></button>
+        </div>
+        <div class="carousel-arrows">
+          <button class="carousel-btn c-prev" aria-label="Anterior">←</button>
+          <button class="carousel-btn c-next" aria-label="Siguiente">→</button>
+        </div>
+      </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1178,61 +1250,12 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
 </section>
 
 <!-- PRODUCTOS -->
-<!-- CARRUSEL 2: orden de marca -->
-<section class="carousel carousel--sq" id="orden">
-  <div class="car-stage">
-    <div class="car-intro">
-      <div class="eyebrow"><span class="mono">Contenido</span></div>
-      <h2 class="s-head disp">Tu marca ya tiene todo. <em>Falta el orden.</em></h2>
-      <p class="s-sub">Cinco ideas para darle a cada parte de tu marca su lugar.</p>
-    </div>
-    <div class="car-viewport">
-      <div class="carousel-shell">
-      <div class="carousel-track">
-        <div class="carousel-slide"><img src="carousel/orden-1.webp" width="1080" height="1080" alt="Tienes todo, pero nadie sabe por qué quedarse. Naturalidad, empatía y una historia real no alcanzan si llegan todas al mismo volumen." loading="lazy" /></div>
-        <div class="carousel-slide"><img src="carousel/orden-2.webp" width="1080" height="1080" alt="El problema no es tu contenido, es el orden. Cuando todo pesa igual en tu perfil, quien llega no entiende qué esperar de ti." loading="lazy" /></div>
-        <div class="carousel-slide"><img src="carousel/orden-3.webp" width="1080" height="1080" alt="No se trata de quitar nada de lo que eres. Se trata de darle a cada parte su lugar." loading="lazy" /></div>
-        <div class="carousel-slide"><img src="carousel/orden-4.webp" width="1080" height="1080" alt="La estrategia real no termina en una presentación. Datos, diagnóstico, decisión, contenido, medición y ajuste." loading="lazy" /></div>
-        <div class="carousel-slide"><img src="carousel/orden-5.webp" width="1080" height="1080" alt="Tu marca también puede tener un lugar propio. El primer paso es ver con claridad qué sobra, qué falta y qué es tu verdadera voz." loading="lazy" /></div>
-      </div>
-      <div class="carousel-nav">
-        <div class="carousel-dots">
-          <button class="carousel-dot active" data-i="0" aria-label="Slide 1"></button>
-          <button class="carousel-dot" data-i="1" aria-label="Slide 2"></button>
-          <button class="carousel-dot" data-i="2" aria-label="Slide 3"></button>
-          <button class="carousel-dot" data-i="3" aria-label="Slide 4"></button>
-          <button class="carousel-dot" data-i="4" aria-label="Slide 5"></button>
-        </div>
-        <div class="carousel-arrows">
-          <button class="carousel-btn c-prev" aria-label="Anterior">←</button>
-          <button class="carousel-btn c-next" aria-label="Siguiente">→</button>
-        </div>
-      </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FULL-BLEED VINO -->
-<section class="bleed">
-  <span class="gcmark" aria-hidden="true">GC</span>
-  <div class="wrap">
-    <div class="eyebrow" style="--acc:#fff;"><span class="mono">El enfoque</span></div>
-    <h2 class="disp">Ayudo a marcas a <em>comunicar con sentido</em>, desde la estrategia.</h2>
-    <p>Si tienes un negocio sólido pero tu marca no lo comunica como merece, trabajamos juntos: <span class="hl">estrategia, identidad y dirección creativa a medida.</span></p>
-    <p>Si estás construyendo desde cero y quieres hacerlo bien desde el principio, el <span class="hl">Branding Starter Kit</span> tiene el criterio que necesitas en herramientas que puedes usar hoy. Sin humo. Con rumbo.</p>
-  </div>
-  <div class="bleed-3d" id="star3d" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="#f5f1ea"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg>
-  </div>
-</section>
-
-
 <section class="soon" id="productos">
   <div class="wrap">
     <div class="eyebrow"><span class="mono">Productos digitales</span></div>
     <h2 class="s-head disp">Empieza por tu base, <em>a tu ritmo.</em></h2>
     <p class="s-sub">Dos kits para ordenar tu marca sin improvisar y sin prisa.</p>
+    <p class="s-sub" style="margin-top:12px">Si estás construyendo desde cero y quieres hacerlo bien desde el principio, el <strong>Branding Starter Kit</strong> tiene el criterio que necesitas en herramientas que puedes usar hoy. Sin humo. Con rumbo.</p>
     <div class="prod-row">
 
       <article class="pcard">
@@ -1907,7 +1930,6 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
   <button class="gc-menu-close" aria-label="Cerrar menú">✕</button>
   <a href="#hago" >Lo que hago</a>
   <a href="#servicios">Servicios</a>
-  <a href="/herramientas">Herramientas</a>
   <a href="#diagnostico">Diagnóstico</a>
   <a href="#sobre">Sobre mí</a>
   <a href="/blog">Blog</a>
@@ -2040,7 +2062,7 @@ if (host) {
       .from(".hero .cta-row > *", { y: 16, autoAlpha: 0, duration: .6, stagger: .1, clearProps: "transform,opacity,visibility" }, .8);
 
     // Momento 1: el manifiesto se ilumina palabra a palabra al hacer scroll
-    var big = document.querySelector(".philo .big");
+    var big = document.querySelector(".bleed .big");
     if (big) {
       (function wrap(node){
         Array.prototype.slice.call(node.childNodes).forEach(function(n){
@@ -2074,7 +2096,7 @@ if (host) {
       track.scrollLeft = 0;
       var dist = function(){ return Math.max(0, track.scrollWidth - vp.clientWidth + 48); };
       gsap.to(track, { x: function(){ return -dist(); }, ease: "none",
-        scrollTrigger: { trigger: sec, start: "top top+=64", end: function(){ return "+=" + dist(); },
+        scrollTrigger: { trigger: sec, start: "top top+=64", end: function(){ return "+=" + Math.round(dist() * 0.62); },
           pin: true, scrub: .5, anticipatePin: 1, invalidateOnRefresh: true,
           onUpdate: function(st){ if (count) count.textContent = Math.min(n, 1 + Math.floor(st.progress * n * .999)); } } });
     })();
@@ -2085,6 +2107,13 @@ if (host) {
       gsap.from(heads, { y: 36, autoAlpha: 0, duration: .8, ease: "power3.out", stagger: .12,
         clearProps: "transform,opacity,visibility",
         scrollTrigger: { trigger: ".svc-acc", start: "top 85%", once: true } });
+    }
+
+    // Como trabajamos: los pasos suben uno a uno al llegar
+    var hs = gsap.utils.toArray(".how-steps li");
+    if (hs.length) {
+      gsap.from(hs, { y: 34, autoAlpha: 0, duration: .8, ease: "power3.out", stagger: .12, clearProps: "transform,opacity,visibility",
+        scrollTrigger: { trigger: ".how-steps", start: "top 86%", once: true } });
     }
 
     // Momento 2: el monograma GC del bloque vino se desplaza con calma
