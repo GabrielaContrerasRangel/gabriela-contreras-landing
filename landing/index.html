@@ -438,6 +438,17 @@ section { padding: clamp(64px, 10vh, 118px) 0; }
 .bleed-3d.is-ready svg { display: none; }
 @media (max-width: 900px) { .bleed-3d { width: min(62vw, 270px); margin-top: 4px; } }
 
+/* ---------- COMO TRABAJAMOS ---------- */
+.how { border-top: 1px solid var(--line); }
+.how-steps { list-style: none; margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 44px; }
+.how-steps li { display: grid; grid-template-columns: auto 1fr; gap: 20px; border-top: 1px solid var(--line); padding: 26px 0 38px; }
+.how-steps .hn { font-style: italic; font-weight: 200; font-size: 68px; line-height: .8; color: var(--acc); letter-spacing: -0.04em; min-width: 40px; }
+.how-steps h3 { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 8px; }
+.how-steps p { font-size: 15.5px; color: var(--muted); line-height: 1.6; }
+.how-close { margin-top: 18px; font-size: clamp(20px, 2.4vw, 28px); font-weight: 200; font-style: italic; color: var(--acc); max-width: 720px; line-height: 1.3; }
+@media (max-width: 1000px) { .how-steps { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .how-steps { grid-template-columns: 1fr; } .how-steps .hn { font-size: 54px; } }
+
 /* ---------- PRODUCTOS DIGITALES ---------- */
 .soon { border-top: 1px solid var(--line); }
 .tag {
