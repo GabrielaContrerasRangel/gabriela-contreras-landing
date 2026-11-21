@@ -1839,6 +1839,25 @@ footer { border-top: 1px solid var(--line); padding: 56px 0; }
           onUpdate: function(st){ if (count) count.textContent = Math.min(n, 1 + Math.floor(st.progress * n * .999)); } } });
     })();
 
+    // Servicios: las cards suben una a una y la imagen de cada una se asienta con el scroll
+    var cards = gsap.utils.toArray(".svc .card");
+    if (cards.length) {
+      gsap.set(cards, { autoAlpha: 0, y: 64 });
+      ScrollTrigger.batch(cards, {
+        start: "top 88%", once: true,
+        onEnter: function(batch){
+          gsap.to(batch, { autoAlpha: 1, y: 0, duration: .95, ease: "power3.out", stagger: .14,
+            clearProps: "transform,opacity,visibility" });
+        }
+      });
+      cards.forEach(function(card){
+        var img = card.querySelector("img");
+        if (!img) return;
+        gsap.fromTo(img, { scale: 1.12 }, { scale: 1, ease: "none",
+          scrollTrigger: { trigger: card, start: "top bottom", end: "center 40%", scrub: true } });
+      });
+    }
+
     // Momento 2: el monograma GC del bloque vino se desplaza con calma
     var gc = document.querySelector(".bleed .gcmark");
     if (gc) {
